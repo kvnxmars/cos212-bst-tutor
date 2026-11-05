@@ -1,0 +1,23 @@
+{
+  "name": "cos750-exam",
+  "private": true,
+  "version": "0.1.0",
+  "description": "COS212 BST Tutor: pre-lecture tutor for binary search trees and depth-first traversals (COS750 exam project, University of Pretoria)",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.2.1",
+    "vite": "^8.3.5",
+    "vitest": "^5.1.0"
+  }
+}
