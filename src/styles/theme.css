@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap');
+
+:root {
+	font-family: 'DM Sans', sans-serif;
+	color: #202a27;
+	background: #f3f2eb;
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	--ink: #202a27;
+	--muted: #78817b;
+	--line: #d9ddd4;
+	--paper: #fbfbf7;
+	--green: #2f725d;
+	--mint: #c9eadb;
+	--orange: #e77e46;
+	--mono: 'DM Mono', monospace;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 340px; min-height: 100vh; }
+button, input, select { font: inherit; }
+button { cursor: pointer; }
+button:disabled { cursor: not-allowed; opacity: .38; }
+
+.app-shell { max-width: 1600px; margin: 0 auto; padding: 0 5.2%; }
+.topbar { height: 72px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
+.wordmark { display: flex; align-items: center; gap: 8px; color: var(--ink); text-decoration: none; font-size: 19px; font-weight: 700; letter-spacing: 0; }
+.wordmark-mark { display: grid; width: 27px; height: 27px; place-items: center; background: var(--green); color: white; font-family: 'Playfair Display', serif; font-size: 17px; }
+.wordmark-period { color: var(--orange); margin-left: -8px; }
+.course-label, .eyebrow, .tree-stats span, .step-count, .output-label, .footer { font-family: var(--mono); letter-spacing: 0; }
+.course-label { color: #58635c; font-size: 10px; }
+.course-label span { color: #b0b6ae; padding: 0 7px; }
+.reset-button { border: 1px solid var(--line); background: transparent; padding: 8px 12px; color: var(--ink); font-size: 12px; }
+.reset-button:hover { border-color: var(--green); color: var(--green); }
+
+.intro { display: flex; align-items: end; justify-content: space-between; gap: 32px; padding: 43px 0 34px; }
+.eyebrow { margin: 0 0 10px; color: var(--green); font-size: 9px; font-weight: 500; }
+.eyebrow span { color: var(--orange); margin-left: 7px; }
+.intro h1 { margin: 0; font-family: 'Playfair Display', Georgia, serif; font-size: clamp(32px, 4vw, 48px); line-height: 1.08; font-weight: 600; }
+.intro h1 em { color: var(--green); }
+.intro-copy { max-width: 285px; margin: 0 2px 4px 0; color: #67736b; font-size: 13px; line-height: 1.7; }
+
+.workspace { display: grid; grid-template-columns: minmax(205px, 245px) minmax(370px, 1fr) minmax(220px, 280px); background: var(--paper); border: 1px solid var(--line); min-height: 530px; }
+.controls-panel, .code-panel { padding: 25px 21px; }
+.controls-panel { border-right: 1px solid var(--line); }
+.code-panel { border-left: 1px solid var(--line); }
+.section-heading { display: flex; align-items: center; gap: 9px; margin-bottom: 18px; }
+.section-heading h2, .visual-heading h2, .code-panel h2 { margin: 0; font-size: 13px; font-weight: 700; }
+.step-number { color: var(--orange); font-family: var(--mono); font-size: 10px; }
+.control-group form { display: grid; gap: 9px; }
+label { margin-top: 2px; color: #657069; font-size: 10px; font-weight: 600; }
+input, select { width: 100%; min-height: 38px; border: 1px solid var(--line); border-radius: 0; padding: 0 10px; background: #fff; color: var(--ink); font-size: 12px; }
+input:focus, select:focus { outline: 2px solid #8cc8ad; outline-offset: 1px; }
+.input-row { display: flex; gap: 5px; }
+.icon-button { flex: 0 0 38px; border: 0; background: var(--green); color: white; font-size: 20px; }
+.field-note { margin: -2px 0 0; color: #949c95; font-size: 10px; }
+.operation-group { margin-top: 30px; }
+.run-button { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; min-height: 40px; border: 0; padding: 0 12px; background: var(--green); color: white; text-align: left; font-size: 11px; font-weight: 600; }
+.run-button:hover, .icon-button:hover { background: #245b4a; }
+.run-button span { font-size: 17px; }
+.error-message { margin: 0; color: #ae4e31; font-size: 11px; line-height: 1.5; }
+.tree-stats { display: flex; gap: 26px; border-top: 1px solid var(--line); margin-top: 32px; padding-top: 16px; }
+.tree-stats div { display: grid; gap: 5px; }
+.tree-stats span { color: #8b948d; font-size: 8px; }
+.tree-stats strong { font-family: 'Playfair Display', Georgia, serif; font-size: 22px; font-weight: 600; }
+
+.visual-panel { min-width: 0; display: flex; flex-direction: column; }
+.visual-heading { display: flex; align-items: end; justify-content: space-between; gap: 14px; padding: 25px 23px 17px; }
+.visual-heading .eyebrow { margin-bottom: 6px; }
+.visual-heading h2 { font-size: 15px; }
+.legend { display: flex; gap: 13px; padding-bottom: 1px; color: #7d877f; font-size: 9px; white-space: nowrap; }
+.legend span { display: flex; align-items: center; gap: 5px; }
+.legend i { width: 8px; height: 8px; border-radius: 50%; }
+.legend-current { background: var(--orange); }
+.legend-visited { background: var(--green); }
+.tree-scroll { display: flex; flex: 1; align-items: center; min-height: 245px; overflow-x: auto; overflow-y: hidden; border-top: 1px solid #eceee8; border-bottom: 1px solid #eceee8; background-color: #f8f9f4; background-image: radial-gradient(#d5dcd3 0.7px, transparent .7px); background-size: 17px 17px; }
+.tree-svg { display: block; min-width: 100%; margin: auto; overflow: visible; }
+.tree-edge { stroke: #c0c9bf; stroke-width: 1.5; }
+.tree-node circle { fill: white; stroke: #98a89b; stroke-width: 1.5; transition: fill .2s, stroke .2s; }
+.tree-node text { fill: #34443a; font-family: var(--mono); font-size: 11px; }
+.tree-node.is-visited circle { fill: var(--mint); stroke: var(--green); }
+.tree-node.is-current circle { fill: var(--orange); stroke: #c65d2e; stroke-width: 2; }
+.tree-node.is-current text { fill: white; font-weight: 500; }
+.empty-tree { display: grid; flex: 1; min-height: 245px; place-items: center; color: #929b93; font-size: 12px; }
+.playback { padding: 14px 23px 16px; }
+.narration { min-height: 36px; margin: 0 0 11px; color: #58645c; font-size: 11px; line-height: 1.6; }
+.playback-controls { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--line); padding-top: 11px; }
+.step-count { color: #8b948d; font-size: 8px; }
+.step-button { width: 31px; height: 29px; margin-left: 5px; border: 1px solid var(--line); background: transparent; color: var(--ink); }
+.step-button:hover:not(:disabled) { border-color: var(--green); color: var(--green); }
+.next-step { background: var(--ink); border-color: var(--ink); color: white; }
+
+.code-panel h2 { margin: 0 0 20px; font-family: 'Playfair Display', Georgia, serif; font-size: 20px; font-weight: 600; }
+.pseudocode-list { display: grid; gap: 5px; margin: 0; padding: 0; list-style: none; }
+.pseudocode-list li { display: grid; grid-template-columns: 21px minmax(0, 1fr); align-items: start; gap: 7px; padding: 6px 5px; color: #7b857d; }
+.pseudocode-list li > span { color: #b3bab2; font-family: var(--mono); font-size: 8px; line-height: 1.7; }
+.pseudocode-list code { overflow-wrap: anywhere; font-family: var(--mono); font-size: 9px; line-height: 1.6; }
+.pseudocode-list .active-line { background: #e5f1e9; color: #28664f; }
+.pseudocode-list .active-line > span { color: var(--green); }
+.output-box { margin-top: 27px; padding: 12px 10px; background: #f4f4ed; }
+.output-label { color: #909890; font-size: 8px; }
+.output-box p { margin: 8px 0 0; color: var(--green); font-family: var(--mono); font-size: 10px; line-height: 1.8; overflow-wrap: anywhere; }
+.footer { display: flex; justify-content: space-between; padding: 17px 0 23px; color: #98a097; font-size: 8px; }
+
+@media (max-width: 1050px) {
+	.workspace { grid-template-columns: minmax(195px, 230px) minmax(350px, 1fr); }
+	.code-panel { grid-column: 1 / -1; border-left: 0; border-top: 1px solid var(--line); }
+	.pseudocode-list { grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
+	.output-box { margin-top: 16px; }
+}
+@media (max-width: 680px) {
+	.app-shell { padding: 0 16px; }
+	.topbar { height: 61px; }
+	.course-label { display: none; }
+	.intro { display: block; padding: 34px 0 24px; }
+	.intro-copy { margin-top: 12px; }
+	.workspace { grid-template-columns: minmax(0, 1fr); }
+	.controls-panel { border-right: 0; border-bottom: 1px solid var(--line); }
+	.code-panel { grid-column: auto; }
+	.visual-panel { grid-row: 1; }
+	.tree-scroll { min-height: 230px; }
+	.legend { gap: 8px; }
+	.visual-heading { padding: 20px 16px 14px; }
+	.playback { padding: 13px 16px 15px; }
+	.footer { font-size: 7px; }
+}
