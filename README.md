@@ -1,4 +1,4 @@
-# Branch: COS212 BST Tutor
+# COS212 BST Tutor
 
 A small interactive tutor for binary search trees and depth-first traversals. The algorithm engine is framework-independent JavaScript; the React interface visualizes its immutable step snapshots.
 
