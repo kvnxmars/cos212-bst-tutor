@@ -25,9 +25,7 @@ npm run build
 
 ## Use the tutor
 
-1. Enter comma-separated numbers and build a tree.
-2. Select insert, search, or a depth-first traversal.
-3. Run the operation, then step backward and forward through the snapshots.
+The app opens on the learning-style selection placeholder. Continue to the lesson placeholder, then choose **Try it in the visualiser** to reach the interactive BST workbench. The lesson video and quiz content are placeholders until their lesson plans are ready.
 
 The visualization, narration, visited sequence, and highlighted pseudocode line all come from the same engine snapshot.
 
@@ -37,4 +35,4 @@ The visualization, narration, visited sequence, and highlighted pseudocode line 
 - `src/engine/traversals.js`: pre-order, in-order, and post-order traversal.
 - `src/engine/snapshots.js`: immutable tree nodes, step snapshots, and sound cue identifiers.
 
-Engine tests live in `tests/`. The interface is in `src/App.jsx`, with its styles in `src/styles/theme.css`.
+Engine tests live in `tests/`. `src/App.jsx` selects the learning-style, lesson, or visualizer page based on the URL hash. The visualizer page lives in `src/pages/Visualizer.jsx`; its tree view, operation controls, playback controls, and pseudocode panel are reusable components in `src/components/`, with shared styles in `src/styles/theme.css`.
