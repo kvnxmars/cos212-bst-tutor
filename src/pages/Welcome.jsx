@@ -1,45 +1,35 @@
-import { useState } from 'react';
 import LearningHeader from '../components/LearningHeader.jsx';
 
-const LEARNING_STYLES = [
-  { id: 'visual', title: 'Visual', description: 'Watch animated videos of the tree', icon: '◉' },
-  { id: 'auditory', title: 'Auditory', description: 'Listen to narrated videos and audio', icon: '◖' },
-  { id: 'read-write', title: 'Read / Write', description: 'Read short text with pseudocode', icon: '≡' },
-  { id: 'kinesthetic', title: 'Kinesthetic', description: 'Learn by dragging nodes into place', icon: '✣' },
-];
+function WelcomeTree() {
+  return (
+    <svg className="welcome-tree" viewBox="0 0 360 180" role="img" aria-label="Example binary search tree with root 5">
+      <line x1="180" y1="40" x2="105" y2="95" />
+      <line x1="180" y1="40" x2="255" y2="95" />
+      <line x1="105" y1="95" x2="65" y2="145" />
+      <line x1="105" y1="95" x2="145" y2="145" />
+      <g><circle cx="180" cy="40" r="20" /><text x="180" y="46">5</text></g>
+      <g><circle cx="105" cy="95" r="20" /><text x="105" y="101">3</text></g>
+      <g><circle cx="255" cy="95" r="20" /><text x="255" y="101">8</text></g>
+      <g><circle cx="65" cy="145" r="20" /><text x="65" y="151">1</text></g>
+      <g><circle cx="145" cy="145" r="20" /><text x="145" y="151">4</text></g>
+    </svg>
+  );
+}
 
 export default function Welcome() {
-  const [learningStyle, setLearningStyle] = useState('visual');
-
   return (
-    <main className="learning-shell">
+    <main className="learning-shell welcome-shell">
       <LearningHeader />
-      <div className="welcome-breadcrumb">Welcome</div>
-      <section className="welcome-content" aria-labelledby="welcome-title">
-        <h1 id="welcome-title">How do you like to learn?</h1>
-        <p>Pick one. It only changes how lessons are shown, and you can change it any time.</p>
-        <fieldset className="learning-style-options">
-          <legend className="visually-hidden">Choose a learning style</legend>
-          {LEARNING_STYLES.map((style) => (
-            <label className={`learning-style-card${learningStyle === style.id ? ' is-selected' : ''}`} key={style.id}>
-              <input
-                type="radio"
-                name="learning-style"
-                value={style.id}
-                checked={learningStyle === style.id}
-                onChange={() => setLearningStyle(style.id)}
-              />
-              <span className="learning-style-icon" aria-hidden="true">{style.icon}</span>
-              <strong>{style.title}</strong>
-              <span className="learning-style-description">{style.description}</span>
-              <span className="learning-style-radio" aria-hidden="true" />
-            </label>
-          ))}
-        </fieldset>
-        <a className="learning-primary-button" href="#lesson">Continue</a>
-        <p className="welcome-note">No test, no pre-quiz: just your choice.</p>
+      <div className="welcome-breadcrumb">Home</div>
+      <section className="welcome-hero" aria-labelledby="welcome-title">
+        <h1 id="welcome-title">Welcome!</h1>
+        <p className="welcome-tagline">Get to the root of binary search trees, one branch at a time.</p>
+        <p className="welcome-slogan-note">A short, self-paced tutor to help you get ready for the lecture.</p>
+        <div className="welcome-tree-frame"><WelcomeTree /><span>Binary search tree</span></div>
+        <a className="welcome-primary-button" href="#lesson?lesson=1">Start the first lesson</a>
+        <p className="welcome-note">No sign-up needed. Your progress stays in this browser.</p>
       </section>
-      <span className="screen-caption">Screen 1: Learning-style selection</span>
+      <span className="screen-caption">Screen 1: Welcome</span>
     </main>
   );
 }

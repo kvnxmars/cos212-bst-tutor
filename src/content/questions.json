@@ -1,0 +1,702 @@
+[
+  {
+    "id": "Q1",
+    "lesson": 1,
+    "outcome": "O1",
+    "skillLevel": "Explain",
+    "stem": "In the tree below, which node is a leaf (a node with no children)?",
+    "options": [
+      {
+        "id": "A",
+        "text": "3"
+      },
+      {
+        "id": "B",
+        "text": "13"
+      },
+      {
+        "id": "C",
+        "text": "6"
+      },
+      {
+        "id": "D",
+        "text": "14"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "A leaf has no children. In this tree the leaves are 1, 4, 7 and 13. Node 14 has one child (13), so it is not a leaf.",
+    "selectable": true
+  },
+  {
+    "id": "Q2",
+    "lesson": 1,
+    "outcome": "O1",
+    "skillLevel": "Explain",
+    "stem": "In the tree below, which values are in the left subtree of the root (8)?",
+    "options": [
+      {
+        "id": "A",
+        "text": "3, 1, 6, 4 and 7"
+      },
+      {
+        "id": "B",
+        "text": "3 only"
+      },
+      {
+        "id": "C",
+        "text": "10, 14 and 13"
+      },
+      {
+        "id": "D",
+        "text": "3, 1, 6 and 10"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "A subtree is a node plus everything below it. The left subtree of 8 starts at 3 and includes 1, 6, 4 and 7.",
+    "selectable": true
+  },
+  {
+    "id": "Q3",
+    "lesson": 1,
+    "outcome": "O2",
+    "skillLevel": "Explain",
+    "stem": "Which statement is true for every node in a binary search tree?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Its left child is smaller and its right child is larger, and nothing else is required."
+      },
+      {
+        "id": "B",
+        "text": "Every value in its left subtree is larger, and every value in its right subtree is smaller."
+      },
+      {
+        "id": "C",
+        "text": "It has at most two children, and the values can be in any order."
+      },
+      {
+        "id": "D",
+        "text": "Every value in its left subtree is smaller, and every value in its right subtree is larger."
+      }
+    ],
+    "correctAnswer": "D",
+    "explanation": "The BST rule covers the whole subtree at every node, not just the two children. Having at most two children only makes it a binary tree.",
+    "selectable": true
+  },
+  {
+    "id": "Q4",
+    "lesson": 1,
+    "outcome": "O2",
+    "skillLevel": "Explain",
+    "stem": "Is the tree below a valid BST?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Yes, every node is on the correct side of its own parent."
+      },
+      {
+        "id": "B",
+        "text": "Yes, because every node has at most two children."
+      },
+      {
+        "id": "C",
+        "text": "No, because 12 is in the left subtree of 10 but is larger than 10."
+      },
+      {
+        "id": "D",
+        "text": "No, because node 5 has only one child."
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "12 is correct next to its parent 5, but it is also in the left subtree of 10, where every value must be smaller than 10. A node with one child is fine.",
+    "selectable": true
+  },
+  {
+    "id": "Q5",
+    "lesson": 1,
+    "outcome": "O2",
+    "skillLevel": "Explain",
+    "stem": "Which of these trees is a valid BST?",
+    "options": [
+      {
+        "id": "A",
+        "text": "The tree labelled A"
+      },
+      {
+        "id": "B",
+        "text": "The tree labelled B"
+      },
+      {
+        "id": "C",
+        "text": "The tree labelled C"
+      },
+      {
+        "id": "D",
+        "text": "The tree labelled D"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "In the correct tree, 5, 10 and 15 are all below 20 on the left, and 25, 30 and 35 are all above 20 on the right. In each of the others, a value is on the wrong side of 20.",
+    "selectable": false
+  },
+  {
+    "id": "Q6",
+    "lesson": 2,
+    "outcome": "O3",
+    "skillLevel": "Apply",
+    "stem": "Search for 60 in the tree below. Which nodes are compared with 60, in order?",
+    "options": [
+      {
+        "id": "A",
+        "text": "50, 70, 60"
+      },
+      {
+        "id": "B",
+        "text": "50, 30, 40, 70, 60"
+      },
+      {
+        "id": "C",
+        "text": "50, 70, 80, 60"
+      },
+      {
+        "id": "D",
+        "text": "50, 60"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "60 is larger than 50, so go right to 70. 60 is smaller than 70, so go left to 60. Only 3 of the 7 nodes are looked at.",
+    "selectable": true
+  },
+  {
+    "id": "Q7",
+    "lesson": 2,
+    "outcome": "O3",
+    "skillLevel": "Apply",
+    "stem": "Search for 45 in the tree below. What happens?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Not found, but only after checking all 7 nodes."
+      },
+      {
+        "id": "B",
+        "text": "Found: 40 is the closest value, so the search stops there."
+      },
+      {
+        "id": "C",
+        "text": "Not found: the search compares 50, 70 and 60, then reaches an empty spot."
+      },
+      {
+        "id": "D",
+        "text": "Not found: the search compares 50, 30 and 40, then reaches an empty spot."
+      }
+    ],
+    "correctAnswer": "D",
+    "explanation": "45 is smaller than 50 (go left), larger than 30 (go right), larger than 40, and 40 has no right child. An empty spot means the value is not in the tree.",
+    "selectable": true
+  },
+  {
+    "id": "Q8",
+    "lesson": 2,
+    "outcome": "O3",
+    "skillLevel": "Apply",
+    "stem": "How many comparisons does it take to find 20 in the tree below?",
+    "options": [
+      {
+        "id": "A",
+        "text": "2"
+      },
+      {
+        "id": "B",
+        "text": "4"
+      },
+      {
+        "id": "C",
+        "text": "3"
+      },
+      {
+        "id": "D",
+        "text": "7"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "You compare 20 with 50, then 30, then 20. That is 3 comparisons.",
+    "selectable": true
+  },
+  {
+    "id": "Q9",
+    "lesson": 2,
+    "outcome": "O4",
+    "skillLevel": "Apply",
+    "stem": "Insert 35 into the tree below. Where does the new node go?",
+    "options": [
+      {
+        "id": "A",
+        "text": "As the right child of 30, replacing 40."
+      },
+      {
+        "id": "B",
+        "text": "As the left child of 40."
+      },
+      {
+        "id": "C",
+        "text": "As the right child of 40."
+      },
+      {
+        "id": "D",
+        "text": "As the new root."
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Follow the path a search for 35 would take: left at 50, right at 30, left at 40. The left of 40 is empty, so the new node goes there.",
+    "selectable": true
+  },
+  {
+    "id": "Q10",
+    "lesson": 2,
+    "outcome": "O4",
+    "skillLevel": "Apply",
+    "stem": "Insert 65 into the tree below. Where does the new node go?",
+    "options": [
+      {
+        "id": "A",
+        "text": "As the right child of 60."
+      },
+      {
+        "id": "B",
+        "text": "As the left child of 80."
+      },
+      {
+        "id": "C",
+        "text": "As the left child of 60."
+      },
+      {
+        "id": "D",
+        "text": "As the left child of 70, pushing 60 down."
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "65 is larger than 50 (go right), smaller than 70 (go left), larger than 60 (go right). That spot is empty.",
+    "selectable": true
+  },
+  {
+    "id": "Q11",
+    "lesson": 2,
+    "outcome": "O5",
+    "skillLevel": "Apply",
+    "stem": "You start with an empty BST and insert 15, 8, 20 and 12, in that order. Where does 12 end up?",
+    "options": [
+      {
+        "id": "A",
+        "text": "As the left child of 8."
+      },
+      {
+        "id": "B",
+        "text": "As the new root."
+      },
+      {
+        "id": "C",
+        "text": "As the left child of 20."
+      },
+      {
+        "id": "D",
+        "text": "As the right child of 8."
+      }
+    ],
+    "correctAnswer": "D",
+    "explanation": "15 is the root. 12 is smaller than 15, so it goes left to 8. 12 is larger than 8, so it goes right.",
+    "selectable": true
+  },
+  {
+    "id": "Q12",
+    "lesson": 2,
+    "outcome": "O5",
+    "skillLevel": "Apply",
+    "stem": "You start with an empty BST and insert 25, 10, 30, 5 and 15, in that order. What is the right child of 10?",
+    "options": [
+      {
+        "id": "A",
+        "text": "5"
+      },
+      {
+        "id": "B",
+        "text": "30"
+      },
+      {
+        "id": "C",
+        "text": "15"
+      },
+      {
+        "id": "D",
+        "text": "10 has no right child."
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "25 is the root, 10 goes left, 30 goes right, 5 goes left of 10. 15 is smaller than 25 and larger than 10, so it is the right child of 10.",
+    "selectable": true
+  },
+  {
+    "id": "Q13",
+    "lesson": 2,
+    "outcome": "O5",
+    "skillLevel": "Apply",
+    "stem": "You start with an empty BST and insert 40, 20, 60, 10 and 30, in that order. How many leaves does the tree have?",
+    "options": [
+      {
+        "id": "A",
+        "text": "2"
+      },
+      {
+        "id": "B",
+        "text": "3"
+      },
+      {
+        "id": "C",
+        "text": "4"
+      },
+      {
+        "id": "D",
+        "text": "5"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "The tree has root 40, children 20 and 60, and 20 has children 10 and 30. The leaves are 10, 30 and 60.",
+    "selectable": true
+  },
+  {
+    "id": "Q14",
+    "lesson": 3,
+    "outcome": "O6",
+    "skillLevel": "Apply",
+    "stem": "What is the in-order traversal of the tree below?",
+    "options": [
+      {
+        "id": "A",
+        "text": "10, 20, 30, 40, 50, 60, 70"
+      },
+      {
+        "id": "B",
+        "text": "40, 20, 10, 30, 60, 50, 70"
+      },
+      {
+        "id": "C",
+        "text": "10, 30, 20, 50, 70, 60, 40"
+      },
+      {
+        "id": "D",
+        "text": "40, 20, 60, 10, 30, 50, 70"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "In-order reads the left subtree, then the node, then the right subtree, at every node. Here that gives the values from smallest to largest.",
+    "selectable": true
+  },
+  {
+    "id": "Q15",
+    "lesson": 3,
+    "outcome": "O6",
+    "skillLevel": "Apply",
+    "stem": "What is the pre-order traversal of the tree below?",
+    "options": [
+      {
+        "id": "A",
+        "text": "10, 20, 30, 40, 50, 60, 70"
+      },
+      {
+        "id": "B",
+        "text": "10, 30, 20, 50, 70, 60, 40"
+      },
+      {
+        "id": "C",
+        "text": "40, 20, 60, 10, 30, 50, 70"
+      },
+      {
+        "id": "D",
+        "text": "40, 20, 10, 30, 60, 50, 70"
+      }
+    ],
+    "correctAnswer": "D",
+    "explanation": "Pre-order visits the node first, then the left subtree, then the right subtree.",
+    "selectable": true
+  },
+  {
+    "id": "Q16",
+    "lesson": 3,
+    "outcome": "O6",
+    "skillLevel": "Apply",
+    "stem": "What is the post-order traversal of the tree below?",
+    "options": [
+      {
+        "id": "A",
+        "text": "8, 3, 1, 6, 4, 7, 10, 14, 13"
+      },
+      {
+        "id": "B",
+        "text": "1, 3, 4, 6, 7, 8, 10, 13, 14"
+      },
+      {
+        "id": "C",
+        "text": "1, 4, 7, 6, 3, 13, 14, 10, 8"
+      },
+      {
+        "id": "D",
+        "text": "8, 3, 10, 1, 6, 14, 4, 7, 13"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Post-order visits the left subtree, then the right subtree, then the node. The root, 8, comes last.",
+    "selectable": true
+  },
+  {
+    "id": "Q17",
+    "lesson": 3,
+    "outcome": "O7",
+    "skillLevel": "Explain",
+    "stem": "Why does an in-order traversal of a BST give the values in sorted order?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Because in-order traversal gives sorted output for any binary tree."
+      },
+      {
+        "id": "B",
+        "text": "At every node it visits the smaller values (left subtree), then the node, then the larger values (right subtree)."
+      },
+      {
+        "id": "C",
+        "text": "Because a BST stores its values in a sorted list underneath."
+      },
+      {
+        "id": "D",
+        "text": "Because in-order visits the root first, and the root is the smallest value."
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "In a BST, the left subtree is smaller than the node and the right subtree is larger. In-order reads left, node, right, so the values come out smallest to largest.",
+    "selectable": true
+  },
+  {
+    "id": "Q18",
+    "lesson": 3,
+    "outcome": "O7",
+    "skillLevel": "Explain",
+    "stem": "The binary tree below is not a BST. Is its in-order output sorted?",
+    "options": [
+      {
+        "id": "A",
+        "text": "No. In-order gives 15, 10, 5, which is not sorted."
+      },
+      {
+        "id": "B",
+        "text": "Yes. In-order always gives sorted output."
+      },
+      {
+        "id": "C",
+        "text": "Yes. In-order puts the values in order as 5, 10, 15."
+      },
+      {
+        "id": "D",
+        "text": "No. In-order gives 10, 15, 5."
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "The tree breaks the BST rule, so in-order reads 15, 10, 5. Sorted output comes from the BST rule, not from the traversal itself.",
+    "selectable": true
+  },
+  {
+    "id": "Q19",
+    "lesson": 4,
+    "outcome": "O8",
+    "skillLevel": "Explain",
+    "stem": "You insert 1, 2, 3, 4, 5 into an empty BST in that order. What shape does the tree have?",
+    "options": [
+      {
+        "id": "A",
+        "text": "A balanced tree with 3 at the root."
+      },
+      {
+        "id": "B",
+        "text": "A chain with 5 at the root and each smaller value on its left."
+      },
+      {
+        "id": "C",
+        "text": "1 at the root with 2 and 3 as its two children."
+      },
+      {
+        "id": "D",
+        "text": "A chain: each new value is the right child of the one before it."
+      }
+    ],
+    "correctAnswer": "D",
+    "explanation": "Each new value is larger than everything so far, so it always goes right. Sorted input gives a chain, like a linked list.",
+    "selectable": true
+  },
+  {
+    "id": "Q20",
+    "lesson": 4,
+    "outcome": "O8",
+    "skillLevel": "Explain",
+    "stem": "You insert the values 1 to 7 into an empty BST. Which insert order gives the shortest tree?",
+    "options": [
+      {
+        "id": "A",
+        "text": "1, 2, 3, 4, 5, 6, 7"
+      },
+      {
+        "id": "B",
+        "text": "7, 6, 5, 4, 3, 2, 1"
+      },
+      {
+        "id": "C",
+        "text": "4, 2, 6, 1, 3, 5, 7"
+      },
+      {
+        "id": "D",
+        "text": "1, 7, 2, 6, 3, 5, 4"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Starting with the middle value (4) and then the middle of each half gives a balanced tree with 3 levels. The other orders all give a tree with 7 levels.",
+    "selectable": true
+  },
+  {
+    "id": "Q21",
+    "lesson": 4,
+    "outcome": "O9",
+    "skillLevel": "Explain",
+    "stem": "A BST was built by inserting 1, 2, 3, 4, 5 in that order, so it is a chain. How many comparisons does it take to find 5?",
+    "options": [
+      {
+        "id": "A",
+        "text": "1"
+      },
+      {
+        "id": "B",
+        "text": "5"
+      },
+      {
+        "id": "C",
+        "text": "3"
+      },
+      {
+        "id": "D",
+        "text": "4"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "In a chain you pass through every node on the way down: 1, 2, 3, 4, then 5. Search is O(n) here instead of O(log n).",
+    "selectable": true
+  },
+  {
+    "id": "Q22",
+    "lesson": 4,
+    "outcome": "O9",
+    "skillLevel": "Explain",
+    "stem": "Which statement about searching a BST is correct?",
+    "options": [
+      {
+        "id": "A",
+        "text": "It takes about log2 n comparisons if the tree is balanced, but up to n if it is chain-shaped."
+      },
+      {
+        "id": "B",
+        "text": "It always takes about log2 n comparisons."
+      },
+      {
+        "id": "C",
+        "text": "It always takes n comparisons, because every node must be checked."
+      },
+      {
+        "id": "D",
+        "text": "It depends only on how many values are stored, not on the shape."
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Search cost follows the height of the tree. A balanced tree is short (about log2 n) and a chain is tall (up to n).",
+    "selectable": true
+  },
+  {
+    "id": "Q23",
+    "lesson": 4,
+    "outcome": "O9",
+    "skillLevel": "Explain",
+    "stem": "A balanced BST holds 1,023 values (a full tree with 10 levels). At most how many comparisons does it take to find any value?",
+    "options": [
+      {
+        "id": "A",
+        "text": "32"
+      },
+      {
+        "id": "B",
+        "text": "512"
+      },
+      {
+        "id": "C",
+        "text": "1,023"
+      },
+      {
+        "id": "D",
+        "text": "10"
+      }
+    ],
+    "correctAnswer": "D",
+    "explanation": "A search goes down one level per comparison, and the tree has 10 levels, so it takes at most 10 comparisons.",
+    "selectable": true
+  },
+  {
+    "id": "Q24",
+    "lesson": 4,
+    "outcome": "O10",
+    "skillLevel": "Evaluate",
+    "stem": "A student-records system receives new records one at a time, in no particular order, and staff look records up all day. Which structure is the better choice?",
+    "options": [
+      {
+        "id": "A",
+        "text": "A sorted array: binary search is always fast."
+      },
+      {
+        "id": "B",
+        "text": "A sorted array: new records can just be added at the end."
+      },
+      {
+        "id": "C",
+        "text": "A BST: new records slot in without moving others, and searches are about log2 n when the insert order is mixed."
+      },
+      {
+        "id": "D",
+        "text": "A BST: it is always fast, whatever order the records arrive in."
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Inserting into a sorted array means shifting records to keep the order, and adding at the end breaks the order. A BST avoids this, and mixed order keeps it reasonably balanced.",
+    "selectable": true
+  },
+  {
+    "id": "Q25",
+    "lesson": 4,
+    "outcome": "O10",
+    "skillLevel": "Evaluate",
+    "stem": "A list of 50,000 records is loaded once, already in sorted order. It never changes, and staff only look records up. Which structure is the better choice?",
+    "options": [
+      {
+        "id": "A",
+        "text": "A BST: search is always about log2 n."
+      },
+      {
+        "id": "B",
+        "text": "A sorted array with binary search: a BST built from sorted input would be a long chain."
+      },
+      {
+        "id": "C",
+        "text": "A BST: it is more flexible, so it is always better."
+      },
+      {
+        "id": "D",
+        "text": "Neither: both have to check every record."
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "With no inserts, the sorted array pays no shifting cost, and binary search takes about log2 n comparisons. A BST built from sorted input would be a chain.",
+    "selectable": true
+  }
+]

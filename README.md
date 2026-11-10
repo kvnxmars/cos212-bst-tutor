@@ -25,9 +25,14 @@ npm run build
 
 ## Use the tutor
 
-The app opens on the learning-style selection placeholder. Continue to the lesson placeholder, then choose **Try it in the visualiser** to reach the interactive BST workbench. The lesson video and quiz content are placeholders until their lesson plans are ready.
+The app guides learners through four lessons and several activity pages:
 
-The visualization, narration, visited sequence, and highlighted pseudocode line all come from the same engine snapshot.
+1. Welcome page and lesson pages with reading content and diagrams.
+2. An interactive BST visualiser with step playback.
+3. "Try another way" activities tailored to each lesson: a lesson-specific YouTube explanation and drag-and-drop practice in tree terminology/BST rules, search and insertion, traversal order, or tree-shape/search-cost analysis.
+4. Four-question quick quizzes with feedback, retries, and lesson unlocking.
+
+The lesson, quiz, and video information is in `src/content/`. Quiz progress and mastered lessons are saved in the browser. The visualiser's narration, visited sequence, and highlighted pseudocode line all come from the same engine snapshot.
 
 ## Engine modules
 
@@ -35,4 +40,4 @@ The visualization, narration, visited sequence, and highlighted pseudocode line 
 - `src/engine/traversals.js`: pre-order, in-order, and post-order traversal.
 - `src/engine/snapshots.js`: immutable tree nodes, step snapshots, and sound cue identifiers.
 
-Engine tests live in `tests/`. `src/App.jsx` selects the learning-style, lesson, or visualizer page based on the URL hash. The visualizer page lives in `src/pages/Visualizer.jsx`; its tree view, operation controls, playback controls, and pseudocode panel are reusable components in `src/components/`, with shared styles in `src/styles/theme.css`.
+Tests live in `tests/`. `src/App.jsx` selects the page based on the URL hash. The visualiser page lives in `src/pages/Visualizer.jsx`; its tree view, operation controls, playback controls, and pseudocode panel are reusable components in `src/components/`, with shared styles in `src/styles/theme.css`.

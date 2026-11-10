@@ -13,12 +13,15 @@ import PlaybackControls from '../components/PlaybackControls.jsx';
 import PseudocodePanel from '../components/PseudocodePanel.jsx';
 import TreeControls from '../components/TreeControls.jsx';
 import TreeView from '../components/TreeView.jsx';
+import CourseResetButton from '../components/CourseResetButton.jsx';
+import { useStudentState } from '../state/StudentState.jsx';
 import '../styles/theme.css';
 
 const STARTING_KEYS = [50, 30, 70, 20, 40, 60, 80];
 const PLAYBACK_SPEEDS = [1, 1.5, 2];
 
-export default function VisualizerPage() {
+export default function VisualizerPage({ lessonId = 1 }) {
+  const { studentState } = useStudentState();
   const [tree, setTree] = useState(() => buildTree(STARTING_KEYS));
   const [keysInput, setKeysInput] = useState(STARTING_KEYS.join(', '));
   const [valueInput, setValueInput] = useState('45');
@@ -31,6 +34,7 @@ export default function VisualizerPage() {
 
   const snapshot = steps[stepIndex] ?? null;
   const visibleTree = snapshot ? snapshot.tree : tree;
+  const progress = Math.round((studentState.masteredLessons.length / 4) * 100);
   const pseudocode = operation === 'insert'
     ? INSERT_PSEUDOCODE
     : operation === 'search'
@@ -53,11 +57,23 @@ export default function VisualizerPage() {
     return () => window.clearInterval(timer);
   }, [isPlaying, speed, steps.length]);
 
+  useEffect(() => {
+    function onKey(event) {
+      if (['INPUT', 'SELECT', 'TEXTAREA'].includes(event.target.tagName)) return;
+      if (event.key === 'ArrowRight') setStepIndex((index) => Math.min(index + 1, Math.max(steps.length - 1, 0)));
+      if (event.key === 'ArrowLeft') setStepIndex((index) => Math.max(index - 1, 0));
+    }
+
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [steps.length]);
+
   function buildFromInput(event) {
     event.preventDefault();
-    const values = keysInput.split(',').map((part) => part.trim()).filter(Boolean).map(Number);
-    if (values.length === 0 || values.some((value) => !Number.isFinite(value))) {
-      setError('Enter one or more finite numbers, separated by commas.');
+    const parts = keysInput.split(',').map((part) => part.trim()).filter(Boolean);
+    const values = parts.map(Number);
+    if (values.length === 0 || parts.some((part) => !/^-?\d{1,4}$/.test(part))) {
+      setError('Enter whole numbers between -9999 and 9999, separated by commas (for example 50, 30, 70).');
       return;
     }
     setTree(buildTree(values));
@@ -76,8 +92,8 @@ export default function VisualizerPage() {
       nextSteps = traverse(tree, operation);
     } else {
       const value = Number(valueInput);
-      if (valueInput.trim() === '' || !Number.isFinite(value)) {
-        setError('Enter a finite number for this operation.');
+      if (!/^-?\d{1,4}$/.test(valueInput.trim())) {
+        setError('Enter a whole number between -9999 and 9999.');
         return;
       }
       nextSteps = operation === 'insert' ? insert(tree, value) : search(tree, value);
@@ -114,8 +130,24 @@ export default function VisualizerPage() {
       <header className="topbar">
         <a className="wordmark" href="#welcome" aria-label="Branch, home"><span className="wordmark-mark">T</span>TRULinK<span className="wordmark-period">.</span></a>
         <div className="course-label">COS212 <span> / </span> DATA STRUCTURES</div>
-        <button className="reset-button" type="button" onClick={resetDemo}>Reset demo</button>
+        <div className="topbar-actions">
+          <a className="visualizer-back-link" href={`#lesson?lesson=${lessonId}`}>Back to lesson</a>
+          <button className="reset-button" type="button" onClick={resetDemo}>Reset demo</button>
+          <CourseResetButton />
+        </div>
       </header>
+
+      <div className="visualizer-path">
+        <nav className="lesson-breadcrumb" aria-label="Breadcrumb">
+          <a href="#welcome">Home</a><span>&gt;</span><a href={`#lesson?lesson=${lessonId}`}>Lesson {lessonId}</a><span>&gt;</span><span>Visualiser</span>
+        </nav>
+        <div className="lesson-progress">
+          <div className="progress-track" role="progressbar" aria-label="Lessons mastered" aria-valuenow={progress} aria-valuemin="0" aria-valuemax="100">
+            <span style={{ width: `${progress}%` }} />
+          </div>
+          <span>{progress}% done</span>
+        </div>
+      </div>
 
       <section className="intro" id="home">
         <div>
@@ -136,14 +168,14 @@ export default function VisualizerPage() {
           onValueInputChange={(event) => setValueInput(event.target.value)}
           onRunOperation={runOperation}
           error={error}
-          nodeCount={size(tree)}
-          treeHeight={height(tree)}
+          nodeCount={size(visibleTree)}
+          treeHeight={height(visibleTree)}
         />
 
         <section className="visual-panel" aria-label="Tree and operation steps">
           <div className="visual-heading">
             <div><p className="eyebrow">LIVE STRUCTURE</p><h2>Binary search tree</h2></div>
-            <div className="legend"><span><i className="legend-current" />Current</span><span><i className="legend-visited" />Visited</span></div>
+            <div className="legend"><span><i className="legend-current" />Current</span><span><i className="legend-visited" />✓ Visited</span></div>
           </div>
           <TreeView tree={visibleTree} snapshot={snapshot} />
           <div className="playback">

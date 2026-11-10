@@ -44,6 +44,8 @@ export default function TreeView({ tree, snapshot }) {
     <div className="tree-scroll">
       <svg
         className="tree-svg"
+        width={layout.width}
+        height={layout.height}
         viewBox={`0 0 ${layout.width} ${layout.height}`}
         role="img"
         aria-label="Binary search tree visualization"
@@ -56,8 +58,15 @@ export default function TreeView({ tree, snapshot }) {
           const isVisited = visited.has(node.key);
           return (
             <g key={node.key} className={`tree-node${isCurrent ? ' is-current' : ''}${isVisited ? ' is-visited' : ''}`}>
-              <circle cx={node.x} cy={node.y} r="24" />
+              {isCurrent && <circle className="current-ring" cx={node.x} cy={node.y} r="30" />}
+              <circle className="node-body" cx={node.x} cy={node.y} r="24" />
               <text x={node.x} y={node.y + 5} textAnchor="middle">{node.key}</text>
+              {isVisited && !isCurrent && (
+                <g className="visited-badge" aria-hidden="true">
+                  <circle cx={node.x + 18} cy={node.y - 18} r="8" />
+                  <path d={`M ${node.x + 14} ${node.y - 18} l 3 3 l 5 -6`} />
+                </g>
+              )}
             </g>
           );
         })}

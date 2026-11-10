@@ -1,21 +1,49 @@
 import { useEffect, useState } from 'react';
+import QuizPage from './pages/Quiz.jsx';
 import Lesson from './pages/Lesson.jsx';
 import VisualizerPage from './pages/Visualizer.jsx';
 import Welcome from './pages/Welcome.jsx';
+import VideoPage from './pages/Video.jsx';
+import TreeBuilderPage from './pages/TreeBuilder.jsx';
+import { StudentStateProvider } from './state/StudentState.jsx';
 
-export default function App() {
-  const [route, setRoute] = useState(() => window.location.hash || '#welcome');
+function readLocation() {
+  const [page, query = ''] = window.location.hash.slice(1).split('?');
+  const params = new URLSearchParams(query);
+  const requestedLesson = Number(params.get('lesson'));
+
+  return {
+    page: page || 'welcome',
+    lessonId: Number.isInteger(requestedLesson) && requestedLesson >= 1 && requestedLesson <= 4
+      ? requestedLesson
+      : 1,
+  };
+}
+
+function AppRoutes() {
+  const [location, setLocation] = useState(readLocation);
 
   useEffect(() => {
-    function updateRoute() {
-      setRoute(window.location.hash || '#welcome');
+    function updateLocation() {
+      setLocation(readLocation());
     }
 
-    window.addEventListener('hashchange', updateRoute);
-    return () => window.removeEventListener('hashchange', updateRoute);
+    window.addEventListener('hashchange', updateLocation);
+    return () => window.removeEventListener('hashchange', updateLocation);
   }, []);
 
-  if (route === '#visualizer') return <VisualizerPage />;
-  if (route === '#lesson') return <Lesson />;
+  if (location.page === 'visualizer') return <VisualizerPage lessonId={location.lessonId} />;
+  if (location.page === 'video') return <VideoPage lessonId={location.lessonId} />;
+  if (location.page === 'build-tree') return <TreeBuilderPage lessonId={location.lessonId} />;
+  if (location.page === 'lesson') return <Lesson lessonId={location.lessonId} />;
+  if (location.page === 'quiz') return <QuizPage lessonId={location.lessonId} />;
   return <Welcome />;
+}
+
+export default function App() {
+  return (
+    <StudentStateProvider>
+      <AppRoutes />
+    </StudentStateProvider>
+  );
 }
