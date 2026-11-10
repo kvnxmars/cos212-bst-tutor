@@ -1,10 +1,18 @@
 # COS212 BST Tutor
 
-A small interactive tutor for binary search trees and depth-first traversals. The algorithm engine is framework-independent JavaScript; the React interface visualizes its immutable step snapshots.
+COS212 BST Tutor is a small interactive learning app for binary search trees (BSTs), tree operations, and depth-first traversals. The JavaScript engine provides deterministic tree logic and snapshots, while the React interface presents the lesson flow, visualiser, and challenges in a learner-friendly sequence.
+
+## What this project includes
+
+- A four-lesson learning flow starting from a welcome page and ending in a quiz-based mastery check.
+- A BST visualiser with playback controls, step-by-step narration, traversal highlighting, and summary stats.
+- Lesson-specific "Try another way" activities, including YouTube explanations and hands-on tree-building/practice tasks.
+- Quiz feedback, retries, lesson unlocking, and browser-persisted course progress.
+- A course reset flow that clears mastery state and starts the learner back at Lesson 1 after confirmation.
 
 ## Requirements
 
-- Node.js 20.19+ or 22.12+ (required by the current Vite version)
+- Node.js 20.19+ or 22.12+
 - npm
 
 ## Run locally
@@ -16,28 +24,44 @@ npm install
 npm run dev
 ```
 
-Open the local URL printed by Vite. To run the engine tests and create a production build:
+Open the local URL printed by Vite in the terminal.
+
+Useful commands:
 
 ```powershell
 npm test
 npm run build
 ```
 
-## Use the tutor
+## Learning flow
 
-The app guides learners through four lessons and several activity pages:
+The app is organised around a guided progression:
 
-1. Welcome page and lesson pages with reading content and diagrams.
-2. An interactive BST visualiser with step playback.
-3. "Try another way" activities tailored to each lesson: a lesson-specific YouTube explanation and drag-and-drop practice in tree terminology/BST rules, search and insertion, traversal order, or tree-shape/search-cost analysis.
-4. Four-question quick quizzes with feedback, retries, and lesson unlocking.
+1. Welcome page and introductory lesson content.
+2. Lesson pages with reading material and diagrams.
+3. BST visualiser and step-through practice.
+4. Optional lesson-specific activity/video guidance.
+5. Quick quiz with feedback and retries.
+6. Lesson unlocks based on quiz performance.
 
-The lesson, quiz, and video information is in `src/content/`. Quiz progress and mastered lessons are saved in the browser. The visualiser's narration, visited sequence, and highlighted pseudocode line all come from the same engine snapshot.
+The lesson, quiz, video, and activity content is stored in `src/content/`. Student progress is saved in browser storage so the learner can resume without losing quiz progress or unlocked lessons.
+
+## Main application structure
+
+- `src/App.jsx`: route selection based on the URL hash.
+- `src/pages/`: lesson, welcome, visualiser, video, quiz, and challenge pages.
+- `src/components/`: reusable UI for the tree view, playback controls, pseudocode panel, and challenge interactions.
+- `src/engine/`: BST logic, traversal utilities, immutable snapshots, and challenge state logic.
+- `src/styles/theme.css`: shared visual styling.
+- `tests/`: Vitest coverage for tree logic, scoring, quiz rules, and challenge behaviour.
 
 ## Engine modules
 
-- `src/engine/bst.js`: insertion, search, tree construction, size, and height.
-- `src/engine/traversals.js`: pre-order, in-order, and post-order traversal.
-- `src/engine/snapshots.js`: immutable tree nodes, step snapshots, and sound cue identifiers.
+- `src/engine/bst.js`: insertion, search, tree construction, size, and height operations.
+- `src/engine/traversals.js`: pre-order, in-order, and post-order traversal helpers.
+- `src/engine/snapshots.js`: immutable node snapshots, step snapshots, and sound cues.
+- `src/engine/learningChallenges.js` and `src/engine/treeChallenge.js`: lesson activity logic and tree-building challenge mechanics.
 
-Tests live in `tests/`. `src/App.jsx` selects the page based on the URL hash. The visualiser page lives in `src/pages/Visualizer.jsx`; its tree view, operation controls, playback controls, and pseudocode panel are reusable components in `src/components/`, with shared styles in `src/styles/theme.css`.
+## Notes
+
+This app is intended as a teaching aid for COS212 and was designed around the available course materials, sprint log, and wireframes in the project folder. It is best used in a browser with the Vite dev server running locally.

@@ -1,6 +1,12 @@
 # Change Log
 
-Keep this file up to date whenever project files or behavior change. Add new entries at the top and include a brief summary of the change and any relevant validation.
+Keep this file current whenever the project behaviour or learning flow changes. Add new entries at the top with a short summary and, when relevant, the validation used.
+
+## 2026-11-10
+
+- Documentation refresh for the project overview and setup instructions in the README, aligning the project description with the current four-lesson BST tutor flow.
+- Updated the changelog to reflect the completed course progression features, quiz-based unlocking, optional activity/video support, course reset, and the persisted learner state.
+- No runtime code changes in this update; documentation only.
 
 ## 2026-11-10
 
