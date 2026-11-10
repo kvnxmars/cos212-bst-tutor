@@ -76,7 +76,7 @@ input:focus, select:focus { outline: 2px solid #8cc8ad; outline-offset: 1px; }
 .legend { display: flex; gap: 13px; padding-bottom: 1px; color: #7d877f; font-size: 9px; white-space: nowrap; }
 .legend span { display: flex; align-items: center; gap: 5px; }
 .legend i { width: 8px; height: 8px; border-radius: 50%; }
-.legend-current { background: var(--orange); }
+.legend-current { background: #b4521f; outline: 1.5px dashed #b4521f; outline-offset: 2px; }
 .legend-visited { background: var(--green); }
 .tree-scroll { display: flex; flex: 1; align-items: center; min-height: 245px; max-height: 560px; overflow: auto; border-top: 1px solid #eceee8; border-bottom: 1px solid #eceee8; background-color: #f8f9f4; background-image: radial-gradient(#d5dcd3 0.7px, transparent .7px); background-size: 17px 17px; }
 .tree-svg { display: block; flex: none; margin: auto; overflow: visible; }
