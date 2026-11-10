@@ -71,15 +71,18 @@ input:focus, select:focus { outline: 2px solid #8cc8ad; outline-offset: 1px; }
 .legend { display: flex; gap: 13px; padding-bottom: 1px; color: #7d877f; font-size: 9px; white-space: nowrap; }
 .legend span { display: flex; align-items: center; gap: 5px; }
 .legend i { width: 8px; height: 8px; border-radius: 50%; }
-.legend-current { background: var(--orange); }
+.legend-current { background: #b4521f; outline: 1.5px dashed #b4521f; outline-offset: 2px; }
 .legend-visited { background: var(--green); }
-.tree-scroll { display: flex; flex: 1; align-items: center; min-height: 245px; overflow-x: auto; overflow-y: hidden; border-top: 1px solid #eceee8; border-bottom: 1px solid #eceee8; background-color: #f8f9f4; background-image: radial-gradient(#d5dcd3 0.7px, transparent .7px); background-size: 17px 17px; }
-.tree-svg { display: block; min-width: 100%; margin: auto; overflow: visible; }
+.tree-scroll { display: flex; flex: 1; align-items: center; min-height: 245px; max-height: 560px; overflow: auto; border-top: 1px solid #eceee8; border-bottom: 1px solid #eceee8; background-color: #f8f9f4; background-image: radial-gradient(#d5dcd3 0.7px, transparent .7px); background-size: 17px 17px; }
+.tree-svg { display: block; flex: none; margin: auto; overflow: visible; }
 .tree-edge { stroke: #c0c9bf; stroke-width: 1.5; }
-.tree-node circle { fill: white; stroke: #98a89b; stroke-width: 1.5; transition: fill .2s, stroke .2s; }
+.tree-node .node-body { fill: white; stroke: #98a89b; stroke-width: 1.5; transition: fill .2s, stroke .2s; }
 .tree-node text { fill: #34443a; font-family: var(--mono); font-size: 11px; }
-.tree-node.is-visited circle { fill: var(--mint); stroke: var(--green); }
-.tree-node.is-current circle { fill: var(--orange); stroke: #c65d2e; stroke-width: 2; }
+.tree-node.is-visited .node-body { fill: var(--mint); stroke: var(--green); }
+.tree-node.is-current .node-body { fill: #b4521f; stroke: #8a3c14; stroke-width: 2; }
+.tree-node .current-ring { fill: none; stroke: #b4521f; stroke-width: 2; stroke-dasharray: 4 3; }
+.visited-badge circle { fill: var(--green); stroke: #fbfbf7; stroke-width: 1.5; }
+.visited-badge path { fill: none; stroke: white; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .tree-node.is-current text { fill: white; font-weight: 500; }
 .empty-tree { display: grid; flex: 1; min-height: 245px; place-items: center; color: #929b93; font-size: 12px; }
 .playback { padding: 14px 23px 16px; }

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   buildTree,
   height,
@@ -59,6 +59,8 @@ function TreeCanvas({ tree, snapshot }) {
     <div className="tree-scroll">
       <svg
         className="tree-svg"
+        width={layout.width}
+        height={layout.height}
         viewBox={`0 0 ${layout.width} ${layout.height}`}
         role="img"
         aria-label="Binary search tree visualization"
@@ -71,8 +73,15 @@ function TreeCanvas({ tree, snapshot }) {
           const isVisited = visited.has(node.key);
           return (
             <g key={node.key} className={`tree-node${isCurrent ? ' is-current' : ''}${isVisited ? ' is-visited' : ''}`}>
-              <circle cx={node.x} cy={node.y} r="24" />
+              {isCurrent && <circle className="current-ring" cx={node.x} cy={node.y} r="30" />}
+              <circle className="node-body" cx={node.x} cy={node.y} r="24" />
               <text x={node.x} y={node.y + 5} textAnchor="middle">{node.key}</text>
+              {isVisited && !isCurrent && (
+                <g className="visited-badge" aria-hidden="true">
+                  <circle cx={node.x + 18} cy={node.y - 18} r="8" />
+                  <path d={`M ${node.x + 14} ${node.y - 18} l 3 3 l 5 -6`} />
+                </g>
+              )}
             </g>
           );
         })}
@@ -98,11 +107,22 @@ export default function App() {
       ? SEARCH_PSEUDOCODE
       : PSEUDOCODE[operation];
 
+  useEffect(() => {
+    function onKey(event) {
+      if (['INPUT', 'SELECT', 'TEXTAREA'].includes(event.target.tagName)) return;
+      if (event.key === 'ArrowRight') setStepIndex((i) => Math.min(i + 1, Math.max(steps.length - 1, 0)));
+      if (event.key === 'ArrowLeft') setStepIndex((i) => Math.max(i - 1, 0));
+    }
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [steps.length]);
+
   function buildFromInput(event) {
     event.preventDefault();
-    const values = keysInput.split(',').map((part) => part.trim()).filter(Boolean).map(Number);
-    if (values.length === 0 || values.some((value) => !Number.isFinite(value))) {
-      setError('Enter one or more finite numbers, separated by commas.');
+    const parts = keysInput.split(',').map((part) => part.trim()).filter(Boolean);
+    const values = parts.map(Number);
+    if (values.length === 0 || parts.some((part) => !/^-?\d{1,4}$/.test(part))) {
+      setError('Enter whole numbers between -9999 and 9999, separated by commas (for example 50, 30, 70).');
       return;
     }
     setTree(buildTree(values));
@@ -119,8 +139,8 @@ export default function App() {
       nextSteps = traverse(tree, operation);
     } else {
       const value = Number(valueInput);
-      if (valueInput.trim() === '' || !Number.isFinite(value)) {
-        setError('Enter a finite number for this operation.');
+      if (!/^-?\d{1,4}$/.test(valueInput.trim())) {
+        setError('Enter a whole number between -9999 and 9999.');
         return;
       }
       nextSteps = operation === 'insert' ? insert(tree, value) : search(tree, value);
@@ -197,15 +217,15 @@ export default function App() {
           </section>
 
           <div className="tree-stats" aria-label="Tree statistics">
-            <div><span>NODES</span><strong>{size(tree)}</strong></div>
-            <div><span>HEIGHT</span><strong>{height(tree)}</strong></div>
+            <div><span>NODES</span><strong>{size(visibleTree)}</strong></div>
+            <div><span>HEIGHT</span><strong>{height(visibleTree)}</strong></div>
           </div>
         </aside>
 
         <section className="visual-panel" aria-label="Tree and operation steps">
           <div className="visual-heading">
             <div><p className="eyebrow">LIVE STRUCTURE</p><h2>Binary search tree</h2></div>
-            <div className="legend"><span><i className="legend-current" />Current</span><span><i className="legend-visited" />Visited</span></div>
+            <div className="legend"><span><i className="legend-current" />Current</span><span><i className="legend-visited" />✓ Visited</span></div>
           </div>
           <TreeCanvas tree={visibleTree} snapshot={snapshot} />
           <div className="playback">
