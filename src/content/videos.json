@@ -1,0 +1,22 @@
+{
+  "1": {
+    "id": "mtvbVLK5xDQ",
+    "title": "Binary Search Trees (BST) Explained in Animated Demo",
+    "focus": "Watch how a BST is shaped and how the ordering rule applies to its branches and subtrees."
+  },
+  "2": {
+    "id": "LwpLXm3eb6A",
+    "title": "Binary Search Tree Insertion",
+    "focus": "Follow each comparison from the root to find the search path and insertion position."
+  },
+  "3": {
+    "id": "-b2lciNd2L4",
+    "title": "Binary Tree Traversals (Inorder, Preorder and Postorder)",
+    "focus": "Compare when each traversal visits the node relative to its left and right subtrees."
+  },
+  "4": {
+    "id": "Zk-biEDNVwc",
+    "title": "Advanced Data Structures: Binary Search Tree (BST) Time Complexity",
+    "focus": "Connect tree shape and height to the number of comparisons a BST search may need."
+  }
+}
