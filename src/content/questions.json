@@ -8,7 +8,8 @@
     "options": [
       {
         "id": "A",
-        "text": "3"
+        "text": "3",
+        "misconception": "tree-parts-mixup"
       },
       {
         "id": "B",
@@ -16,11 +17,13 @@
       },
       {
         "id": "C",
-        "text": "6"
+        "text": "6",
+        "misconception": "tree-parts-mixup"
       },
       {
         "id": "D",
-        "text": "14"
+        "text": "14",
+        "misconception": "tree-parts-mixup"
       }
     ],
     "correctAnswer": "B",
@@ -40,15 +43,18 @@
       },
       {
         "id": "B",
-        "text": "3 only"
+        "text": "3 only",
+        "misconception": "tree-parts-mixup"
       },
       {
         "id": "C",
-        "text": "10, 14 and 13"
+        "text": "10, 14 and 13",
+        "misconception": "tree-parts-mixup"
       },
       {
         "id": "D",
-        "text": "3, 1, 6 and 10"
+        "text": "3, 1, 6 and 10",
+        "misconception": "tree-parts-mixup"
       }
     ],
     "correctAnswer": "A",
@@ -64,15 +70,18 @@
     "options": [
       {
         "id": "A",
-        "text": "Its left child is smaller and its right child is larger, and nothing else is required."
+        "text": "Its left child is smaller and its right child is larger, and nothing else is required.",
+        "misconception": "local-check-only"
       },
       {
         "id": "B",
-        "text": "Every value in its left subtree is larger, and every value in its right subtree is smaller."
+        "text": "Every value in its left subtree is larger, and every value in its right subtree is smaller.",
+        "misconception": "rule-reversed"
       },
       {
         "id": "C",
-        "text": "It has at most two children, and the values can be in any order."
+        "text": "It has at most two children, and the values can be in any order.",
+        "misconception": "any-binary-tree"
       },
       {
         "id": "D",
@@ -92,11 +101,13 @@
     "options": [
       {
         "id": "A",
-        "text": "Yes, every node is on the correct side of its own parent."
+        "text": "Yes, every node is on the correct side of its own parent.",
+        "misconception": "local-check-only"
       },
       {
         "id": "B",
-        "text": "Yes, because every node has at most two children."
+        "text": "Yes, because every node has at most two children.",
+        "misconception": "any-binary-tree"
       },
       {
         "id": "C",
@@ -104,7 +115,8 @@
       },
       {
         "id": "D",
-        "text": "No, because node 5 has only one child."
+        "text": "No, because node 5 has only one child.",
+        "misconception": "shape-not-order"
       }
     ],
     "correctAnswer": "C",
@@ -120,7 +132,8 @@
     "options": [
       {
         "id": "A",
-        "text": "The tree labelled A"
+        "text": "The tree labelled A",
+        "misconception": "local-check-only"
       },
       {
         "id": "B",
@@ -128,11 +141,13 @@
       },
       {
         "id": "C",
-        "text": "The tree labelled C"
+        "text": "The tree labelled C",
+        "misconception": "local-check-only"
       },
       {
         "id": "D",
-        "text": "The tree labelled D"
+        "text": "The tree labelled D",
+        "misconception": "local-check-only"
       }
     ],
     "correctAnswer": "B",
@@ -152,15 +167,18 @@
       },
       {
         "id": "B",
-        "text": "50, 30, 40, 70, 60"
+        "text": "50, 30, 40, 70, 60",
+        "misconception": "search-checks-every-node"
       },
       {
         "id": "C",
-        "text": "50, 70, 80, 60"
+        "text": "50, 70, 80, 60",
+        "misconception": "wrong-child-or-skips"
       },
       {
         "id": "D",
-        "text": "50, 60"
+        "text": "50, 60",
+        "misconception": "wrong-child-or-skips"
       }
     ],
     "correctAnswer": "A",
@@ -176,15 +194,18 @@
     "options": [
       {
         "id": "A",
-        "text": "Not found, but only after checking all 7 nodes."
+        "text": "Not found, but only after checking all 7 nodes.",
+        "misconception": "search-checks-every-node"
       },
       {
         "id": "B",
-        "text": "Found: 40 is the closest value, so the search stops there."
+        "text": "Found: 40 is the closest value, so the search stops there.",
+        "misconception": "not-found-confusion"
       },
       {
         "id": "C",
-        "text": "Not found: the search compares 50, 70 and 60, then reaches an empty spot."
+        "text": "Not found: the search compares 50, 70 and 60, then reaches an empty spot.",
+        "misconception": "wrong-child-or-skips"
       },
       {
         "id": "D",
@@ -204,11 +225,13 @@
     "options": [
       {
         "id": "A",
-        "text": "2"
+        "text": "2",
+        "misconception": "wrong-child-or-skips"
       },
       {
         "id": "B",
-        "text": "4"
+        "text": "4",
+        "misconception": "wrong-child-or-skips"
       },
       {
         "id": "C",
@@ -216,7 +239,8 @@
       },
       {
         "id": "D",
-        "text": "7"
+        "text": "7",
+        "misconception": "search-checks-every-node"
       }
     ],
     "correctAnswer": "C",
@@ -232,7 +256,8 @@
     "options": [
       {
         "id": "A",
-        "text": "As the right child of 30, replacing 40."
+        "text": "As the right child of 30, replacing 40.",
+        "misconception": "insert-moves-nodes"
       },
       {
         "id": "B",
@@ -240,11 +265,13 @@
       },
       {
         "id": "C",
-        "text": "As the right child of 40."
+        "text": "As the right child of 40.",
+        "misconception": "wrong-child-or-skips"
       },
       {
         "id": "D",
-        "text": "As the new root."
+        "text": "As the new root.",
+        "misconception": "insert-moves-nodes"
       }
     ],
     "correctAnswer": "B",
@@ -264,15 +291,18 @@
       },
       {
         "id": "B",
-        "text": "As the left child of 80."
+        "text": "As the left child of 80.",
+        "misconception": "wrong-child-or-skips"
       },
       {
         "id": "C",
-        "text": "As the left child of 60."
+        "text": "As the left child of 60.",
+        "misconception": "wrong-child-or-skips"
       },
       {
         "id": "D",
-        "text": "As the left child of 70, pushing 60 down."
+        "text": "As the left child of 70, pushing 60 down.",
+        "misconception": "insert-moves-nodes"
       }
     ],
     "correctAnswer": "A",
@@ -288,15 +318,18 @@
     "options": [
       {
         "id": "A",
-        "text": "As the left child of 8."
+        "text": "As the left child of 8.",
+        "misconception": "wrong-child-or-skips"
       },
       {
         "id": "B",
-        "text": "As the new root."
+        "text": "As the new root.",
+        "misconception": "insert-moves-nodes"
       },
       {
         "id": "C",
-        "text": "As the left child of 20."
+        "text": "As the left child of 20.",
+        "misconception": "wrong-child-or-skips"
       },
       {
         "id": "D",
@@ -316,11 +349,13 @@
     "options": [
       {
         "id": "A",
-        "text": "5"
+        "text": "5",
+        "misconception": "tree-parts-mixup"
       },
       {
         "id": "B",
-        "text": "30"
+        "text": "30",
+        "misconception": "tree-parts-mixup"
       },
       {
         "id": "C",
@@ -328,7 +363,8 @@
       },
       {
         "id": "D",
-        "text": "10 has no right child."
+        "text": "10 has no right child.",
+        "misconception": "wrong-child-or-skips"
       }
     ],
     "correctAnswer": "C",
@@ -344,7 +380,8 @@
     "options": [
       {
         "id": "A",
-        "text": "2"
+        "text": "2",
+        "misconception": "tree-parts-mixup"
       },
       {
         "id": "B",
@@ -352,11 +389,13 @@
       },
       {
         "id": "C",
-        "text": "4"
+        "text": "4",
+        "misconception": "tree-parts-mixup"
       },
       {
         "id": "D",
-        "text": "5"
+        "text": "5",
+        "misconception": "tree-parts-mixup"
       }
     ],
     "correctAnswer": "B",
@@ -376,15 +415,18 @@
       },
       {
         "id": "B",
-        "text": "40, 20, 10, 30, 60, 50, 70"
+        "text": "40, 20, 10, 30, 60, 50, 70",
+        "misconception": "traversal-order-mixup"
       },
       {
         "id": "C",
-        "text": "10, 30, 20, 50, 70, 60, 40"
+        "text": "10, 30, 20, 50, 70, 60, 40",
+        "misconception": "traversal-order-mixup"
       },
       {
         "id": "D",
-        "text": "40, 20, 60, 10, 30, 50, 70"
+        "text": "40, 20, 60, 10, 30, 50, 70",
+        "misconception": "traversal-order-mixup"
       }
     ],
     "correctAnswer": "A",
@@ -400,15 +442,18 @@
     "options": [
       {
         "id": "A",
-        "text": "10, 20, 30, 40, 50, 60, 70"
+        "text": "10, 20, 30, 40, 50, 60, 70",
+        "misconception": "traversal-order-mixup"
       },
       {
         "id": "B",
-        "text": "10, 30, 20, 50, 70, 60, 40"
+        "text": "10, 30, 20, 50, 70, 60, 40",
+        "misconception": "traversal-order-mixup"
       },
       {
         "id": "C",
-        "text": "40, 20, 60, 10, 30, 50, 70"
+        "text": "40, 20, 60, 10, 30, 50, 70",
+        "misconception": "traversal-order-mixup"
       },
       {
         "id": "D",
@@ -428,11 +473,13 @@
     "options": [
       {
         "id": "A",
-        "text": "8, 3, 1, 6, 4, 7, 10, 14, 13"
+        "text": "8, 3, 1, 6, 4, 7, 10, 14, 13",
+        "misconception": "traversal-order-mixup"
       },
       {
         "id": "B",
-        "text": "1, 3, 4, 6, 7, 8, 10, 13, 14"
+        "text": "1, 3, 4, 6, 7, 8, 10, 13, 14",
+        "misconception": "traversal-order-mixup"
       },
       {
         "id": "C",
@@ -440,7 +487,8 @@
       },
       {
         "id": "D",
-        "text": "8, 3, 10, 1, 6, 14, 4, 7, 13"
+        "text": "8, 3, 10, 1, 6, 14, 4, 7, 13",
+        "misconception": "traversal-order-mixup"
       }
     ],
     "correctAnswer": "C",
@@ -456,7 +504,8 @@
     "options": [
       {
         "id": "A",
-        "text": "Because in-order traversal gives sorted output for any binary tree."
+        "text": "Because in-order traversal gives sorted output for any binary tree.",
+        "misconception": "inorder-always-sorted"
       },
       {
         "id": "B",
@@ -464,11 +513,13 @@
       },
       {
         "id": "C",
-        "text": "Because a BST stores its values in a sorted list underneath."
+        "text": "Because a BST stores its values in a sorted list underneath.",
+        "misconception": "inorder-always-sorted"
       },
       {
         "id": "D",
-        "text": "Because in-order visits the root first, and the root is the smallest value."
+        "text": "Because in-order visits the root first, and the root is the smallest value.",
+        "misconception": "traversal-order-mixup"
       }
     ],
     "correctAnswer": "B",
@@ -488,15 +539,18 @@
       },
       {
         "id": "B",
-        "text": "Yes. In-order always gives sorted output."
+        "text": "Yes. In-order always gives sorted output.",
+        "misconception": "inorder-always-sorted"
       },
       {
         "id": "C",
-        "text": "Yes. In-order puts the values in order as 5, 10, 15."
+        "text": "Yes. In-order puts the values in order as 5, 10, 15.",
+        "misconception": "inorder-always-sorted"
       },
       {
         "id": "D",
-        "text": "No. In-order gives 10, 15, 5."
+        "text": "No. In-order gives 10, 15, 5.",
+        "misconception": "traversal-order-mixup"
       }
     ],
     "correctAnswer": "A",
@@ -512,15 +566,18 @@
     "options": [
       {
         "id": "A",
-        "text": "A balanced tree with 3 at the root."
+        "text": "A balanced tree with 3 at the root.",
+        "misconception": "always-balanced"
       },
       {
         "id": "B",
-        "text": "A chain with 5 at the root and each smaller value on its left."
+        "text": "A chain with 5 at the root and each smaller value on its left.",
+        "misconception": "insert-moves-nodes"
       },
       {
         "id": "C",
-        "text": "1 at the root with 2 and 3 as its two children."
+        "text": "1 at the root with 2 and 3 as its two children.",
+        "misconception": "wrong-child-or-skips"
       },
       {
         "id": "D",
@@ -540,11 +597,13 @@
     "options": [
       {
         "id": "A",
-        "text": "1, 2, 3, 4, 5, 6, 7"
+        "text": "1, 2, 3, 4, 5, 6, 7",
+        "misconception": "always-balanced"
       },
       {
         "id": "B",
-        "text": "7, 6, 5, 4, 3, 2, 1"
+        "text": "7, 6, 5, 4, 3, 2, 1",
+        "misconception": "always-balanced"
       },
       {
         "id": "C",
@@ -552,7 +611,8 @@
       },
       {
         "id": "D",
-        "text": "1, 7, 2, 6, 3, 5, 4"
+        "text": "1, 7, 2, 6, 3, 5, 4",
+        "misconception": "always-balanced"
       }
     ],
     "correctAnswer": "C",
@@ -568,7 +628,8 @@
     "options": [
       {
         "id": "A",
-        "text": "1"
+        "text": "1",
+        "misconception": "wrong-child-or-skips"
       },
       {
         "id": "B",
@@ -576,11 +637,13 @@
       },
       {
         "id": "C",
-        "text": "3"
+        "text": "3",
+        "misconception": "always-balanced"
       },
       {
         "id": "D",
-        "text": "4"
+        "text": "4",
+        "misconception": "wrong-child-or-skips"
       }
     ],
     "correctAnswer": "B",
@@ -600,15 +663,18 @@
       },
       {
         "id": "B",
-        "text": "It always takes about log2 n comparisons."
+        "text": "It always takes about log2 n comparisons.",
+        "misconception": "always-balanced"
       },
       {
         "id": "C",
-        "text": "It always takes n comparisons, because every node must be checked."
+        "text": "It always takes n comparisons, because every node must be checked.",
+        "misconception": "search-checks-every-node"
       },
       {
         "id": "D",
-        "text": "It depends only on how many values are stored, not on the shape."
+        "text": "It depends only on how many values are stored, not on the shape.",
+        "misconception": "always-balanced"
       }
     ],
     "correctAnswer": "A",
@@ -624,15 +690,18 @@
     "options": [
       {
         "id": "A",
-        "text": "32"
+        "text": "32",
+        "misconception": "cost-not-height"
       },
       {
         "id": "B",
-        "text": "512"
+        "text": "512",
+        "misconception": "search-checks-every-node"
       },
       {
         "id": "C",
-        "text": "1,023"
+        "text": "1,023",
+        "misconception": "search-checks-every-node"
       },
       {
         "id": "D",
@@ -652,11 +721,13 @@
     "options": [
       {
         "id": "A",
-        "text": "A sorted array: binary search is always fast."
+        "text": "A sorted array: binary search is always fast.",
+        "misconception": "array-insert-cost"
       },
       {
         "id": "B",
-        "text": "A sorted array: new records can just be added at the end."
+        "text": "A sorted array: new records can just be added at the end.",
+        "misconception": "array-insert-cost"
       },
       {
         "id": "C",
@@ -664,7 +735,8 @@
       },
       {
         "id": "D",
-        "text": "A BST: it is always fast, whatever order the records arrive in."
+        "text": "A BST: it is always fast, whatever order the records arrive in.",
+        "misconception": "always-balanced"
       }
     ],
     "correctAnswer": "C",
@@ -680,7 +752,8 @@
     "options": [
       {
         "id": "A",
-        "text": "A BST: search is always about log2 n."
+        "text": "A BST: search is always about log2 n.",
+        "misconception": "always-balanced"
       },
       {
         "id": "B",
@@ -688,11 +761,13 @@
       },
       {
         "id": "C",
-        "text": "A BST: it is more flexible, so it is always better."
+        "text": "A BST: it is more flexible, so it is always better.",
+        "misconception": "bst-always-better"
       },
       {
         "id": "D",
-        "text": "Neither: both have to check every record."
+        "text": "Neither: both have to check every record.",
+        "misconception": "search-checks-every-node"
       }
     ],
     "correctAnswer": "B",

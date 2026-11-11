@@ -3,7 +3,13 @@ import { buildTree } from '../engine/bst.js';
 export const quizDiagrams = {
   Q1: buildTree([8, 3, 10, 1, 6, 14, 4, 7, 13]),
   Q2: buildTree([8, 3, 10, 1, 6, 14, 4, 7, 13]),
-  Q4: buildTree([10, 5, 12, 15]),
+  // Not a BST on purpose: 12 sits in 10's left subtree. buildTree() always
+  // makes a valid BST, so invalid examples must be written out by hand.
+  Q4: {
+    key: 10,
+    left: { key: 5, left: null, right: { key: 12, left: null, right: null } },
+    right: { key: 15, left: null, right: null },
+  },
   Q6: buildTree([50, 30, 70, 20, 40, 60, 80]),
   Q7: buildTree([50, 30, 70, 20, 40, 60, 80]),
   Q8: buildTree([50, 30, 70, 20, 40, 60, 80]),

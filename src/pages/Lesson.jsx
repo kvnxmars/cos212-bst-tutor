@@ -26,7 +26,7 @@ function LessonSection({ section }) {
       )}
       {section.type === 'tree' && (
         <figure className="lesson-diagram">
-          <TreeView tree={buildTree(section.keys)} snapshot={null} />
+          <TreeView tree={section.tree ?? buildTree(section.keys)} snapshot={null} />
           <figcaption>{section.caption}</figcaption>
         </figure>
       )}
@@ -149,6 +149,12 @@ export default function Lesson({ lessonId = 1 }) {
                 );
               })}
             </ol>
+            <div className={`mastery-link${studentState.masteredLessons.length === lessons.length ? '' : ' is-locked'}`}>
+              {studentState.masteredLessons.length === lessons.length
+                ? <a href="#mastery"><strong>Final mastery check</strong></a>
+                : <strong>Final mastery check</strong>}
+              <span>{studentState.masteryCheck.passed ? 'Passed' : studentState.masteredLessons.length === lessons.length ? 'Ready' : 'Locked until all lessons are mastered'}</span>
+            </div>
           </section>
           <section className="lesson-alternatives" aria-label="Try another way">
             <h2>Try another way</h2>
@@ -158,7 +164,6 @@ export default function Lesson({ lessonId = 1 }) {
           <div className="lesson-progress-summary">Progress: {studentState.masteredLessons.length} of 4 lessons mastered</div>
         </aside>
       </div>
-      <span className="screen-caption">Screen 2: Lesson page</span>
     </main>
   );
 }

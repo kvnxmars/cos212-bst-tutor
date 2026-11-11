@@ -9,6 +9,10 @@ COS212 BST Tutor is a small interactive learning app for binary search trees (BS
 - Lesson-specific "Try another way" activities, including YouTube explanations and hands-on tree-building/practice tasks.
 - Quiz feedback, retries, lesson unlocking, and browser-persisted course progress.
 - A course reset flow that clears mastery state and starts the learner back at Lesson 1 after confirmation.
+- A final mastery check (10 questions, one per outcome, 8 of 10 to pass) that unlocks a lecture-ready card and a wallpaper.
+- Misconception-targeted feedback on every wrong answer, with an optional CSV export for the lecturer.
+- A reward gallery: one banner per mastered lesson and a wallpaper for the mastery check.
+- A reduced-motion setting.
 
 ## Requirements
 
@@ -43,6 +47,7 @@ The app is organised around a guided progression:
 4. Optional lesson-specific activity/video guidance.
 5. Quick quiz with feedback and retries.
 6. Lesson unlocks based on quiz performance.
+7. Final mastery check after Lesson 4, then the lecture-ready card and rewards.
 
 The lesson, quiz, video, and activity content is stored in `src/content/`. Student progress is saved in browser storage so the learner can resume without losing quiz progress or unlocked lessons.
 
@@ -52,8 +57,11 @@ The lesson, quiz, video, and activity content is stored in `src/content/`. Stude
 - `src/pages/`: lesson, welcome, visualiser, video, quiz, and challenge pages.
 - `src/components/`: reusable UI for the tree view, playback controls, pseudocode panel, and challenge interactions.
 - `src/engine/`: BST logic, traversal utilities, immutable snapshots, and challenge state logic.
+- `src/assessment/`: quiz selection and scoring, scaffolding rules (`rules.js`), rewards and the misconception CSV.
+- `src/content/`: lessons, questions (with misconception tags), misconceptions, outcomes, rewards and videos as JSON, editable without touching code.
 - `src/styles/theme.css`: shared visual styling.
-- `tests/`: Vitest coverage for tree logic, scoring, quiz rules, and challenge behaviour.
+- `tests/`: Vitest coverage for tree logic, scoring, quiz rules, challenge behaviour, the SE document's test table (`se-document-cases.test.js`) and content integrity (`content.test.js`, which recomputes answer keys with the BST engine).
+- `.github/workflows/ci.yml`: runs the tests and build on every push and pull request.
 
 ## Engine modules
 
