@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { useStudentState } from '../state/StudentState.jsx';
+import rewards from '../content/rewards.json';
+import AccessibilityMenu from './AccessibilityMenu.jsx';
 import CourseResetButton from './CourseResetButton.jsx';
+import { bannerSvg, svgDataUrl } from './rewardArt.js';
 
 const ACTIVITY_LABELS = {
   1: 'Tree parts & BST rules',
@@ -12,7 +15,9 @@ const ACTIVITY_LABELS = {
 export default function LearningHeader({ lessonId = 1 }) {
   const [alternativesOpen, setAlternativesOpen] = useState(false);
   const { studentState } = useStudentState();
-  const hasBanner = studentState.earnedBanners.length > 0;
+  // Show the banner the student chose in the gallery, otherwise the latest one earned.
+  const bannerId = studentState.selectedBanner ?? studentState.earnedBanners.at(-1);
+  const banner = rewards.find((reward) => reward.id === bannerId && studentState.earnedBanners.includes(reward.id));
 
   return (
     <header className="learning-header">
@@ -26,9 +31,12 @@ export default function LearningHeader({ lessonId = 1 }) {
         Try another way
       </button>
       <div className="learning-header-actions">
-        <div className={`reward-banner${hasBanner ? ' has-reward' : ''}`}>
-          {hasBanner ? 'Banner unlocked for lesson mastery' : 'Banner (earned reward)'}
-        </div>
+        <a className={`reward-banner${banner ? ' has-reward' : ''}`} href="#rewards">
+          {banner
+            ? <img src={svgDataUrl(bannerSvg(banner))} alt={`Your banner: ${banner.title}. Open rewards`} />
+            : 'Rewards'}
+        </a>
+        <AccessibilityMenu />
         <CourseResetButton />
       </div>
       {alternativesOpen && (

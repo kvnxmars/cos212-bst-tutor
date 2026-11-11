@@ -23,7 +23,15 @@
         "heading": "The BST rule applies to whole subtrees",
         "body": "At every node, every key in the left subtree is smaller and every key in the right subtree is larger. Checking only a node against its direct children is not enough.",
         "type": "tree",
-        "keys": [50, 30, 70, 20, 60],
+        "tree": {
+          "key": 50,
+          "left": {
+            "key": 30,
+            "left": { "key": 20, "left": null, "right": null },
+            "right": { "key": 60, "left": null, "right": null }
+          },
+          "right": { "key": 70, "left": null, "right": null }
+        },
         "caption": "This binary tree is not a BST: 60 is in 50's left subtree even though 60 is greater than 50."
       },
       {

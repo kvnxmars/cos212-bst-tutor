@@ -6,7 +6,7 @@ export default function QuestionCard({ question, tree, selectedAnswer, onAnswer 
       {tree && (
         <figure className="quiz-tree">
           <TreeView tree={tree} snapshot={null} />
-          <figcaption>Tree for {question.id}</figcaption>
+          <figcaption>Tree for this question</figcaption>
         </figure>
       )}
       <fieldset className="quiz-answer-options" disabled={selectedAnswer !== undefined}>

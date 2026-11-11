@@ -1,4 +1,6 @@
 import LearningHeader from '../components/LearningHeader.jsx';
+import { resumeLocation } from '../assessment/progress.js';
+import { useStudentState } from '../state/StudentState.jsx';
 
 function WelcomeTree() {
   return (
@@ -17,6 +19,9 @@ function WelcomeTree() {
 }
 
 export default function Welcome() {
+  const { studentState } = useStudentState();
+  const returning = studentState.masteredLessons.length > 0;
+
   return (
     <main className="learning-shell welcome-shell">
       <LearningHeader />
@@ -26,10 +31,15 @@ export default function Welcome() {
         <p className="welcome-tagline">Get to the root of binary search trees, one branch at a time.</p>
         <p className="welcome-slogan-note">A short, self-paced tutor to help you get ready for the lecture.</p>
         <div className="welcome-tree-frame"><WelcomeTree /><span>Binary search tree</span></div>
-        <a className="welcome-primary-button" href="#lesson?lesson=1">Start the first lesson</a>
+        {/* FR1: Get started goes straight to the first lesson; SE 4.6: a returning student continues where they left off. */}
+        <a
+          className="welcome-primary-button"
+          href={studentState.masteryCheck.passed ? '#lecture-ready' : resumeLocation(studentState.masteredLessons)}
+        >
+          {returning ? 'Continue where you left off' : 'Get started'}
+        </a>
         <p className="welcome-note">No sign-up needed. Your progress stays in this browser.</p>
       </section>
-      <span className="screen-caption">Screen 1: Welcome</span>
     </main>
   );
 }

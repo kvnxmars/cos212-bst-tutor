@@ -1,0 +1,62 @@
+{
+  "tree-parts-mixup": {
+    "label": "Mixing up the parts of a tree",
+    "feedback": "Check the definitions: a leaf has no children, a child is one link below its parent, and a subtree is a node plus everything below it."
+  },
+  "rule-reversed": {
+    "label": "Reversing the BST rule",
+    "feedback": "Smaller values go left and larger values go right. Picture the root of a sorted class list: earlier names to the left, later names to the right."
+  },
+  "any-binary-tree": {
+    "label": "Thinking any binary tree is a BST",
+    "feedback": "Having at most two children only makes a tree binary. Look for a value deeper in the left subtree that is larger than the root: that one value breaks the BST rule."
+  },
+  "local-check-only": {
+    "label": "Only checking a node against its direct children",
+    "feedback": "The rule covers the whole subtree. A node can sit correctly next to its parent and still be on the wrong side of a node higher up."
+  },
+  "shape-not-order": {
+    "label": "Thinking the BST rule is about shape",
+    "feedback": "A BST node can have zero, one or two children. The rule is only about the order of the values, not how many children a node has."
+  },
+  "search-checks-every-node": {
+    "label": "Thinking search checks every node",
+    "feedback": "Search follows one path from the root. Each comparison sends it left or right, so the other branch is never looked at."
+  },
+  "wrong-child-or-skips": {
+    "label": "Following the wrong child or skipping a node",
+    "feedback": "Compare at every node on the way down. Smaller means go left, larger means go right, and no level can be skipped."
+  },
+  "not-found-confusion": {
+    "label": "Stopping at the closest value",
+    "feedback": "Search only reports found when a node equals the key. Reaching an empty link means the value is not in the tree, however close the last node was."
+  },
+  "insert-moves-nodes": {
+    "label": "Thinking an insert moves existing nodes",
+    "feedback": "An insert follows the search path to an empty link and adds a new leaf there. Existing nodes never move, and the newest value never becomes the root."
+  },
+  "traversal-order-mixup": {
+    "label": "Mixing up the traversal orders",
+    "feedback": "Pre-order visits the node before its subtrees, in-order between them and post-order after them. Replay the traversal and watch when each node is visited, not when it is first reached."
+  },
+  "inorder-always-sorted": {
+    "label": "Thinking in-order is sorted for any tree",
+    "feedback": "In-order gives sorted output only because of the BST rule. On a binary tree that breaks the rule, in-order output is not sorted."
+  },
+  "always-balanced": {
+    "label": "Thinking a BST is always balanced",
+    "feedback": "The insert order decides the shape. Insert 1, 2, 3, 4, 5 and the tree becomes a chain, so a search can need up to n comparisons instead of about log n."
+  },
+  "cost-not-height": {
+    "label": "Not linking search cost to height",
+    "feedback": "Each comparison moves down one level, so the most comparisons a search needs equals the height of the tree."
+  },
+  "array-insert-cost": {
+    "label": "Forgetting the cost of inserting into a sorted array",
+    "feedback": "Adding to a sorted array means shifting later items to keep the order. Appending at the end breaks the order that binary search depends on."
+  },
+  "bst-always-better": {
+    "label": "Thinking a BST is always the better choice",
+    "feedback": "Match the structure to the workload. If the data never changes and arrives sorted, a sorted array with binary search avoids the chain-shaped BST problem."
+  }
+}

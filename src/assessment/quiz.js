@@ -58,3 +58,25 @@ export function scoreQuiz(questions, answers) {
     passed: total > 0 && correctCount / total >= QUICK_QUIZ_PASS_MARK,
   };
 }
+
+// Final mastery check (ID document 4.7.4): one question per outcome, 8 of 10 to pass.
+export const MASTERY_OUTCOMES = Object.freeze(['O1', 'O2', 'O3', 'O4', 'O5', 'O6', 'O7', 'O8', 'O9', 'O10']);
+export const MASTERY_PASS_COUNT = 8;
+
+export function selectMasteryQuestions(
+  questionBank,
+  { previousQuestionIds = [], random = Math.random } = {},
+) {
+  const previous = new Set(previousQuestionIds);
+  return MASTERY_OUTCOMES.map((outcome) => {
+    const pool = questionBank.filter((question) => question.outcome === outcome && question.selectable !== false);
+    if (!pool.length) throw new Error(`No selectable question covers outcome ${outcome}.`);
+    const fresh = pool.filter((question) => !previous.has(question.id));
+    return chooseRandom(fresh.length ? fresh : pool, random);
+  });
+}
+
+export function scoreMasteryCheck(questions, answers) {
+  const result = scoreQuiz(questions, answers);
+  return { ...result, passed: result.correctCount >= MASTERY_PASS_COUNT };
+}
