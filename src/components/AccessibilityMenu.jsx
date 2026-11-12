@@ -7,16 +7,18 @@ export default function AccessibilityMenu() {
   const { reducedMotion } = studentState.settings;
 
   return (
-    <label className="reduce-motion-toggle">
-      <input
-        type="checkbox"
-        checked={reducedMotion}
-        onChange={(event) => setStudentState((state) => ({
+    <button
+      className="reduce-motion-toggle"
+      type="button"
+      role="switch"
+      aria-checked={reducedMotion}
+      onClick={() => setStudentState((state) => ({
           ...state,
-          settings: { ...state.settings, reducedMotion: event.target.checked },
+          settings: { ...state.settings, reducedMotion: !state.settings.reducedMotion },
         }))}
-      />
-      Reduce motion
-    </label>
+    >
+      <span>Reduce motion</span>
+      <span className="motion-toggle-state">{reducedMotion ? 'On' : 'Off'}</span>
+    </button>
   );
 }

@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import { activeBannerIdFor } from '../assessment/rewards.js';
 
 const STORAGE_KEY = 'cos212-bst-tutor-state-v1';
 const DEFAULT_STATE = {
@@ -56,7 +57,6 @@ export function StudentStateProvider({ children }) {
   const [storageWarning, setStorageWarning] = useState(initial.warning);
 
   function resetCourse() {
-    if (!window.confirm('Start the whole course over? Your quiz scores, lesson progress, and earned rewards will be cleared.')) return;
     // Accessibility settings are a preference, not progress, so they survive a reset.
     setStudentState((state) => ({ ...DEFAULT_STATE, settings: state.settings }));
     window.location.hash = '#lesson?lesson=1';
@@ -65,6 +65,10 @@ export function StudentStateProvider({ children }) {
   useEffect(() => {
     document.documentElement.classList.toggle('reduce-motion', studentState.settings.reducedMotion);
   }, [studentState.settings.reducedMotion]);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = activeBannerIdFor(studentState) ?? 'default';
+  }, [studentState.earnedBanners, studentState.selectedBanner]);
 
   useEffect(() => {
     try {

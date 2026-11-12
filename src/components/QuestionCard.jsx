@@ -1,6 +1,6 @@
 import TreeView from './TreeView.jsx';
 
-export default function QuestionCard({ question, tree, selectedAnswer, onAnswer }) {
+export default function QuestionCard({ question, tree, selectedAnswer, submitted = selectedAnswer !== undefined, onAnswer }) {
   return (
     <section className="quiz-question-card" aria-labelledby={`question-${question.id}`}>
       {tree && (
@@ -9,7 +9,7 @@ export default function QuestionCard({ question, tree, selectedAnswer, onAnswer 
           <figcaption>Tree for this question</figcaption>
         </figure>
       )}
-      <fieldset className="quiz-answer-options" disabled={selectedAnswer !== undefined}>
+      <fieldset className="quiz-answer-options" disabled={submitted}>
         <legend className="visually-hidden">Answer options</legend>
         {question.options.map((option) => (
           <label

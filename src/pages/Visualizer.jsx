@@ -14,8 +14,8 @@ import PseudocodePanel from '../components/PseudocodePanel.jsx';
 import TreeControls from '../components/TreeControls.jsx';
 import TreeView from '../components/TreeView.jsx';
 import CourseResetButton from '../components/CourseResetButton.jsx';
+import CourseNavigation from '../components/CourseNavigation.jsx';
 import { useStudentState } from '../state/StudentState.jsx';
-import '../styles/theme.css';
 
 const STARTING_KEYS = [50, 30, 70, 20, 40, 60, 80];
 const PLAYBACK_SPEEDS = [0.5, 1, 1.5, 2];
@@ -145,6 +145,7 @@ export default function VisualizerPage({ lessonId = 1 }) {
         <a className="wordmark" href="#welcome" aria-label="COS212 BST Tutor, home"><span className="wordmark-mark">T</span>TRULinK<span className="wordmark-period">.</span></a>
         <div className="course-label">COS212 <span> / </span> DATA STRUCTURES</div>
         <div className="topbar-actions">
+          <CourseNavigation lessonId={lessonId} />
           <a className="visualizer-back-link" href={`#lesson?lesson=${lessonId}`}>Back to lesson</a>
           <button className="reset-button" type="button" onClick={resetDemo}>Reset demo</button>
           <CourseResetButton />

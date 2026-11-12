@@ -11,6 +11,14 @@ export function awardLessonBanner(earnedBanners, lessonId) {
   return earnedBanners.includes(id) ? earnedBanners : [...earnedBanners, id];
 }
 
+export function activeBannerIdFor(studentState) {
+  if (studentState.selectedBanner === 'default') return null;
+  const earnedBanners = studentState.earnedBanners.filter((id) => /^lesson-[1-4]$/.test(id));
+  return earnedBanners.includes(studentState.selectedBanner)
+    ? studentState.selectedBanner
+    : earnedBanners.at(-1) ?? null;
+}
+
 export function isRewardEarned(reward, studentState) {
   if (reward.type === 'wallpaper') return studentState.masteryCheck?.passed === true;
   return studentState.earnedBanners.includes(reward.id);

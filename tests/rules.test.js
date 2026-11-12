@@ -3,9 +3,9 @@ import { scoreQuiz } from '../src/assessment/quiz.js';
 import {
   lessonsForOutcomes,
   missedOutcomes,
-  nextHintLevel,
+  HINTS_PER_LESSON,
+  consumeHint,
   routeQuizResult,
-  startingHintLevel,
 } from '../src/assessment/rules.js';
 
 const fourQuestions = ['a', 'b', 'c', 'd'].map((id, index) => ({ id, outcome: `O${index + 1}`, correctAnswer: 'A' }));
@@ -30,29 +30,15 @@ describe('routing rule (ID document 4.7.3)', () => {
   });
 });
 
-describe('hint fading', () => {
-  it('drops one level after two correct answers in a row', () => {
-    let state = { hintLevel: 3, correctStreak: 0 };
-    state = nextHintLevel(state, true);
-    expect(state.hintLevel).toBe(3);
-    state = nextHintLevel(state, true);
-    expect(state.hintLevel).toBe(2);
+describe('lesson hint budget', () => {
+  it('provides exactly three hints per quiz round', () => {
+    expect(HINTS_PER_LESSON).toBe(3);
   });
 
-  it('goes up one level after a wrong answer and resets the streak', () => {
-    const state = nextHintLevel({ hintLevel: 1, correctStreak: 1 }, false);
-    expect(state).toEqual({ hintLevel: 2, correctStreak: 0 });
-  });
-
-  it('never goes below 0 (no hint) or above 3 (full hint)', () => {
-    expect(nextHintLevel({ hintLevel: 0, correctStreak: 1 }, true).hintLevel).toBe(0);
-    expect(nextHintLevel({ hintLevel: 3, correctStreak: 0 }, false).hintLevel).toBe(3);
-  });
-
-  it('starts each new lesson one level lighter than the last, but always with a hint', () => {
-    expect(startingHintLevel(1, [])).toBe(3);
-    expect(startingHintLevel(2, [1])).toBe(2);
-    expect(startingHintLevel(3, [1, 2])).toBe(1);
-    expect(startingHintLevel(4, [1, 2, 3])).toBe(1);
+  it('uses one hint per request and never increases the available budget past three', () => {
+    expect(consumeHint(0)).toBe(1);
+    expect(consumeHint(1)).toBe(2);
+    expect(consumeHint(2)).toBe(3);
+    expect(consumeHint(3)).toBe(3);
   });
 });

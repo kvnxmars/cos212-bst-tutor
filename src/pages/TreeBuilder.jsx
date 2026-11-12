@@ -5,7 +5,6 @@ import TraversalChallenge from '../components/activities/TraversalChallenge.jsx'
 import TreePartsChallenge from '../components/activities/TreePartsChallenge.jsx';
 import lessons from '../content/lessons.json';
 import { useStudentState } from '../state/StudentState.jsx';
-import '../styles/theme.css';
 
 const ACTIVITY_CONTENT = {
   1: {

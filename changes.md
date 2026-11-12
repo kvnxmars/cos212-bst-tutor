@@ -4,6 +4,31 @@ Keep this file current whenever the project behaviour or learning flow changes. 
 
 ## 2026-11-12
 
+- Earned banners in the rewards gallery now have a button that reapplies their theme, including after switching to the default palette.
+- Validation: production build attempted but stopped by an environment-level native memory-allocation failure.
+
+## 2026-11-12
+
+- Lesson quizzes now use a fixed three-hint lesson budget that decreases only when requested, and require answer submission before feedback; submitted answers are locked until moving to the next question.
+- Validation: targeted tests and production build were attempted but stopped by environment-level native memory-allocation failures.
+
+## 2026-11-12
+
+- Expanded the README into a project reference covering the full learner journey, every route and page, all reusable and activity components, assessment/state/content/engine modules, project documentation, wireframes, tooling, CI, deployment, and current limitations.
+- Recorded the latest design and accessibility behaviour, including earned app themes, reduce-motion preference, and browser-local progress.
+- Documentation only; no runtime code changed.
+
+## 2026-11-12
+
+- Restyled the default app palette to match presentation page 4: warm cream surfaces, forest-green headings and borders, amber highlights, rounded panels, and serif headings.
+- Added four app-wide themes driven by earned banners, using green, blue, pink, and amber palettes drawn from the presentation's page 1 and page 7 color language. Passing a lesson quiz applies its banner theme; an earned banner can also be selected from the Rewards gallery.
+- Centralized the stylesheet at app startup so the selected palette is consistent across every route, including the visualiser.
+- Replaced the text navigation control with a hamburger menu linking to unlocked lesson pages, resources, and course tools. Added Settings inside the menu for the reduce-motion switch and earned-banner theme selection; the default theme control is available only in Rewards.
+- Replaced the native course-reset prompt with a theme-matched confirmation dialog.
+- Validation: 87 tests passed across 9 files with `npm test -- --pool=threads --maxWorkers=1`; production build passed. No browser checks were run for this update.
+
+## 2026-11-12
+
 - Fixed Vercel asset paths by building with the root base path on Vercel, while preserving the `/cos750-exam/` base path used by GitHub Pages.
 - Validation: production builds passed with and without `VERCEL=1`; generated asset URLs use `/assets/` on Vercel and `/cos750-exam/assets/` for GitHub Pages.
 

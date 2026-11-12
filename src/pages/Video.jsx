@@ -3,7 +3,6 @@ import VideoEmbed from '../components/VideoEmbed.jsx';
 import videos from '../content/videos.json';
 import lessons from '../content/lessons.json';
 import { useStudentState } from '../state/StudentState.jsx';
-import '../styles/theme.css';
 
 export default function VideoPage({ lessonId = 1 }) {
   const { studentState } = useStudentState();
