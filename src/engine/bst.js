@@ -163,3 +163,14 @@ export function size(tree) {
 export function height(tree) {
   return tree === null ? 0 : 1 + Math.max(height(tree.left), height(tree.right));
 }
+
+/**
+ * True when every key in each left subtree is smaller than its node and every
+ * key in each right subtree is larger (the whole-subtree BST rule).
+ * Used to check hand-written "not a BST" diagrams in the content files.
+ */
+export function isValidBST(tree, min = -Infinity, max = Infinity) {
+  if (tree === null) return true;
+  if (tree.key <= min || tree.key >= max) return false;
+  return isValidBST(tree.left, min, tree.key) && isValidBST(tree.right, tree.key, max);
+}

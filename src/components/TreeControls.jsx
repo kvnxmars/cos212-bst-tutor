@@ -7,7 +7,9 @@ export default function TreeControls({
   valueInput,
   onValueInputChange,
   onRunOperation,
-  error,
+  onClearTree,
+  buildError,
+  runError,
   nodeCount,
   treeHeight,
 }) {
@@ -22,6 +24,8 @@ export default function TreeControls({
             <button className="icon-button" type="submit" aria-label="Build tree" title="Build tree">↵</button>
           </div>
           <p className="field-note">Separate numbers with commas.</p>
+          {buildError && <p className="error-message" role="alert">{buildError}</p>}
+          <button className="text-button" type="button" onClick={onClearTree}>Start from an empty tree</button>
         </form>
       </section>
 
@@ -43,7 +47,7 @@ export default function TreeControls({
             </>
           )}
           <button className="run-button" type="submit">Run operation <span aria-hidden="true">→</span></button>
-          {error && <p className="error-message" role="alert">{error}</p>}
+          {runError && <p className="error-message" role="alert">{runError}</p>}
         </form>
       </section>
 

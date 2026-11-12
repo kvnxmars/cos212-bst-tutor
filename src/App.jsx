@@ -5,6 +5,9 @@ import VisualizerPage from './pages/Visualizer.jsx';
 import Welcome from './pages/Welcome.jsx';
 import VideoPage from './pages/Video.jsx';
 import TreeBuilderPage from './pages/TreeBuilder.jsx';
+import MasteryCheck from './pages/MasteryCheck.jsx';
+import LectureReady from './pages/LectureReady.jsx';
+import Rewards from './pages/Rewards.jsx';
 import { StudentStateProvider } from './state/StudentState.jsx';
 
 function readLocation() {
@@ -37,6 +40,9 @@ function AppRoutes() {
   if (location.page === 'build-tree') return <TreeBuilderPage lessonId={location.lessonId} />;
   if (location.page === 'lesson') return <Lesson lessonId={location.lessonId} />;
   if (location.page === 'quiz') return <QuizPage lessonId={location.lessonId} />;
+  if (location.page === 'mastery') return <MasteryCheck />;
+  if (location.page === 'lecture-ready') return <LectureReady />;
+  if (location.page === 'rewards') return <Rewards />;
   return <Welcome />;
 }
 

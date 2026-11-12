@@ -18,7 +18,7 @@ import { useStudentState } from '../state/StudentState.jsx';
 import '../styles/theme.css';
 
 const STARTING_KEYS = [50, 30, 70, 20, 40, 60, 80];
-const PLAYBACK_SPEEDS = [1, 1.5, 2];
+const PLAYBACK_SPEEDS = [0.5, 1, 1.5, 2];
 
 export default function VisualizerPage({ lessonId = 1 }) {
   const { studentState } = useStudentState();
@@ -30,7 +30,9 @@ export default function VisualizerPage({ lessonId = 1 }) {
   const [stepIndex, setStepIndex] = useState(0);
   const [speed, setSpeed] = useState(1);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [error, setError] = useState('');
+  // Each form shows its own error next to the field that caused it.
+  const [buildError, setBuildError] = useState('');
+  const [runError, setRunError] = useState('');
 
   const snapshot = steps[stepIndex] ?? null;
   const visibleTree = snapshot ? snapshot.tree : tree;
@@ -73,19 +75,30 @@ export default function VisualizerPage({ lessonId = 1 }) {
     const parts = keysInput.split(',').map((part) => part.trim()).filter(Boolean);
     const values = parts.map(Number);
     if (values.length === 0 || parts.some((part) => !/^-?\d{1,4}$/.test(part))) {
-      setError('Enter whole numbers between -9999 and 9999, separated by commas (for example 50, 30, 70).');
+      setBuildError('Enter whole numbers between -9999 and 9999, separated by commas (for example 50, 30, 70).');
       return;
     }
     setTree(buildTree(values));
     setSteps([]);
     setStepIndex(0);
     setIsPlaying(false);
-    setError('');
+    setBuildError('');
+    setRunError('');
+  }
+
+  function clearTree() {
+    setTree(null);
+    setKeysInput('');
+    setSteps([]);
+    setStepIndex(0);
+    setIsPlaying(false);
+    setBuildError('');
+    setRunError('');
   }
 
   function runOperation(event) {
     event.preventDefault();
-    setError('');
+    setRunError('');
     setIsPlaying(false);
     let nextSteps;
     if (operation === 'preorder' || operation === 'inorder' || operation === 'postorder') {
@@ -93,7 +106,7 @@ export default function VisualizerPage({ lessonId = 1 }) {
     } else {
       const value = Number(valueInput);
       if (!/^-?\d{1,4}$/.test(valueInput.trim())) {
-        setError('Enter a whole number between -9999 and 9999.');
+        setRunError('Enter a whole number between -9999 and 9999.');
         return;
       }
       nextSteps = operation === 'insert' ? insert(tree, value) : search(tree, value);
@@ -116,7 +129,8 @@ export default function VisualizerPage({ lessonId = 1 }) {
     setSteps([]);
     setStepIndex(0);
     setIsPlaying(false);
-    setError('');
+    setBuildError('');
+    setRunError('');
   }
 
   function cycleSpeed() {
@@ -128,7 +142,7 @@ export default function VisualizerPage({ lessonId = 1 }) {
   return (
     <main className="app-shell">
       <header className="topbar">
-        <a className="wordmark" href="#welcome" aria-label="Branch, home"><span className="wordmark-mark">T</span>TRULinK<span className="wordmark-period">.</span></a>
+        <a className="wordmark" href="#welcome" aria-label="COS212 BST Tutor, home"><span className="wordmark-mark">T</span>TRULinK<span className="wordmark-period">.</span></a>
         <div className="course-label">COS212 <span> / </span> DATA STRUCTURES</div>
         <div className="topbar-actions">
           <a className="visualizer-back-link" href={`#lesson?lesson=${lessonId}`}>Back to lesson</a>
@@ -167,7 +181,9 @@ export default function VisualizerPage({ lessonId = 1 }) {
           valueInput={valueInput}
           onValueInputChange={(event) => setValueInput(event.target.value)}
           onRunOperation={runOperation}
-          error={error}
+          onClearTree={clearTree}
+          buildError={buildError}
+          runError={runError}
           nodeCount={size(visibleTree)}
           treeHeight={height(visibleTree)}
         />
@@ -197,9 +213,14 @@ export default function VisualizerPage({ lessonId = 1 }) {
           </div>
         </section>
 
-        <PseudocodePanel pseudocode={pseudocode} snapshot={snapshot} operation={operation} />
+        <PseudocodePanel
+          pseudocode={pseudocode}
+          snapshot={snapshot}
+          operation={operation}
+          finished={steps.length > 0 && stepIndex === steps.length - 1}
+        />
       </section>
-      <footer className="footer"><span>BRANCH / BST TUTOR</span><span>LEARN BY FOLLOWING THE PATH</span></footer>
+      <footer className="footer"><span>TRULINK / COS212 BST TUTOR</span><span>LEARN BY FOLLOWING THE PATH</span></footer>
     </main>
   );
 }

@@ -1,12 +1,17 @@
 import { useEffect, useMemo, useState } from 'react';
+import AnswerFeedback from '../components/AnswerFeedback.jsx';
 import HintPanel from '../components/HintPanel.jsx';
 import LearningHeader from '../components/LearningHeader.jsx';
 import QuestionCard from '../components/QuestionCard.jsx';
 import questions from '../content/questions.json';
 import lessons from '../content/lessons.json';
+import outcomes from '../content/outcomes.json';
 import { quizDiagrams } from '../content/quizDiagrams.js';
 import { QUICK_QUIZ_SIZE, scoreQuiz, selectQuizQuestions } from '../assessment/quiz.js';
 import { isLessonUnlocked } from '../assessment/progress.js';
+import { missedOutcomes, nextHintLevel, startingHintLevel } from '../assessment/rules.js';
+import { misconceptionFor } from '../assessment/scoring.js';
+import { awardLessonBanner } from '../assessment/rewards.js';
 import { useStudentState } from '../state/StudentState.jsx';
 
 const WORKED_EXAMPLES = {
@@ -16,8 +21,13 @@ const WORKED_EXAMPLES = {
   4: 'Count the nodes on a search path. A balanced tree is shallow; sorted insertions can make an ordinary BST a chain.',
 };
 
-function createQuiz(lessonId, previousQuestionIds = [], attempt = 1) {
+function createQuiz(lessonId, previousQuestionIds = [], attempt = 1, hintLevel = 3) {
   const lessonQuestions = selectQuizQuestions(questions, lessonId, { previousQuestionIds });
+  const poolSize = questions.filter((question) => question.lesson === lessonId && question.selectable !== false).length;
+  if (poolSize < 8) {
+    // Developer/ID-team note only: the ID document asks for at least 8 per lesson.
+    console.warn(`Lesson ${lessonId} has ${poolSize} selectable questions; the ID document asks for at least 8 so retries are fresh.`);
+  }
 
   return {
     lessonId,
@@ -25,7 +35,7 @@ function createQuiz(lessonId, previousQuestionIds = [], attempt = 1) {
     previousQuestionIds,
     index: 0,
     answers: {},
-    hintLevel: 3,
+    hintLevel,
     correctStreak: 0,
     hintVisible: false,
     attempt,
@@ -40,9 +50,8 @@ export default function QuizPage({ lessonId = 1 }) {
   const [quiz, setQuiz] = useState(() => (
     savedQuiz?.lessonId === lessonId && Array.isArray(savedQuiz.questionIds)
       ? savedQuiz
-      : createQuiz(lessonId, [], (studentState.quizAttempts[lessonId] ?? 0) + 1)
+      : createQuiz(lessonId, [], (studentState.quizAttempts[lessonId] ?? 0) + 1, startingHintLevel(lessonId, studentState.masteredLessons))
   ));
-  const [answerNotice, setAnswerNotice] = useState('');
   const lesson = lessons.find((item) => item.id === lessonId) ?? lessons[0];
   const quizQuestions = useMemo(
     () => quiz.questionIds.map((id) => questions.find((question) => question.id === id)).filter(Boolean),
@@ -50,58 +59,61 @@ export default function QuizPage({ lessonId = 1 }) {
   );
   const currentQuestion = quizQuestions[quiz.index];
   const selectedAnswer = currentQuestion ? quiz.answers[currentQuestion.id] : undefined;
-  const answerIsCorrect = currentQuestion && selectedAnswer === currentQuestion.correctAnswer;
-  const questionPoolSize = questions.filter((question) => question.lesson === lessonId && question.selectable !== false).length;
   const result = quiz.phase === 'results' ? scoreQuiz(quizQuestions, quiz.answers) : null;
 
   useEffect(() => {
     if (quiz.lessonId !== lessonId) {
-      setQuiz(createQuiz(lessonId, [], (studentState.quizAttempts[lessonId] ?? 0) + 1));
-      setAnswerNotice('');
+      setQuiz(createQuiz(lessonId, [], (studentState.quizAttempts[lessonId] ?? 0) + 1, startingHintLevel(lessonId, studentState.masteredLessons)));
       return;
     }
     setStudentState((state) => (state.activeQuiz === quiz ? state : { ...state, activeQuiz: quiz }));
-  }, [lessonId, quiz, setStudentState, studentState.quizAttempts]);
+  }, [lessonId, quiz, setStudentState, studentState.quizAttempts, studentState.masteredLessons]);
 
   function answerQuestion(optionId) {
     if (!currentQuestion || selectedAnswer !== undefined) return;
     const correct = optionId === currentQuestion.correctAnswer;
-    const nextStreak = correct ? quiz.correctStreak + 1 : 0;
-    const nextLevel = correct
-      ? (nextStreak > 0 && nextStreak % 2 === 0 ? Math.max(0, quiz.hintLevel - 1) : quiz.hintLevel)
-      : Math.min(3, quiz.hintLevel + 1);
+    const hints = nextHintLevel(quiz, correct);
+    const tag = misconceptionFor(currentQuestion, optionId);
 
     setQuiz((current) => ({
       ...current,
       answers: { ...current.answers, [currentQuestion.id]: optionId },
-      hintLevel: nextLevel,
-      correctStreak: nextStreak,
+      ...hints,
       hintVisible: false,
     }));
-    setAnswerNotice(correct ? 'Correct.' : 'Not quite.');
+    if (tag) {
+      setStudentState((state) => ({
+        ...state,
+        misconceptionsHit: [
+          ...state.misconceptionsHit,
+          { date: new Date().toISOString().slice(0, 10), lessonId, questionId: currentQuestion.id, tag },
+        ],
+      }));
+    }
   }
 
   function advanceQuestion() {
     if (!currentQuestion || selectedAnswer === undefined) return;
     if (quiz.index < quizQuestions.length - 1) {
       setQuiz((current) => ({ ...current, index: current.index + 1, hintVisible: false }));
-      setAnswerNotice('');
     } else {
       const finalResult = scoreQuiz(quizQuestions, quiz.answers);
       setQuiz((current) => ({ ...current, phase: 'results', hintVisible: false }));
-      setAnswerNotice('');
       setStudentState((state) => {
         const masteredLessons = finalResult.passed
           ? [...new Set([...state.masteredLessons, lessonId])].sort((a, b) => a - b)
           : state.masteredLessons;
         const earnedBanners = finalResult.passed
-          ? [...new Set([...state.earnedBanners, `lesson-${lessonId}`])]
+          ? awardLessonBanner(state.earnedBanners, lessonId)
           : state.earnedBanners;
         return {
           ...state,
           masteredLessons,
           earnedBanners,
           quizAttempts: { ...state.quizAttempts, [lessonId]: (state.quizAttempts[lessonId] ?? 0) + 1 },
+          firstAttemptScores: lessonId in state.firstAttemptScores
+            ? state.firstAttemptScores
+            : { ...state.firstAttemptScores, [lessonId]: finalResult.percentage },
         };
       });
     }
@@ -109,9 +121,9 @@ export default function QuizPage({ lessonId = 1 }) {
 
   function retryQuiz() {
     const oldIds = [...quiz.previousQuestionIds, ...quiz.questionIds];
-    const nextQuiz = createQuiz(lessonId, oldIds, quiz.attempt + 1);
+    // Hints carry over into the retry, so a struggling student keeps the fuller hints.
+    const nextQuiz = createQuiz(lessonId, oldIds, quiz.attempt + 1, Math.max(quiz.hintLevel, 1));
     setQuiz(nextQuiz);
-    setAnswerNotice('');
     setStudentState((state) => ({ ...state, activeQuiz: nextQuiz }));
   }
 
@@ -119,7 +131,7 @@ export default function QuizPage({ lessonId = 1 }) {
     if (lessonId < lessons.length) {
       window.location.hash = `#lesson?lesson=${lessonId + 1}`;
     } else {
-      setAnswerNotice('You have completed the four lesson quizzes. The final mastery check has not been supplied yet.');
+      window.location.hash = '#mastery';
     }
   }
 
@@ -168,7 +180,7 @@ export default function QuizPage({ lessonId = 1 }) {
             <>
               <p>You passed the 75% mastery mark. The next lesson is now unlocked, and your lesson banner has been earned. Activities are optional; passing the quiz is what unlocks the next lesson.</p>
               <button type="button" className="learning-primary-button" onClick={continueAfterPass}>
-                {lessonId < lessons.length ? 'Continue to next lesson' : 'Finish lessons'}
+                {lessonId < lessons.length ? 'Continue to next lesson' : 'Go to the final mastery check'}
               </button>
             </>
           ) : (
@@ -177,16 +189,15 @@ export default function QuizPage({ lessonId = 1 }) {
               <div className="quiz-scaffold">
                 <h2>Worked example</h2>
                 <p>{WORKED_EXAMPLES[lessonId]}</p>
-                <h3>Review these outcomes</h3>
-                <p>{[...new Set(quizQuestions.filter((item) => quiz.answers[item.id] !== item.correctAnswer).map((item) => item.outcome))].join(', ') || 'Review the lesson goal.'}</p>
+                <h3>Review these before you retry</h3>
+                <ul>
+                  {missedOutcomes(quizQuestions, quiz.answers).map((outcome) => <li key={outcome}>{outcomes[outcome]}</li>)}
+                </ul>
+                <a href={`#lesson?lesson=${lessonId}`}>Re-read the lesson</a>
               </div>
-              {questionPoolSize < 8 && (
-                <p className="pool-warning">The supplied pool has {questionPoolSize} usable questions; a retry may repeat questions.</p>
-              )}
               <button type="button" className="learning-primary-button" onClick={retryQuiz}>Retry quiz</button>
             </>
           )}
-          {answerNotice && <p className="lesson-notice" role="status">{answerNotice}</p>}
         </section>
       ) : (
         <>
@@ -197,13 +208,10 @@ export default function QuizPage({ lessonId = 1 }) {
             </div>
             <div className="quiz-count">Question {quiz.index + 1} of {quizQuestions.length}</div>
           </div>
-          {questionPoolSize < 8 && (
-            <p className="pool-warning">This lesson has {questionPoolSize} usable questions in the supplied pool; retries may repeat questions.</p>
-          )}
           <section className="quiz-question-layout" aria-labelledby={`question-${currentQuestion.id}`}>
             <div className="quiz-question-prompt">
               <div className="question-meta">
-                <span>Question {currentQuestion.id.slice(1)}</span>
+                <span>Question {quiz.index + 1}</span>
                 <span>Skill level: {currentQuestion.skillLevel}</span>
               </div>
               <h2 id={`question-${currentQuestion.id}`}>{currentQuestion.stem}</h2>
@@ -214,10 +222,7 @@ export default function QuizPage({ lessonId = 1 }) {
                 onAnswer={answerQuestion}
               />
               {selectedAnswer !== undefined && (
-                <div className={`quiz-feedback${answerIsCorrect ? ' is-correct' : ' is-incorrect'}`} role="status">
-                  <strong>{answerNotice}</strong>
-                  <p>{currentQuestion.explanation}</p>
-                </div>
+                <AnswerFeedback question={currentQuestion} selectedAnswer={selectedAnswer} />
               )}
               <div className="quiz-question-footer">
                 <HintPanel
@@ -233,7 +238,6 @@ export default function QuizPage({ lessonId = 1 }) {
           </section>
         </>
       )}
-      <span className="screen-caption">Screen 4: Quick quiz with feedback</span>
     </main>
   );
 }

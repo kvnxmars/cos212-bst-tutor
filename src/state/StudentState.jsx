@@ -6,7 +6,18 @@ const DEFAULT_STATE = {
   earnedBanners: [],
   quizAttempts: {},
   activeQuiz: null,
+  // First-attempt quiz percentage per lesson, kept for the ipsative comparison
+  // on the lecture-ready card (ID document 4.7.5).
+  firstAttemptScores: {},
+  // Every misconception hit: { date, lessonId, questionId, tag } (FR22 CSV).
+  misconceptionsHit: [],
+  masteryCheck: { attempts: 0, passed: false, bestPercentage: null, lastMissedOutcomes: [] },
+  activeMastery: null,
+  selectedBanner: null,
+  settings: { reducedMotion: false },
 };
+
+const isObject = (value) => Boolean(value) && typeof value === 'object' && !Array.isArray(value);
 
 const StudentStateContext = createContext(null);
 
@@ -22,7 +33,11 @@ function readStudentState() {
         ...parsed,
         masteredLessons: Array.isArray(parsed.masteredLessons) ? parsed.masteredLessons : [],
         earnedBanners: Array.isArray(parsed.earnedBanners) ? parsed.earnedBanners : [],
-        quizAttempts: parsed.quizAttempts && typeof parsed.quizAttempts === 'object' ? parsed.quizAttempts : {},
+        quizAttempts: isObject(parsed.quizAttempts) ? parsed.quizAttempts : {},
+        firstAttemptScores: isObject(parsed.firstAttemptScores) ? parsed.firstAttemptScores : {},
+        misconceptionsHit: Array.isArray(parsed.misconceptionsHit) ? parsed.misconceptionsHit : [],
+        masteryCheck: { ...DEFAULT_STATE.masteryCheck, ...(isObject(parsed.masteryCheck) ? parsed.masteryCheck : {}) },
+        settings: { ...DEFAULT_STATE.settings, ...(isObject(parsed.settings) ? parsed.settings : {}) },
       },
       warning: '',
     };
@@ -41,10 +56,15 @@ export function StudentStateProvider({ children }) {
   const [storageWarning, setStorageWarning] = useState(initial.warning);
 
   function resetCourse() {
-    if (!window.confirm('Start the whole course over? Your quiz scores, lesson progress, and earned banners will be cleared.')) return;
-    setStudentState(DEFAULT_STATE);
+    if (!window.confirm('Start the whole course over? Your quiz scores, lesson progress, and earned rewards will be cleared.')) return;
+    // Accessibility settings are a preference, not progress, so they survive a reset.
+    setStudentState((state) => ({ ...DEFAULT_STATE, settings: state.settings }));
     window.location.hash = '#lesson?lesson=1';
   }
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('reduce-motion', studentState.settings.reducedMotion);
+  }, [studentState.settings.reducedMotion]);
 
   useEffect(() => {
     try {
