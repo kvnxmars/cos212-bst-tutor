@@ -2,6 +2,11 @@
 
 Keep this file current whenever the project behaviour or learning flow changes. Add new entries at the top with a short summary and, when relevant, the validation used.
 
+## 2026-11-12
+
+- Fixed Vercel asset paths by building with the root base path on Vercel, while preserving the `/cos750-exam/` base path used by GitHub Pages.
+- Validation: production builds passed with and without `VERCEL=1`; generated asset URLs use `/assets/` on Vercel and `/cos750-exam/assets/` for GitHub Pages.
+
 ## 2026-11-11
 
 Aligns the app with the SE and ID documents and adds tests. Branch: `ishe-doc-alignment`.
