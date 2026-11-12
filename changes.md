@@ -2,6 +2,21 @@
 
 Keep this file current whenever the project behaviour or learning flow changes. Add new entries at the top with a short summary and, when relevant, the validation used.
 
+## 2026-11-12
+
+- Expanded the README into a project reference covering the full learner journey, every route and page, all reusable and activity components, assessment/state/content/engine modules, project documentation, wireframes, tooling, CI, deployment, and current limitations.
+- Recorded the latest design and accessibility behaviour, including earned app themes, reduce-motion preference, and browser-local progress.
+- Documentation only; no runtime code changed.
+
+## 2026-11-12
+
+- Restyled the default app palette to match presentation page 4: warm cream surfaces, forest-green headings and borders, amber highlights, rounded panels, and serif headings.
+- Added four app-wide themes driven by earned banners, using green, blue, pink, and amber palettes drawn from the presentation's page 1 and page 7 color language. Passing a lesson quiz applies its banner theme; an earned banner can also be selected from the Rewards gallery.
+- Centralized the stylesheet at app startup so the selected palette is consistent across every route, including the visualiser.
+- Replaced the text navigation control with a hamburger menu linking to unlocked lesson pages, resources, and course tools. Added Settings inside the menu for the reduce-motion switch and earned-banner theme selection; the default theme control is available only in Rewards.
+- Replaced the native course-reset prompt with a theme-matched confirmation dialog.
+- Validation: 87 tests passed across 9 files with `npm test -- --pool=threads --maxWorkers=1`; production build passed. No browser checks were run for this update.
+
 ## 2026-11-11
 
 Aligns the app with the SE and ID documents and adds tests. Branch: `ishe-doc-alignment`.

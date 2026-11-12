@@ -9,6 +9,9 @@ import MasteryCheck from './pages/MasteryCheck.jsx';
 import LectureReady from './pages/LectureReady.jsx';
 import Rewards from './pages/Rewards.jsx';
 import { StudentStateProvider } from './state/StudentState.jsx';
+import { useStudentState } from './state/StudentState.jsx';
+import { isLessonUnlocked } from './assessment/progress.js';
+import LessonAccessNotice from './components/LessonAccessNotice.jsx';
 
 function readLocation() {
   const [page, query = ''] = window.location.hash.slice(1).split('?');
@@ -25,6 +28,7 @@ function readLocation() {
 
 function AppRoutes() {
   const [location, setLocation] = useState(readLocation);
+  const { studentState } = useStudentState();
 
   useEffect(() => {
     function updateLocation() {
@@ -34,6 +38,14 @@ function AppRoutes() {
     window.addEventListener('hashchange', updateLocation);
     return () => window.removeEventListener('hashchange', updateLocation);
   }, []);
+
+  if (
+    ['visualizer', 'video', 'build-tree'].includes(location.page)
+    && !isLessonUnlocked(location.lessonId, studentState.masteredLessons)
+  ) {
+    const destinations = { visualizer: 'The visualiser', video: 'This video', 'build-tree': 'This activity' };
+    return <LessonAccessNotice lessonId={location.lessonId} destination={destinations[location.page]} />;
+  }
 
   if (location.page === 'visualizer') return <VisualizerPage lessonId={location.lessonId} />;
   if (location.page === 'video') return <VideoPage lessonId={location.lessonId} />;

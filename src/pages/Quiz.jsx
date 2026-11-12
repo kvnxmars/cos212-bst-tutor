@@ -11,7 +11,7 @@ import { QUICK_QUIZ_SIZE, scoreQuiz, selectQuizQuestions } from '../assessment/q
 import { isLessonUnlocked } from '../assessment/progress.js';
 import { missedOutcomes, nextHintLevel, startingHintLevel } from '../assessment/rules.js';
 import { misconceptionFor } from '../assessment/scoring.js';
-import { awardLessonBanner } from '../assessment/rewards.js';
+import { awardLessonBanner, bannerIdFor } from '../assessment/rewards.js';
 import { useStudentState } from '../state/StudentState.jsx';
 
 const WORKED_EXAMPLES = {
@@ -110,6 +110,7 @@ export default function QuizPage({ lessonId = 1 }) {
           ...state,
           masteredLessons,
           earnedBanners,
+          selectedBanner: finalResult.passed ? bannerIdFor(lessonId) : state.selectedBanner,
           quizAttempts: { ...state.quizAttempts, [lessonId]: (state.quizAttempts[lessonId] ?? 0) + 1 },
           firstAttemptScores: lessonId in state.firstAttemptScores
             ? state.firstAttemptScores
