@@ -91,7 +91,7 @@ These are practice activities, not required progression steps. Most sequence pla
 
 ### Quick quiz and mastery check
 
-`src/pages/Quiz.jsx` selects four questions from the current lesson's pool, gives feedback after an answer, and presents worked-example/outcome guidance on failure. Hint levels adapt to performance: they get lighter after correct streaks and increase after an incorrect answer. First-attempt percentages are retained for the lecture-ready card.
+`src/pages/Quiz.jsx` selects four questions from the current lesson's pool. Learners can select an option, submit it to receive feedback, then move to the next question; submitted answers cannot be changed. Each lesson quiz has three lesson-specific hints that are consumed only when requested and carry over to a retry. First-attempt percentages are retained for the lecture-ready card.
 
 `src/pages/MasteryCheck.jsx` selects one question for each outcome. It records missed outcomes, provides links to lessons covering them, allows unlimited retakes with fresh questions where available, and records the best percentage. Passing is retained across later failed attempts.
 
@@ -107,7 +107,7 @@ These are practice activities, not required progression steps. Most sequence pla
 
 The course is organised around explicit outcomes and uses a sequence of explanation, worked examples, guided practice, feedback, and assessment. Lesson content aims to connect each concept to a visible tree or trace. Quizzes sample the lesson's outcomes, while the final check samples all ten outcomes. Wrong answer options are tagged with likely misconceptions so feedback can address the particular mix-up rather than only mark an answer incorrect.
 
-The app uses progressive scaffolding: learners can request a hint, hint strength changes with performance, and a failed quiz leads to a worked example and a lesson review route. Optional videos and activities provide alternate ways to practise without obscuring the quiz-based mastery requirement.
+The app uses progressive scaffolding: each lesson quiz provides three lesson-specific hints that decrease only when requested, and a failed quiz leads to a worked example and a lesson review route. Learners select and submit an answer to receive feedback; after submission, the answer is locked until they move to the next question. Optional videos and activities provide alternate ways to practise without obscuring the quiz-based mastery requirement.
 
 ### Wireframes and visual design
 
@@ -162,7 +162,7 @@ The HTML entry point is `index.html`; `src/main.jsx` mounts the React applicatio
 | `src/pages/Visualizer.jsx` | Tree construction, operations, step playback, validation, narration, pseudocode, and statistics. |
 | `src/pages/Video.jsx` | Lesson-specific video and related practice links. |
 | `src/pages/TreeBuilder.jsx` | Selects and frames the activity for a lesson. |
-| `src/pages/Quiz.jsx` | Four-question lesson quiz, adaptive hints, feedback, retries, score recording, and lesson mastery. |
+| `src/pages/Quiz.jsx` | Four-question lesson quiz, submit-for-feedback flow, lesson hints, retries, score recording, and lesson mastery. |
 | `src/pages/MasteryCheck.jsx` | Ten-outcome final assessment, retakes, and missed-outcome feedback. |
 | `src/pages/LectureReady.jsx` | Final outcome/score summary and wallpaper/CSV exports. |
 | `src/pages/Rewards.jsx` | Earned/locked reward gallery and wallpaper download. |
@@ -176,7 +176,7 @@ The HTML entry point is `index.html`; `src/main.jsx` mounts the React applicatio
 | `src/components/CourseNavigation.jsx` | Hamburger menu, unlocked lesson/resource links, course tools, settings, and earned-theme selection. |
 | `src/components/CourseResetButton.jsx` | Confirmation dialog for resetting the course; cancel keeps progress, reset preserves accessibility preferences. |
 | `src/components/DefaultThemeButton.jsx` | Restores the default palette from the rewards gallery. |
-| `src/components/HintPanel.jsx` | Shows the current quiz hint and allows the learner to request it. |
+| `src/components/HintPanel.jsx` | Provides three lesson-specific hints and the exhausted-hints response. |
 | `src/components/LearningHeader.jsx` | Shared course header with navigation, active reward banner, and reset action. |
 | `src/components/LessonAccessNotice.jsx` | Explains why a directly requested locked lesson resource is unavailable. |
 | `src/components/PlaybackControls.jsx` | Visualiser step navigation, playback, reset, and speed control. |
@@ -215,7 +215,7 @@ The engine is plain JavaScript with no React imports. Operations return immutabl
 | --- | --- |
 | `src/assessment/quiz.js` | Lesson question selection/scoring and final mastery question selection/scoring. |
 | `src/assessment/progress.js` | Lesson unlock checks and returning-student resume route. |
-| `src/assessment/rules.js` | Adaptive hint levels, pass/fail destination rule, missed outcomes, and outcome-to-lesson mapping. |
+| `src/assessment/rules.js` | Hint budget, pass/fail destination rule, missed outcomes, and outcome-to-lesson mapping. |
 | `src/assessment/scoring.js` | Chosen-option misconception lookup and CSV generation for misconception hits. |
 | `src/assessment/rewards.js` | Banner assignment, active theme, and reward eligibility. |
 
@@ -284,7 +284,7 @@ Automated tests are in `tests/` and run in Node through Vitest:
 | `tests/learningChallenges.test.js` | Challenge feedback and analysis rules. |
 | `tests/treeChallenge.test.js` | Tree placement validation and feedback. |
 | `tests/quiz.test.js` | Question selection, outcome coverage, scoring, and mastery assessment rules. |
-| `tests/rules.test.js` | Hint scaffolding, pass/fail routing, and outcome review mapping. |
+| `tests/rules.test.js` | Hint budget, pass/fail routing, and outcome review mapping. |
 | `tests/scoring.test.js` | Misconception lookup and CSV formatting. |
 | `tests/mastery-and-rewards.test.js` | Mastery persistence and reward eligibility/retention. |
 | `tests/content.test.js` | Content shape and alignment checks. |

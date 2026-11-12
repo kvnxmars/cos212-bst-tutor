@@ -1,13 +1,14 @@
 import LearningHeader from '../components/LearningHeader.jsx';
 import { bannerSvg, downloadText, svgDataUrl, wallpaperSvg } from '../components/rewardArt.js';
 import rewards from '../content/rewards.json';
-import { isRewardEarned } from '../assessment/rewards.js';
+import { activeBannerIdFor, isRewardEarned } from '../assessment/rewards.js';
 import { useStudentState } from '../state/StudentState.jsx';
 import DefaultThemeButton from '../components/DefaultThemeButton.jsx';
 
 // Reward gallery (FR17): earned and locked rewards, theme reset, wallpaper download.
 export default function Rewards() {
-  const { studentState } = useStudentState();
+  const { studentState, setStudentState } = useStudentState();
+  const activeBannerId = activeBannerIdFor(studentState);
 
   return (
     <main className="learning-shell rewards-shell">
@@ -27,6 +28,15 @@ export default function Rewards() {
               <img src={svgDataUrl(art)} alt={earned ? `${reward.title} ${reward.type}` : ''} />
               <h2>{reward.title}</h2>
               <p>{earned ? (reward.type === 'wallpaper' ? 'Wallpaper earned' : 'Banner earned') : `Locked: ${reward.unlock}`}</p>
+              {earned && reward.type === 'banner' && (
+                <button
+                  type="button"
+                  aria-pressed={activeBannerId === reward.id}
+                  onClick={() => setStudentState((state) => ({ ...state, selectedBanner: reward.id }))}
+                >
+                  {activeBannerId === reward.id ? 'Using banner' : 'Use banner'}
+                </button>
+              )}
               {earned && reward.type === 'wallpaper' && (
                 <button type="button" onClick={() => downloadText('bst-lecture-ready-wallpaper.svg', art, 'image/svg+xml')}>
                   Download wallpaper

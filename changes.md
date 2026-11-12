@@ -4,6 +4,16 @@ Keep this file current whenever the project behaviour or learning flow changes. 
 
 ## 2026-11-12
 
+- Earned banners in the rewards gallery now have a button that reapplies their theme, including after switching to the default palette.
+- Validation: production build attempted but stopped by an environment-level native memory-allocation failure.
+
+## 2026-11-12
+
+- Lesson quizzes now use a fixed three-hint lesson budget that decreases only when requested, and require answer submission before feedback; submitted answers are locked until moving to the next question.
+- Validation: targeted tests and production build were attempted but stopped by environment-level native memory-allocation failures.
+
+## 2026-11-12
+
 - Expanded the README into a project reference covering the full learner journey, every route and page, all reusable and activity components, assessment/state/content/engine modules, project documentation, wireframes, tooling, CI, deployment, and current limitations.
 - Recorded the latest design and accessibility behaviour, including earned app themes, reduce-motion preference, and browser-local progress.
 - Documentation only; no runtime code changed.

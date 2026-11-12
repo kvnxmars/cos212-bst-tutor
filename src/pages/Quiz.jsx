@@ -9,7 +9,7 @@ import outcomes from '../content/outcomes.json';
 import { quizDiagrams } from '../content/quizDiagrams.js';
 import { QUICK_QUIZ_SIZE, scoreQuiz, selectQuizQuestions } from '../assessment/quiz.js';
 import { isLessonUnlocked } from '../assessment/progress.js';
-import { missedOutcomes, nextHintLevel, startingHintLevel } from '../assessment/rules.js';
+import { consumeHint, missedOutcomes } from '../assessment/rules.js';
 import { misconceptionFor } from '../assessment/scoring.js';
 import { awardLessonBanner, bannerIdFor } from '../assessment/rewards.js';
 import { useStudentState } from '../state/StudentState.jsx';
@@ -21,7 +21,7 @@ const WORKED_EXAMPLES = {
   4: 'Count the nodes on a search path. A balanced tree is shallow; sorted insertions can make an ordinary BST a chain.',
 };
 
-function createQuiz(lessonId, previousQuestionIds = [], attempt = 1, hintLevel = 3) {
+function createQuiz(lessonId, previousQuestionIds = [], attempt = 1, hintsUsed = 0) {
   const lessonQuestions = selectQuizQuestions(questions, lessonId, { previousQuestionIds });
   const poolSize = questions.filter((question) => question.lesson === lessonId && question.selectable !== false).length;
   if (poolSize < 8) {
@@ -34,9 +34,9 @@ function createQuiz(lessonId, previousQuestionIds = [], attempt = 1, hintLevel =
     questionIds: lessonQuestions.map((question) => question.id),
     previousQuestionIds,
     index: 0,
+    selections: {},
     answers: {},
-    hintLevel,
-    correctStreak: 0,
+    hintsUsed,
     hintVisible: false,
     attempt,
     phase: 'questions',
@@ -50,7 +50,7 @@ export default function QuizPage({ lessonId = 1 }) {
   const [quiz, setQuiz] = useState(() => (
     savedQuiz?.lessonId === lessonId && Array.isArray(savedQuiz.questionIds)
       ? savedQuiz
-      : createQuiz(lessonId, [], (studentState.quizAttempts[lessonId] ?? 0) + 1, startingHintLevel(lessonId, studentState.masteredLessons))
+      : createQuiz(lessonId, [], (studentState.quizAttempts[lessonId] ?? 0) + 1)
   ));
   const lesson = lessons.find((item) => item.id === lessonId) ?? lessons[0];
   const quizQuestions = useMemo(
@@ -58,27 +58,35 @@ export default function QuizPage({ lessonId = 1 }) {
     [quiz.questionIds],
   );
   const currentQuestion = quizQuestions[quiz.index];
-  const selectedAnswer = currentQuestion ? quiz.answers[currentQuestion.id] : undefined;
+  const submittedAnswer = currentQuestion ? quiz.answers[currentQuestion.id] : undefined;
+  const selectedAnswer = currentQuestion
+    ? quiz.selections?.[currentQuestion.id] ?? submittedAnswer
+    : undefined;
   const result = quiz.phase === 'results' ? scoreQuiz(quizQuestions, quiz.answers) : null;
 
   useEffect(() => {
     if (quiz.lessonId !== lessonId) {
-      setQuiz(createQuiz(lessonId, [], (studentState.quizAttempts[lessonId] ?? 0) + 1, startingHintLevel(lessonId, studentState.masteredLessons)));
+      setQuiz(createQuiz(lessonId, [], (studentState.quizAttempts[lessonId] ?? 0) + 1));
       return;
     }
     setStudentState((state) => (state.activeQuiz === quiz ? state : { ...state, activeQuiz: quiz }));
   }, [lessonId, quiz, setStudentState, studentState.quizAttempts, studentState.masteredLessons]);
 
-  function answerQuestion(optionId) {
-    if (!currentQuestion || selectedAnswer !== undefined) return;
-    const correct = optionId === currentQuestion.correctAnswer;
-    const hints = nextHintLevel(quiz, correct);
-    const tag = misconceptionFor(currentQuestion, optionId);
+  function selectAnswer(optionId) {
+    if (!currentQuestion || submittedAnswer !== undefined) return;
+    setQuiz((current) => ({
+      ...current,
+      selections: { ...current.selections, [currentQuestion.id]: optionId },
+    }));
+  }
+
+  function submitAnswer() {
+    if (!currentQuestion || selectedAnswer === undefined || submittedAnswer !== undefined) return;
+    const tag = misconceptionFor(currentQuestion, selectedAnswer);
 
     setQuiz((current) => ({
       ...current,
-      answers: { ...current.answers, [currentQuestion.id]: optionId },
-      ...hints,
+      answers: { ...current.answers, [currentQuestion.id]: selectedAnswer },
       hintVisible: false,
     }));
     if (tag) {
@@ -93,7 +101,7 @@ export default function QuizPage({ lessonId = 1 }) {
   }
 
   function advanceQuestion() {
-    if (!currentQuestion || selectedAnswer === undefined) return;
+    if (!currentQuestion || submittedAnswer === undefined) return;
     if (quiz.index < quizQuestions.length - 1) {
       setQuiz((current) => ({ ...current, index: current.index + 1, hintVisible: false }));
     } else {
@@ -122,8 +130,7 @@ export default function QuizPage({ lessonId = 1 }) {
 
   function retryQuiz() {
     const oldIds = [...quiz.previousQuestionIds, ...quiz.questionIds];
-    // Hints carry over into the retry, so a struggling student keeps the fuller hints.
-    const nextQuiz = createQuiz(lessonId, oldIds, quiz.attempt + 1, Math.max(quiz.hintLevel, 1));
+    const nextQuiz = createQuiz(lessonId, oldIds, quiz.attempt + 1, quiz.hintsUsed ?? 0);
     setQuiz(nextQuiz);
     setStudentState((state) => ({ ...state, activeQuiz: nextQuiz }));
   }
@@ -220,19 +227,33 @@ export default function QuizPage({ lessonId = 1 }) {
                 question={currentQuestion}
                 tree={quizDiagrams[currentQuestion.id]}
                 selectedAnswer={selectedAnswer}
-                onAnswer={answerQuestion}
+                submitted={submittedAnswer !== undefined}
+                onAnswer={selectAnswer}
               />
-              {selectedAnswer !== undefined && (
-                <AnswerFeedback question={currentQuestion} selectedAnswer={selectedAnswer} />
+              {submittedAnswer !== undefined && (
+                <AnswerFeedback question={currentQuestion} selectedAnswer={submittedAnswer} />
               )}
               <div className="quiz-question-footer">
-                <HintPanel
-                  level={quiz.hintLevel}
-                  visible={quiz.hintVisible}
-                  onToggle={() => setQuiz((current) => ({ ...current, hintVisible: !current.hintVisible }))}
-                />
-                <button type="button" className="learning-primary-button" disabled={selectedAnswer === undefined} onClick={advanceQuestion}>
-                  {quiz.index === quizQuestions.length - 1 ? 'See results' : 'Next question'}
+                {submittedAnswer === undefined && (
+                  <HintPanel
+                    key={currentQuestion.id}
+                    lessonId={lessonId}
+                    hintsUsed={quiz.hintsUsed ?? 0}
+                    visible={quiz.hintVisible}
+                    onUseHint={() => setQuiz((current) => ({
+                      ...current,
+                      hintsUsed: consumeHint(current.hintsUsed ?? 0),
+                      hintVisible: true,
+                    }))}
+                  />
+                )}
+                <button
+                  type="button"
+                  className="learning-primary-button"
+                  disabled={submittedAnswer === undefined ? selectedAnswer === undefined : false}
+                  onClick={submittedAnswer === undefined ? submitAnswer : advanceQuestion}
+                >
+                  {submittedAnswer === undefined ? 'Submit answer' : 'Next question'}
                 </button>
               </div>
             </div>

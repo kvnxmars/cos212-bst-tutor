@@ -279,6 +279,7 @@ input:focus, select:focus { outline: 2px solid #8cc8ad; outline-offset: 1px; }
 .quiz-hint { display: grid; justify-items: start; gap: 5px; }
 .quiz-hint button { min-height: 34px; border: 1px solid var(--line); padding: 0 12px; background: #edf0ea; color: var(--ink); font-size: 10px; }
 .quiz-hint p { max-width: 380px; margin: 0; color: #58645c; font-size: 10px; line-height: 1.5; }
+.quiz-hint textarea { width: min(380px, 100%); min-height: 34px; border: 1px solid var(--line); padding: 8px; background: #f3f4ee; color: #58645c; font: inherit; resize: none; }
 .quiz-hint > span { color: #929b93; font-size: 9px; }
 .quiz-results { max-width: 760px; margin: 26px auto; border: 1px solid var(--line); padding: clamp(18px, 4vw, 34px); background: var(--paper); text-align: center; }
 .quiz-results h1 { margin: 0 0 12px; font-size: clamp(24px, 4vw, 34px); }
