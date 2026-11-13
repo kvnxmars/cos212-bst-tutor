@@ -584,24 +584,24 @@ a.reward-banner { display: block; width: auto; max-width: 190px; text-decoration
 }
 
 :root[data-theme="lesson-4"] {
-	--ink: #4a3920;
-	--muted: #807052;
-	--line: #e3d7b9;
-	--paper: #fffdf7;
-	--green: #996520;
-	--mint: #f1e3bd;
-	--orange: #d98428;
-	--app-bg: #fbf2df;
-	--soft-bg: #f4e9cf;
-	--soft-accent: #f2e4c2;
-	--tree-canvas: #fcf7e9;
-	--tree-dot: #e2d5b8;
-	--tree-edge-color: #c9b17c;
-	--tree-node-border: #aa7a36;
-	--green-hover: #795019;
-	--focus-ring: #c39b53;
-	--locked-bg: #f7ecdf;
-	--locked-border: #e8c5a7;
+	--ink: #1c2f46;
+	--muted: #66788d;
+	--line: #ccd7e4;
+	--paper: #fbfdff;
+	--green: #214f7b;
+	--mint: #d8e6f4;
+	--orange: #d99a43;
+	--app-bg: #eaf1f8;
+	--soft-bg: #e0eaf4;
+	--soft-accent: #d9e7f4;
+	--tree-canvas: #f2f7fb;
+	--tree-dot: #cbd8e5;
+	--tree-edge-color: #9eb8d1;
+	--tree-node-border: #4a7298;
+	--green-hover: #173c60;
+	--focus-ring: #79a8cf;
+	--locked-bg: #f4f0e7;
+	--locked-border: #e4cfaa;
 }
 
 body, #root { min-height: 100vh; background: var(--app-bg); color: var(--ink); }
