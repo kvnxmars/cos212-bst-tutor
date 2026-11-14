@@ -7,3 +7,4 @@
 
 ## 2026-11-14
 - Added sound cues for correct / incorrect answers (`src/audio/sound.js`, files in `public/sounds/`) and a **Sound** On/Off switch in Settings. 8 new tests in `tests/sound.test.js`.
+- Added read-aloud megaphone button for quiz questions (recordings Q01-Q25 in `public/sounds/`, linked via `audio` in `questions.json`) and a crowd cheer when the mastery check is passed. 100 tests passing.
