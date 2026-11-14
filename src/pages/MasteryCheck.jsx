@@ -15,6 +15,7 @@ import {
 import { lessonsForOutcomes, missedOutcomes } from '../assessment/rules.js';
 import { misconceptionFor } from '../assessment/scoring.js';
 import { useStudentState } from '../state/StudentState.jsx';
+import { playSound } from '../audio/sound.js';
 
 function createCheck(previousQuestionIds = []) {
   return {
@@ -48,6 +49,7 @@ export default function MasteryCheck() {
   function answerQuestion(optionId) {
     if (!currentQuestion || selectedAnswer !== undefined) return;
     const tag = misconceptionFor(currentQuestion, optionId);
+    playSound(optionId === currentQuestion.correctAnswer ? 'correct' : 'incorrect', { muted: !studentState.settings.soundOn });
     setCheck((current) => ({ ...current, answers: { ...current.answers, [currentQuestion.id]: optionId } }));
     if (tag) {
       setStudentState((state) => ({

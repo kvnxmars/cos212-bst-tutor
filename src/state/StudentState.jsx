@@ -15,7 +15,8 @@ const DEFAULT_STATE = {
   masteryCheck: { attempts: 0, passed: false, bestPercentage: null, lastMissedOutcomes: [] },
   activeMastery: null,
   selectedBanner: null,
-  settings: { reducedMotion: false },
+  // soundOn: quiz feedback cues (correct / incorrect). Off = muted.
+  settings: { reducedMotion: false, soundOn: true },
 };
 
 const isObject = (value) => Boolean(value) && typeof value === 'object' && !Array.isArray(value);
