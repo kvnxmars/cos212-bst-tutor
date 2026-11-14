@@ -1,0 +1,143 @@
+[
+  {
+    "id": 1,
+    "title": "Recognising a binary search tree",
+    "focus": "Name the parts of a tree and explain the BST rule.",
+    "outcomes": ["O1", "O2"],
+    "duration": 5,
+    "intro": "A registrar can find a name in a sorted class list by comparing entries. A binary search tree (BST) uses the same idea, but records are connected in branches.",
+    "sections": [
+      {
+        "heading": "The parts of a tree",
+        "body": "A tree is made of nodes joined by links. A binary tree gives each node at most two children: one left child and one right child.",
+        "type": "terms",
+        "items": [
+          ["Node", "One item in the tree."],
+          ["Root", "The top node, which has no parent."],
+          ["Parent and child", "Nodes directly connected by one link."],
+          ["Leaf", "A node with no children."],
+          ["Subtree", "A node and every node below it through its links."]
+        ]
+      },
+      {
+        "heading": "The BST rule applies to whole subtrees",
+        "body": "At every node, every key in the left subtree is smaller and every key in the right subtree is larger. Checking only a node against its direct children is not enough.",
+        "type": "tree",
+        "tree": {
+          "key": 50,
+          "left": {
+            "key": 30,
+            "left": { "key": 20, "left": null, "right": null },
+            "right": { "key": 60, "left": null, "right": null }
+          },
+          "right": { "key": 70, "left": null, "right": null }
+        },
+        "caption": "This binary tree is not a BST: 60 is in 50's left subtree even though 60 is greater than 50."
+      },
+      {
+        "heading": "Remember",
+        "body": "A chain can still be a valid BST; the rule does not require the tree to be balanced. A missing child is an empty subtree."
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Searching and inserting",
+    "focus": "Trace searches, insertions, and a list of values in its given order.",
+    "outcomes": ["O3", "O4", "O5"],
+    "duration": 7,
+    "intro": "The registrar needs to find and add student records. Start at the root and compare the target with one node at a time.",
+    "sections": [
+      {
+        "heading": "Search for 60",
+        "body": "If the target matches the current key, stop. If it is smaller, follow the left link; if larger, follow the right link. Repeat at the next node.",
+        "type": "trace",
+        "keys": [50, 30, 70, 20, 40, 60, 80],
+        "steps": [
+          ["50", "60 > 50", "Go right to 70."],
+          ["70", "60 < 70", "Go left to 60."],
+          ["60", "60 = 60", "Found. Stop searching."]
+        ],
+        "caption": "The search path is 50 -> 70 -> 60. Search follows one path rather than checking every node."
+      },
+      {
+        "heading": "An unsuccessful search can find an insertion position",
+        "body": "Searching for 65 follows 50 -> 70 -> 60 -> EMPTY. To insert 65, attach it at that empty right-child link of 60. Existing nodes stay where they are.",
+        "type": "tree",
+        "keys": [50, 30, 70, 20, 40, 60, 80, 65],
+        "caption": "65 is placed as the right child of 60, after following the same comparisons as a search."
+      },
+      {
+        "heading": "Build in the order given",
+        "body": "Start with an empty tree and insert 50, 30, 70, 20, 40, 60, 80 in exactly that order. Do not sort the input first; changing the order can change the tree's shape."
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Depth-first traversals",
+    "focus": "Trace pre-order, in-order, and post-order and explain sorted output.",
+    "outcomes": ["O6", "O7"],
+    "duration": 6,
+    "intro": "A traversal visits every node. The traversal rule determines when a node's key is written to the output.",
+    "sections": [
+      {
+        "heading": "Three visit orders",
+        "body": "Finish a subtree before moving to the next one. An empty subtree contributes no output.",
+        "type": "terms",
+        "items": [
+          ["Pre-order", "Node, left subtree, right subtree."],
+          ["In-order", "Left subtree, node, right subtree."],
+          ["Post-order", "Left subtree, right subtree, node."]
+        ]
+      },
+      {
+        "heading": "Trace the reference tree",
+        "body": "For this tree, pre-order writes the root first; in-order writes the left subtree first; post-order writes the root last.",
+        "type": "traversals",
+        "keys": [50, 30, 70, 20, 40, 60, 80],
+        "orders": [
+          ["Pre-order", "50, 30, 20, 40, 70, 60, 80"],
+          ["In-order", "20, 30, 40, 50, 60, 70, 80"],
+          ["Post-order", "20, 40, 30, 60, 80, 70, 50"]
+        ]
+      },
+      {
+        "heading": "Why in-order is sorted",
+        "body": "In a BST, every left-subtree key is smaller than the node and every right-subtree key is larger. In-order visits left, node, then right, so the resulting keys are ascending. On a tree that is not a BST, in-order is not necessarily sorted."
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Complexity and choosing a structure",
+    "focus": "Explain how insertion order affects search cost and compare a BST with a sorted array.",
+    "outcomes": ["O8", "O9", "O10"],
+    "duration": 6,
+    "intro": "An ordinary BST does not rebalance itself. The order in which records arrive can make the tree shallow or chain-shaped.",
+    "sections": [
+      {
+        "heading": "Insertion order changes shape",
+        "body": "Inserting 1, 2, 3, 4, 5 in order makes each new value the right child of the previous one. Inserting 3, 2, 4, 1, 5 gives a shorter tree.",
+        "type": "compareTrees",
+        "trees": [
+          ["Sorted insertion", [1, 2, 3, 4, 5]],
+          ["Mixed insertion", [3, 2, 4, 1, 5]]
+        ]
+      },
+      {
+        "heading": "Search cost follows height",
+        "body": "A search examines at most height + 1 stored nodes. A roughly balanced BST can search in O(log n); a chain can need O(n) comparisons. An ordinary BST does not guarantee balance."
+      },
+      {
+        "heading": "BST or sorted array?",
+        "body": "A BST can attach a new key without shifting later records, but its shape may deteriorate. A sorted array supports O(log n) binary search, but inserting into the middle can require O(n) shifts.",
+        "type": "comparison",
+        "items": [
+          ["Mostly lookups; data loaded once", "A sorted array is a good fit: binary search is logarithmic and there are few inserts."],
+          ["Frequent additions", "A BST may avoid shifting records, but search and insert can be linear if arrival order creates a chain."]
+        ]
+      }
+    ]
+  }
+]

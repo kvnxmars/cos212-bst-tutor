@@ -1,0 +1,12 @@
+{
+  "O1": "Name the parts of a BST: root, parent, child, leaf and subtree",
+  "O2": "Explain the BST rule and use it to decide if a tree is a valid BST",
+  "O3": "Show step by step how a value is searched for, including when it is not in the tree",
+  "O4": "Show where a new value goes when it is inserted",
+  "O5": "Build a BST by inserting a list of values in the order given",
+  "O6": "List the nodes of a BST in pre-order, in-order and post-order",
+  "O7": "Explain why in-order gives the values in sorted order",
+  "O8": "Explain how the insert order decides the shape of a BST",
+  "O9": "Explain why search is about log n in a balanced BST but up to n in a chain-shaped one",
+  "O10": "Choose between a BST and a sorted array for a given situation, and say why"
+}

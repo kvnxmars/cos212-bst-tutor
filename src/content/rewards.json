@@ -1,0 +1,37 @@
+[
+  {
+    "id": "lesson-1",
+    "type": "banner",
+    "title": "Root Reader",
+    "unlock": "Master Lesson 1",
+    "colors": ["#23684d", "#dceee4"]
+  },
+  {
+    "id": "lesson-2",
+    "type": "banner",
+    "title": "Path Finder",
+    "unlock": "Master Lesson 2",
+    "colors": ["#315f85", "#ddeaf4"]
+  },
+  {
+    "id": "lesson-3",
+    "type": "banner",
+    "title": "Order Keeper",
+    "unlock": "Master Lesson 3",
+    "colors": ["#92516a", "#f4dfe7"]
+  },
+  {
+    "id": "lesson-4",
+    "type": "banner",
+    "title": "Shape Shifter",
+    "unlock": "Master Lesson 4",
+    "colors": ["#ffffff", "#0b1b32"]
+  },
+  {
+    "id": "mastery-wallpaper",
+    "type": "wallpaper",
+    "title": "Lecture Ready",
+    "unlock": "Pass the final mastery check",
+    "colors": ["#10352b", "#fbf5e6"]
+  }
+]
