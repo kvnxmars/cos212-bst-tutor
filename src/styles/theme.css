@@ -741,7 +741,7 @@ input:focus, select:focus, textarea:focus,
 .course-navigation-panel {
 	position: absolute;
 	top: calc(100% + 8px);
-	left: 50%;
+	left: 0;
 	z-index: 20;
 	display: grid;
 	width: min(340px, calc(100vw - 32px));
@@ -753,7 +753,6 @@ input:focus, select:focus, textarea:focus,
 	padding: 10px;
 	background: var(--paper);
 	box-shadow: 0 12px 32px #12382d26;
-	transform: translateX(-50%);
 }
 .course-navigation-panel > a, .course-navigation-section > a {
 	border-radius: 6px;
