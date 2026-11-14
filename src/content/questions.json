@@ -5,6 +5,7 @@
     "outcome": "O1",
     "skillLevel": "Explain",
     "stem": "In the tree below, which node is a leaf (a node with no children)?",
+    "audio": "Q01.mp3",
     "options": [
       {
         "id": "A",
@@ -36,6 +37,7 @@
     "outcome": "O1",
     "skillLevel": "Explain",
     "stem": "In the tree below, which values are in the left subtree of the root (8)?",
+    "audio": "Q02.mp3",
     "options": [
       {
         "id": "A",
@@ -67,6 +69,7 @@
     "outcome": "O2",
     "skillLevel": "Explain",
     "stem": "Which statement is true for every node in a binary search tree?",
+    "audio": "Q03.mp3",
     "options": [
       {
         "id": "A",
@@ -98,6 +101,7 @@
     "outcome": "O2",
     "skillLevel": "Explain",
     "stem": "Is the tree below a valid BST?",
+    "audio": "Q04.mp3",
     "options": [
       {
         "id": "A",
@@ -129,6 +133,7 @@
     "outcome": "O2",
     "skillLevel": "Explain",
     "stem": "Which of these trees is a valid BST?",
+    "audio": "Q05.mp3",
     "options": [
       {
         "id": "A",
@@ -160,6 +165,7 @@
     "outcome": "O3",
     "skillLevel": "Apply",
     "stem": "Search for 60 in the tree below. Which nodes are compared with 60, in order?",
+    "audio": "Q06.mp3",
     "options": [
       {
         "id": "A",
@@ -191,6 +197,7 @@
     "outcome": "O3",
     "skillLevel": "Apply",
     "stem": "Search for 45 in the tree below. What happens?",
+    "audio": "Q07.mp3",
     "options": [
       {
         "id": "A",
@@ -222,6 +229,7 @@
     "outcome": "O3",
     "skillLevel": "Apply",
     "stem": "How many comparisons does it take to find 20 in the tree below?",
+    "audio": "Q08.mp3",
     "options": [
       {
         "id": "A",
@@ -253,6 +261,7 @@
     "outcome": "O4",
     "skillLevel": "Apply",
     "stem": "Insert 35 into the tree below. Where does the new node go?",
+    "audio": "Q09.mp3",
     "options": [
       {
         "id": "A",
@@ -284,6 +293,7 @@
     "outcome": "O4",
     "skillLevel": "Apply",
     "stem": "Insert 65 into the tree below. Where does the new node go?",
+    "audio": "Q10.mp3",
     "options": [
       {
         "id": "A",
@@ -315,6 +325,7 @@
     "outcome": "O5",
     "skillLevel": "Apply",
     "stem": "You start with an empty BST and insert 15, 8, 20 and 12, in that order. Where does 12 end up?",
+    "audio": "Q11.mp3",
     "options": [
       {
         "id": "A",
@@ -346,6 +357,7 @@
     "outcome": "O5",
     "skillLevel": "Apply",
     "stem": "You start with an empty BST and insert 25, 10, 30, 5 and 15, in that order. What is the right child of 10?",
+    "audio": "Q12.mp3",
     "options": [
       {
         "id": "A",
@@ -377,6 +389,7 @@
     "outcome": "O5",
     "skillLevel": "Apply",
     "stem": "You start with an empty BST and insert 40, 20, 60, 10 and 30, in that order. How many leaves does the tree have?",
+    "audio": "Q13.mp3",
     "options": [
       {
         "id": "A",
@@ -408,6 +421,7 @@
     "outcome": "O6",
     "skillLevel": "Apply",
     "stem": "What is the in-order traversal of the tree below?",
+    "audio": "Q14.mp3",
     "options": [
       {
         "id": "A",
@@ -439,6 +453,7 @@
     "outcome": "O6",
     "skillLevel": "Apply",
     "stem": "What is the pre-order traversal of the tree below?",
+    "audio": "Q15.mp3",
     "options": [
       {
         "id": "A",
@@ -470,6 +485,7 @@
     "outcome": "O6",
     "skillLevel": "Apply",
     "stem": "What is the post-order traversal of the tree below?",
+    "audio": "Q16.mp3",
     "options": [
       {
         "id": "A",
@@ -501,6 +517,7 @@
     "outcome": "O7",
     "skillLevel": "Explain",
     "stem": "Why does an in-order traversal of a BST give the values in sorted order?",
+    "audio": "Q17.mp3",
     "options": [
       {
         "id": "A",
@@ -532,6 +549,7 @@
     "outcome": "O7",
     "skillLevel": "Explain",
     "stem": "The binary tree below is not a BST. Is its in-order output sorted?",
+    "audio": "Q18.mp3",
     "options": [
       {
         "id": "A",
@@ -563,6 +581,7 @@
     "outcome": "O8",
     "skillLevel": "Explain",
     "stem": "You insert 1, 2, 3, 4, 5 into an empty BST in that order. What shape does the tree have?",
+    "audio": "Q19.mp3",
     "options": [
       {
         "id": "A",
@@ -594,6 +613,7 @@
     "outcome": "O8",
     "skillLevel": "Explain",
     "stem": "You insert the values 1 to 7 into an empty BST. Which insert order gives the shortest tree?",
+    "audio": "Q20.mp3",
     "options": [
       {
         "id": "A",
@@ -625,6 +645,7 @@
     "outcome": "O9",
     "skillLevel": "Explain",
     "stem": "A BST was built by inserting 1, 2, 3, 4, 5 in that order, so it is a chain. How many comparisons does it take to find 5?",
+    "audio": "Q21.mp3",
     "options": [
       {
         "id": "A",
@@ -656,6 +677,7 @@
     "outcome": "O9",
     "skillLevel": "Explain",
     "stem": "Which statement about searching a BST is correct?",
+    "audio": "Q22.mp3",
     "options": [
       {
         "id": "A",
@@ -687,6 +709,7 @@
     "outcome": "O9",
     "skillLevel": "Explain",
     "stem": "A balanced BST holds 1,023 values (a full tree with 10 levels). At most how many comparisons does it take to find any value?",
+    "audio": "Q23.mp3",
     "options": [
       {
         "id": "A",
@@ -718,6 +741,7 @@
     "outcome": "O10",
     "skillLevel": "Evaluate",
     "stem": "A student-records system receives new records one at a time, in no particular order, and staff look records up all day. Which structure is the better choice?",
+    "audio": "Q24.mp3",
     "options": [
       {
         "id": "A",
@@ -749,6 +773,7 @@
     "outcome": "O10",
     "skillLevel": "Evaluate",
     "stem": "A list of 50,000 records is loaded once, already in sorted order. It never changes, and staff only look records up. Which structure is the better choice?",
+    "audio": "Q25.mp3",
     "options": [
       {
         "id": "A",

@@ -260,6 +260,12 @@ input:focus, select:focus { outline: 2px solid #8cc8ad; outline-offset: 1px; }
 .pool-warning { border-left: 3px solid var(--orange); margin: 10px 0; padding: 8px 10px; background: #fbf1e8; color: #725b4c; font-size: 10px; line-height: 1.5; }
 .quiz-question-layout { border: 1px solid var(--line); padding: 16px; background: var(--paper); }
 .quiz-question-prompt h2 { margin: 10px 0 14px; font-size: 18px; line-height: 1.45; }
+.question-stem-row { display: flex; align-items: flex-start; gap: 10px; }
+.question-stem-row h2 { flex: 1; min-width: 0; }
+.read-aloud-button { display: inline-flex; flex: none; align-items: center; gap: 5px; min-height: 34px; margin-top: 8px; border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; background: var(--paper); color: var(--green); font-size: 11px; font-weight: 700; cursor: pointer; }
+.read-aloud-button:hover { border-color: var(--green); }
+.read-aloud-button:focus-visible { border-color: var(--green); outline: 2px solid #8cc8ad; outline-offset: 2px; }
+.read-aloud-button.is-playing { border-color: var(--green); background: var(--green); color: #fff; }
 .question-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; color: #78837b; font-size: 10px; }
 .quiz-question-card { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; gap: 14px; }
 .quiz-tree { min-width: 0; margin: 0; border: 1px solid var(--line); padding: 8px; background: #f7f8f4; }
@@ -584,24 +590,24 @@ a.reward-banner { display: block; width: auto; max-width: 190px; text-decoration
 }
 
 :root[data-theme="lesson-4"] {
-	--ink: #4a3920;
-	--muted: #807052;
-	--line: #e3d7b9;
-	--paper: #fffdf7;
-	--green: #996520;
-	--mint: #f1e3bd;
-	--orange: #d98428;
-	--app-bg: #fbf2df;
-	--soft-bg: #f4e9cf;
-	--soft-accent: #f2e4c2;
-	--tree-canvas: #fcf7e9;
-	--tree-dot: #e2d5b8;
-	--tree-edge-color: #c9b17c;
-	--tree-node-border: #aa7a36;
-	--green-hover: #795019;
-	--focus-ring: #c39b53;
-	--locked-bg: #f7ecdf;
-	--locked-border: #e8c5a7;
+	--ink: #edf4fb;
+	--muted: #b2c1d1;
+	--line: #344a61;
+	--paper: #142b43;
+	--green: #3276ad;
+	--mint: #284b6a;
+	--orange: #a96b25;
+	--app-bg: #071522;
+	--soft-bg: #1b334d;
+	--soft-accent: #244564;
+	--tree-canvas: #10253a;
+	--tree-dot: #2a425c;
+	--tree-edge-color: #6f8dab;
+	--tree-node-border: #8eabc8;
+	--green-hover: #438ac4;
+	--focus-ring: #a3d1fa;
+	--locked-bg: #312b31;
+	--locked-border: #615047;
 }
 
 body, #root { min-height: 100vh; background: var(--app-bg); color: var(--ink); }
@@ -952,4 +958,151 @@ input:focus, select:focus, textarea:focus,
 	.topbar { height: auto; min-height: 61px; gap: 8px; padding: 10px 0; }
 	.topbar-actions { flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
 	.topbar-actions > * { max-width: 100%; }
+}
+
+:root[data-theme="lesson-4"] {
+	color-scheme: dark;
+	background: var(--app-bg);
+	color: var(--ink);
+}
+
+:root[data-theme="lesson-4"] :is(
+	.visualizer-back-link, .course-label, .course-label span, .intro-copy, label,
+	.field-note, .tree-stats span, .legend, .empty-tree, .narration, .step-count,
+	.pseudocode-list li, .pseudocode-list li > span, .footer,
+	.learning-header > .learning-alternatives-trigger, .reward-banner,
+	.course-reset-button, .welcome-breadcrumb, .welcome-tagline,
+	.welcome-slogan-note, .welcome-tree-frame > span, .welcome-note,
+	.welcome-content > p, .learning-style-description, .screen-caption,
+	.lesson-breadcrumb, .lesson-progress, .lesson-meta, .lesson-meta span,
+	.lesson-video-placeholder > p, .transcript-placeholder,
+	.lesson-list-panel li span, .lesson-progress-summary, .lesson-goal > span:last-child,
+	.lesson-intro, .lesson-content-section > p, .lesson-terms dd,
+	.lesson-diagram figcaption, .lesson-caption, .traversal-results code,
+	.lesson-comparison p, .quiz-count, .question-meta, .quiz-tree figcaption,
+	.quiz-feedback p, .quiz-hint p, .quiz-hint > span,
+	.quiz-results > p:not(.eyebrow), .quiz-score span, .quiz-scaffold p,
+	.alternate-page-heading p, .tree-challenge-heading > span, .tree-branch-key,
+	.tree-node-tray > p, .tree-tutor-feedback p, .activity-stage > p,
+	.activity-stage-heading > span, .activity-tree-figure figcaption,
+	.repair-instruction p, .sequence-slot-number, .sequence-connector,
+	.sequence-tray-note, .lecture-ready-card p, .lecture-ready-card ul,
+	.lecture-ready-card ol, .wallpaper-preview figcaption, .reward-card p,
+	.reduce-motion-toggle
+) {
+	color: var(--muted);
+}
+
+:root[data-theme="lesson-4"] :is(
+	input, select, textarea, .tree-challenge-board, .tree-slot-button,
+	.tree-slot-label, .tree-node-tile, .lesson-video-placeholder,
+	.lesson-video-options, .quiz-tree, .quiz-answer-option, .quiz-feedback,
+	.quiz-hint textarea, .quiz-scaffold, .output-box, .welcome-primary-button,
+	.reward-card, .reward-card button, .mastery-link
+) {
+	border-color: var(--line);
+	background-color: var(--soft-bg);
+	color: var(--ink);
+}
+
+:root[data-theme="lesson-4"] :is(
+	.tree-scroll, .lesson-diagram .tree-scroll, .activity-tree-figure,
+	.definition-drop-card, .sequence-slot, .structure-scenario button
+) {
+	background-color: var(--tree-canvas);
+	background-image: radial-gradient(var(--tree-dot) 0.7px, transparent .7px);
+}
+
+:root[data-theme="lesson-4"] .tree-challenge-board {
+	background-image: radial-gradient(var(--tree-dot) 0.7px, transparent .7px);
+}
+
+:root[data-theme="lesson-4"] :is(
+	.welcome-primary-button, .learning-primary-button, .lesson-actions > *,
+	.quiz-hint button, .course-reset-dialog-actions button
+) {
+	border-color: var(--line);
+	background-color: var(--soft-bg);
+	color: var(--ink);
+}
+
+:root[data-theme="lesson-4"] :is(
+	.icon-button, .run-button, .playback-actions .play-button,
+	.learning-primary-button.is-primary, .course-reset-dialog-actions .is-destructive
+) {
+	border-color: var(--green);
+	background-color: var(--green);
+	color: #fff;
+}
+
+:root[data-theme="lesson-4"] :is(
+	.lesson-goal, .traversal-rule-callout, .traversal-takeaway,
+	.complexity-reminder, .lesson-requirement-note, .pool-warning,
+	.tree-tutor-feedback, .quiz-feedback.is-correct, .quiz-feedback.is-incorrect
+) {
+	border-color: var(--line);
+	background-color: var(--soft-accent);
+	color: var(--ink) !important;
+}
+
+:root[data-theme="lesson-4"] :is(
+	.lesson-locked, .tree-slot-button.is-filled, .term-tile:hover,
+	.term-tile.is-selected, .sequence-tile:hover, .sequence-tile.is-selected,
+	.definition-drop-card.is-filled, .sequence-slot.is-filled,
+	.tree-node-tile:hover, .tree-node-tile.is-selected,
+	.quiz-answer-option:hover, .quiz-answer-option.is-selected,
+	.learning-alternatives-panel a:hover, .learning-alternatives-panel a:focus-visible
+) {
+	background-color: var(--soft-accent);
+	color: var(--ink);
+}
+
+:root[data-theme="lesson-4"] :is(
+	.tree-challenge-board, .tree-slot-label, .tree-slot-button,
+	.tree-node-tile, .lesson-video-placeholder, .lesson-video-options,
+	.quiz-tree, .quiz-answer-option, .quiz-feedback, .quiz-hint textarea,
+	.quiz-scaffold, .output-box, .welcome-primary-button, .learning-primary-button,
+	.lesson-actions > *, .quiz-hint button, .reward-card, .reward-card button,
+	.mastery-link, .reward-banner, .course-reset-button
+) {
+	border-color: var(--line);
+}
+
+:root[data-theme="lesson-4"] :is(.lesson-locked p, .lesson-locked a) {
+	color: var(--muted);
+}
+
+:root[data-theme="lesson-4"] :is(.pseudocode-list .active-line, .quiz-answer-option.is-selected) {
+	background-color: var(--soft-accent);
+	color: var(--ink);
+}
+
+:root[data-theme="lesson-4"] .welcome-tree circle {
+	fill: var(--paper);
+}
+
+:root[data-theme="lesson-4"] .visited-badge circle {
+	stroke: var(--app-bg);
+}
+
+:root[data-theme="lesson-4"] :is(input, select, textarea)::placeholder {
+	color: var(--muted);
+}
+
+:root[data-theme="lesson-4"] :is(
+	a, .eyebrow, .intro h1 em, .lesson-terms dt, .traversal-results strong,
+	.lesson-notice, .output-box p, .learning-style-icon,
+	.lesson-list-panel li.is-complete span, .structure-scenario p.is-correct,
+	.pseudocode-list .active-line > span, .reward-banner.has-reward,
+	.reset-button:hover, .visualizer-back-link:hover,
+	.playback-actions button:hover:not(:disabled),
+	.learning-primary-button:hover, .lesson-actions > *:hover,
+	.course-navigation-trigger:hover, .default-theme-button:hover,
+	.tree-challenge-reset:hover, .reward-card button[aria-pressed="true"]
+) {
+	color: var(--focus-ring);
+}
+
+:root[data-theme="lesson-4"] .quiz-results .quiz-score {
+	color: var(--focus-ring) !important;
 }

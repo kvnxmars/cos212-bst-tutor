@@ -3,6 +3,7 @@ import AnswerFeedback from '../components/AnswerFeedback.jsx';
 import HintPanel from '../components/HintPanel.jsx';
 import LearningHeader from '../components/LearningHeader.jsx';
 import QuestionCard from '../components/QuestionCard.jsx';
+import ReadAloudButton from '../components/ReadAloudButton.jsx';
 import questions from '../content/questions.json';
 import lessons from '../content/lessons.json';
 import outcomes from '../content/outcomes.json';
@@ -13,6 +14,7 @@ import { consumeHint, missedOutcomes } from '../assessment/rules.js';
 import { misconceptionFor } from '../assessment/scoring.js';
 import { awardLessonBanner, bannerIdFor } from '../assessment/rewards.js';
 import { useStudentState } from '../state/StudentState.jsx';
+import { playSound } from '../audio/sound.js';
 
 const WORKED_EXAMPLES = {
   1: 'At every node, check all keys in its left and right subtrees. One value deeper in a subtree can make the whole tree invalid.',
@@ -83,6 +85,7 @@ export default function QuizPage({ lessonId = 1 }) {
   function submitAnswer() {
     if (!currentQuestion || selectedAnswer === undefined || submittedAnswer !== undefined) return;
     const tag = misconceptionFor(currentQuestion, selectedAnswer);
+    playSound(selectedAnswer === currentQuestion.correctAnswer ? 'correct' : 'incorrect', { muted: !studentState.settings.soundOn });
 
     setQuiz((current) => ({
       ...current,
@@ -222,7 +225,10 @@ export default function QuizPage({ lessonId = 1 }) {
                 <span>Question {quiz.index + 1}</span>
                 <span>Skill level: {currentQuestion.skillLevel}</span>
               </div>
-              <h2 id={`question-${currentQuestion.id}`}>{currentQuestion.stem}</h2>
+              <div className="question-stem-row">
+                <h2 id={`question-${currentQuestion.id}`}>{currentQuestion.stem}</h2>
+                <ReadAloudButton audio={currentQuestion.audio} />
+              </div>
               <QuestionCard
                 question={currentQuestion}
                 tree={quizDiagrams[currentQuestion.id]}

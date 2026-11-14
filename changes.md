@@ -2,6 +2,19 @@
 
 Keep this file current whenever the project behaviour or learning flow changes. Add new entries at the top with a short summary and, when relevant, the validation used.
 
+## 2026-11-14 (read-aloud and cheer)
+
+- Read-aloud: a megaphone **Listen** button next to each quiz and mastery-check question plays a recording of the question (press again to stop). Recordings are `public/sounds/Q01.mp3` to `Q25.mp3`, one per question, linked from a new `audio` field in `questions.json`. A question without an `audio` field shows no button.
+- Lecture-ready cheer: `public/sounds/lecture_ready_crowd_cheers.mp3` plays when the student passes the final mastery check.
+- The Sound switch silences the automatic cues (correct, incorrect, cheer); read-aloud plays only when the student asks for it, so it ignores that switch.
+- Validation: 100 tests passed (10 files); new tests cover the read-aloud player and check that every `audio` field and cue points at an existing file. Production build passed. Not yet checked in a browser.
+
+## 2026-11-14
+
+- Sound cues: `public/sounds/correct_answer.mp3` / `incorrect_answer.mp3` play when an answer is submitted in the quick quiz and chosen in the mastery check. `src/audio/sound.js` is pure JavaScript, builds URLs from the Vite base path, caches one `Audio` per cue and swallows playback errors (a blocked autoplay never breaks the quiz).
+- New **Sound** On/Off switch beside "Reduce motion" in Settings; saved as `settings.soundOn` (default on) and kept across a course reset.
+- Validation: 8 new tests in `tests/sound.test.js`; full suite and production build passed. Audio playback not yet checked in a browser.
+
 ## 2026-11-12
 
 - Earned banners in the rewards gallery now have a button that reapplies their theme, including after switching to the default palette.
@@ -26,6 +39,11 @@ Keep this file current whenever the project behaviour or learning flow changes. 
 - Replaced the text navigation control with a hamburger menu linking to unlocked lesson pages, resources, and course tools. Added Settings inside the menu for the reduce-motion switch and earned-banner theme selection; the default theme control is available only in Rewards.
 - Replaced the native course-reset prompt with a theme-matched confirmation dialog.
 - Validation: 87 tests passed across 9 files with `npm test -- --pool=threads --maxWorkers=1`; production build passed. No browser checks were run for this update.
+
+## 2026-11-12
+
+- Fixed Vercel asset paths by building with the root base path on Vercel, while preserving the `/cos750-exam/` base path used by GitHub Pages.
+- Validation: production builds passed with and without `VERCEL=1`; generated asset URLs use `/assets/` on Vercel and `/cos750-exam/assets/` for GitHub Pages.
 
 ## 2026-11-11
 
