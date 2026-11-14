@@ -12,8 +12,11 @@ export default function LearningHeader({ lessonId = 1 }) {
 
   return (
     <header className="learning-header">
-      <a href="#welcome">COS212 BST Tutor</a>
-      <CourseNavigation lessonId={lessonId} />
+      <div className="learning-header-brand">
+        <CourseNavigation lessonId={lessonId} />
+        <a href="#welcome">COS212 BST Tutor</a>
+        
+      </div>
       <div className="learning-header-actions">
         <a className={`reward-banner${banner ? ' has-reward' : ''}`} href="#rewards">
           {banner
