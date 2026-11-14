@@ -3,6 +3,7 @@ import AnswerFeedback from '../components/AnswerFeedback.jsx';
 import HintPanel from '../components/HintPanel.jsx';
 import LearningHeader from '../components/LearningHeader.jsx';
 import QuestionCard from '../components/QuestionCard.jsx';
+import ReadAloudButton from '../components/ReadAloudButton.jsx';
 import questions from '../content/questions.json';
 import lessons from '../content/lessons.json';
 import outcomes from '../content/outcomes.json';
@@ -224,7 +225,10 @@ export default function QuizPage({ lessonId = 1 }) {
                 <span>Question {quiz.index + 1}</span>
                 <span>Skill level: {currentQuestion.skillLevel}</span>
               </div>
-              <h2 id={`question-${currentQuestion.id}`}>{currentQuestion.stem}</h2>
+              <div className="question-stem-row">
+                <h2 id={`question-${currentQuestion.id}`}>{currentQuestion.stem}</h2>
+                <ReadAloudButton audio={currentQuestion.audio} />
+              </div>
               <QuestionCard
                 question={currentQuestion}
                 tree={quizDiagrams[currentQuestion.id]}

@@ -2,6 +2,12 @@
 
 Keep this file current whenever the project behaviour or learning flow changes. Add new entries at the top with a short summary and, when relevant, the validation used.
 
+## 2026-11-14 (read-aloud and cheer)
+
+- Read-aloud: a megaphone **Listen** button next to each quiz and mastery-check question plays a recording of the question (press again to stop). Recordings are `public/sounds/Q01.mp3` to `Q25.mp3`, one per question, linked from a new `audio` field in `questions.json`. A question without an `audio` field shows no button.
+- Lecture-ready cheer: `public/sounds/lecture_ready_crowd_cheers.mp3` plays when the student passes the final mastery check.
+- The Sound switch silences the automatic cues (correct, incorrect, cheer); read-aloud plays only when the student asks for it, so it ignores that switch.
+- Validation: 100 tests passed (10 files); new tests cover the read-aloud player and check that every `audio` field and cue points at an existing file. Production build passed. Not yet checked in a browser.
 
 ## 2026-11-14
 
