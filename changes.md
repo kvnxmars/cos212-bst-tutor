@@ -2,6 +2,13 @@
 
 Keep this file current whenever the project behaviour or learning flow changes. Add new entries at the top with a short summary and, when relevant, the validation used.
 
+
+## 2026-11-14
+
+- Sound cues: `public/sounds/correct_answer.mp3` / `incorrect_answer.mp3` play when an answer is submitted in the quick quiz and chosen in the mastery check. `src/audio/sound.js` is pure JavaScript, builds URLs from the Vite base path, caches one `Audio` per cue and swallows playback errors (a blocked autoplay never breaks the quiz).
+- New **Sound** On/Off switch beside "Reduce motion" in Settings; saved as `settings.soundOn` (default on) and kept across a course reset.
+- Validation: 8 new tests in `tests/sound.test.js`; full suite and production build passed. Audio playback not yet checked in a browser.
+
 ## 2026-11-12
 
 - Earned banners in the rewards gallery now have a button that reapplies their theme, including after switching to the default palette.

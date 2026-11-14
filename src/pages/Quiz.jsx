@@ -13,6 +13,7 @@ import { consumeHint, missedOutcomes } from '../assessment/rules.js';
 import { misconceptionFor } from '../assessment/scoring.js';
 import { awardLessonBanner, bannerIdFor } from '../assessment/rewards.js';
 import { useStudentState } from '../state/StudentState.jsx';
+import { playSound } from '../audio/sound.js';
 
 const WORKED_EXAMPLES = {
   1: 'At every node, check all keys in its left and right subtrees. One value deeper in a subtree can make the whole tree invalid.',
@@ -83,6 +84,7 @@ export default function QuizPage({ lessonId = 1 }) {
   function submitAnswer() {
     if (!currentQuestion || selectedAnswer === undefined || submittedAnswer !== undefined) return;
     const tag = misconceptionFor(currentQuestion, selectedAnswer);
+    playSound(selectedAnswer === currentQuestion.correctAnswer ? 'correct' : 'incorrect', { muted: !studentState.settings.soundOn });
 
     setQuiz((current) => ({
       ...current,
