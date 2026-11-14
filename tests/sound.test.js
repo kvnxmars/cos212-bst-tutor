@@ -13,8 +13,8 @@ function fakeAudioFactory(playImpl = () => Promise.resolve()) {
 
 describe('soundUrl', () => {
   it('serves cues from the Vite base path so they work on GitHub Pages', () => {
-    expect(soundUrl('correct', '/cos750-exam/')).toBe('/cos750-exam/sounds/correct_answer.m4a');
-    expect(soundUrl('incorrect', '/cos750-exam')).toBe('/cos750-exam/sounds/incorrect_answer.m4a');
+    expect(soundUrl('correct', '/cos750-exam/')).toBe('/cos750-exam/sounds/correct_answer.mp3');
+    expect(soundUrl('incorrect', '/cos750-exam')).toBe('/cos750-exam/sounds/incorrect_answer.mp3');
   });
 
   it('returns null for an unknown cue name', () => {
@@ -32,7 +32,7 @@ describe('createSoundPlayer', () => {
     const playSound = createSoundPlayer({ createAudio, base: '/' });
 
     expect(playSound('correct')).toBe(true);
-    expect(createAudio).toHaveBeenCalledWith('/sounds/correct_answer.m4a');
+    expect(createAudio).toHaveBeenCalledWith('/sounds/correct_answer.mp3');
     expect(created[0].currentTime).toBe(0);
     expect(created[0].play).toHaveBeenCalledTimes(1);
   });

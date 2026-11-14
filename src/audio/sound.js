@@ -5,8 +5,8 @@
 // (/cos750-exam/ on GitHub Pages), so URLs are built from BASE_URL.
 
 export const SOUND_FILES = Object.freeze({
-  correct: 'sounds/correct_answer.m4a',
-  incorrect: 'sounds/incorrect_answer.m4a',
+  correct: 'sounds/correct_answer.mp3',
+  incorrect: 'sounds/incorrect_answer.mp3',
 });
 
 function defaultBase() {
