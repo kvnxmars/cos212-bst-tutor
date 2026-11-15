@@ -2,6 +2,10 @@ import LearningHeader from '../components/LearningHeader.jsx';
 import { resumeLocation } from '../assessment/progress.js';
 import { useStudentState } from '../state/StudentState.jsx';
 
+// Served from public/, so the URL follows the Vite base path (/cos750-exam/ on GitHub Pages).
+const USER_MANUAL_FILE = 'COS212-BST-Tutor-User-Manual.pdf';
+const USER_MANUAL_URL = `${import.meta.env.BASE_URL}${USER_MANUAL_FILE}`;
+
 function WelcomeTree() {
   return (
     <svg className="welcome-tree" viewBox="0 0 360 180" role="img" aria-label="Example binary search tree with root 5">
@@ -25,7 +29,18 @@ export default function Welcome() {
   return (
     <main className="learning-shell welcome-shell">
       <LearningHeader />
-      <div className="welcome-breadcrumb">Home</div>
+      <div className="welcome-topline">
+        <div className="welcome-breadcrumb">Home</div>
+        <a
+          className="help-manual-button"
+          href={USER_MANUAL_URL}
+          download={USER_MANUAL_FILE}
+          aria-label="Download the user manual (PDF)"
+          title="Download the user manual (PDF)"
+        >
+          ?
+        </a>
+      </div>
       <section className="welcome-hero" aria-labelledby="welcome-title">
         <h1 id="welcome-title">Welcome!</h1>
         <p className="welcome-tagline">Get to the root of binary search trees, one branch at a time.</p>
