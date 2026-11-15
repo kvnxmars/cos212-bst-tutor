@@ -23,6 +23,7 @@ function createCheck(previousQuestionIds = []) {
     questionIds: selectMasteryQuestions(questions, { previousQuestionIds }).map((question) => question.id),
     previousQuestionIds,
     index: 0,
+    selections: {},
     answers: {},
     phase: 'questions',
   };
@@ -39,7 +40,10 @@ export default function MasteryCheck() {
     [check.questionIds],
   );
   const currentQuestion = checkQuestions[check.index];
-  const selectedAnswer = currentQuestion ? check.answers[currentQuestion.id] : undefined;
+  const submittedAnswer = currentQuestion ? check.answers[currentQuestion.id] : undefined;
+  const selectedAnswer = currentQuestion
+    ? check.selections?.[currentQuestion.id] ?? submittedAnswer
+    : undefined;
   const result = check.phase === 'results' ? scoreMasteryCheck(checkQuestions, check.answers) : null;
   const missed = result ? missedOutcomes(checkQuestions, check.answers) : [];
 
@@ -47,11 +51,19 @@ export default function MasteryCheck() {
     setStudentState((state) => (state.activeMastery === check ? state : { ...state, activeMastery: check }));
   }, [check, setStudentState]);
 
-  function answerQuestion(optionId) {
-    if (!currentQuestion || selectedAnswer !== undefined) return;
-    const tag = misconceptionFor(currentQuestion, optionId);
-    playSound(optionId === currentQuestion.correctAnswer ? 'correct' : 'incorrect', { muted: !studentState.settings.soundOn });
-    setCheck((current) => ({ ...current, answers: { ...current.answers, [currentQuestion.id]: optionId } }));
+  function selectAnswer(optionId) {
+    if (!currentQuestion || submittedAnswer !== undefined) return;
+    setCheck((current) => ({
+      ...current,
+      selections: { ...current.selections, [currentQuestion.id]: optionId },
+    }));
+  }
+
+  function submitAnswer() {
+    if (!currentQuestion || selectedAnswer === undefined || submittedAnswer !== undefined) return;
+    const tag = misconceptionFor(currentQuestion, selectedAnswer);
+    playSound(selectedAnswer === currentQuestion.correctAnswer ? 'correct' : 'incorrect', { muted: !studentState.settings.soundOn });
+    setCheck((current) => ({ ...current, answers: { ...current.answers, [currentQuestion.id]: selectedAnswer } }));
     if (tag) {
       setStudentState((state) => ({
         ...state,
@@ -64,7 +76,7 @@ export default function MasteryCheck() {
   }
 
   function advance() {
-    if (selectedAnswer === undefined) return;
+    if (submittedAnswer === undefined) return;
     if (check.index < checkQuestions.length - 1) {
       setCheck((current) => ({ ...current, index: current.index + 1 }));
       return;
@@ -172,13 +184,23 @@ export default function MasteryCheck() {
                 question={currentQuestion}
                 tree={quizDiagrams[currentQuestion.id]}
                 selectedAnswer={selectedAnswer}
-                onAnswer={answerQuestion}
+                submitted={submittedAnswer !== undefined}
+                onAnswer={selectAnswer}
               />
-              {selectedAnswer !== undefined && <AnswerFeedback question={currentQuestion} selectedAnswer={selectedAnswer} />}
+              {submittedAnswer !== undefined && (
+                <AnswerFeedback question={currentQuestion} selectedAnswer={submittedAnswer} />
+              )}
               <div className="quiz-question-footer">
                 <span />
-                <button type="button" className="learning-primary-button" disabled={selectedAnswer === undefined} onClick={advance}>
-                  {check.index === checkQuestions.length - 1 ? 'See results' : 'Next question'}
+                <button
+                  type="button"
+                  className="learning-primary-button"
+                  disabled={submittedAnswer === undefined ? selectedAnswer === undefined : false}
+                  onClick={submittedAnswer === undefined ? submitAnswer : advance}
+                >
+                  {submittedAnswer === undefined
+                    ? 'Submit answer'
+                    : check.index === checkQuestions.length - 1 ? 'See results' : 'Next question'}
                 </button>
               </div>
             </div>

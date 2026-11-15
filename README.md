@@ -93,7 +93,7 @@ These are practice activities, not required progression steps. Most sequence pla
 
 `src/pages/Quiz.jsx` selects four questions from the current lesson's pool. Learners can select an option, submit it to receive feedback, then move to the next question; submitted answers cannot be changed. Each lesson quiz has three lesson-specific hints that are consumed only when requested and carry over to a retry. First-attempt percentages are retained for the lecture-ready card.
 
-`src/pages/MasteryCheck.jsx` selects one question for each outcome. It records missed outcomes, provides links to lessons covering them, allows unlimited retakes with fresh questions where available, and records the best percentage. Passing is retained across later failed attempts.
+`src/pages/MasteryCheck.jsx` selects one question for each outcome. Like the quick quiz, learners select an option and explicitly submit it before feedback appears; submitted answers are locked until they advance. The final question's submit reveals feedback and a separate action displays the results. The check records missed outcomes, provides links to lessons covering them, allows unlimited retakes with fresh questions where available, and records the best percentage. Passing is retained across later failed attempts.
 
 ### Lecture-ready card and rewards
 
@@ -107,7 +107,7 @@ These are practice activities, not required progression steps. Most sequence pla
 
 The course is organised around explicit outcomes and uses a sequence of explanation, worked examples, guided practice, feedback, and assessment. Lesson content aims to connect each concept to a visible tree or trace. Quizzes sample the lesson's outcomes, while the final check samples all ten outcomes. Wrong answer options are tagged with likely misconceptions so feedback can address the particular mix-up rather than only mark an answer incorrect.
 
-The app uses progressive scaffolding: each lesson quiz provides three lesson-specific hints that decrease only when requested, and a failed quiz leads to a worked example and a lesson review route. Learners select and submit an answer to receive feedback; after submission, the answer is locked until they move to the next question. Optional videos and activities provide alternate ways to practise without obscuring the quiz-based mastery requirement.
+The app uses progressive scaffolding: each lesson quiz provides three lesson-specific hints that decrease only when requested, and a failed quiz leads to a worked example and a lesson review route. In both quizzes and the final mastery check, learners select and submit an answer to receive feedback; after submission, the answer is locked until they move to the next question. Optional videos and activities provide alternate ways to practise without obscuring the quiz-based mastery requirement.
 
 ### Wireframes and visual design
 
@@ -163,7 +163,7 @@ The HTML entry point is `index.html`; `src/main.jsx` mounts the React applicatio
 | `src/pages/Video.jsx` | Lesson-specific video and related practice links. |
 | `src/pages/TreeBuilder.jsx` | Selects and frames the activity for a lesson. |
 | `src/pages/Quiz.jsx` | Four-question lesson quiz, submit-for-feedback flow, lesson hints, retries, score recording, and lesson mastery. |
-| `src/pages/MasteryCheck.jsx` | Ten-outcome final assessment, retakes, and missed-outcome feedback. |
+| `src/pages/MasteryCheck.jsx` | Ten-outcome final assessment, submit-for-feedback flow, retakes, and missed-outcome feedback. |
 | `src/pages/LectureReady.jsx` | Final outcome/score summary and wallpaper/CSV exports. |
 | `src/pages/Rewards.jsx` | Earned/locked reward gallery and wallpaper download. |
 
@@ -171,7 +171,7 @@ The HTML entry point is `index.html`; `src/main.jsx` mounts the React applicatio
 
 | Path | Responsibility |
 | --- | --- |
-| `src/components/AccessibilityMenu.jsx` | Saved reduced-motion switch. |
+| `src/components/AccessibilityMenu.jsx` | Saved reduced-motion and sound switches. |
 | `src/components/AnswerFeedback.jsx` | Correct/incorrect explanation and misconception-specific feedback. |
 | `src/components/CourseNavigation.jsx` | Hamburger menu, unlocked lesson/resource links, course tools, settings, and earned-theme selection. |
 | `src/components/CourseResetButton.jsx` | Confirmation dialog for resetting the course; cancel keeps progress, reset preserves accessibility preferences. |
@@ -182,6 +182,7 @@ The HTML entry point is `index.html`; `src/main.jsx` mounts the React applicatio
 | `src/components/PlaybackControls.jsx` | Visualiser step navigation, playback, reset, and speed control. |
 | `src/components/PseudocodePanel.jsx` | Displays operation pseudocode, active line, and current path/output. |
 | `src/components/QuestionCard.jsx` | Displays answer choices and an optional tree diagram. |
+| `src/components/ReadAloudButton.jsx` | Plays or stops the recording for a question when one is available. |
 | `src/components/TreeControls.jsx` | Tree input, operation selection, value input, validation feedback, and tree statistics. |
 | `src/components/TreeView.jsx` | SVG tree layout, edges, nodes, and current/visited visual states. |
 | `src/components/VideoEmbed.jsx` | Responsive privacy-enhanced YouTube iframe with captions requested by default. |
@@ -219,6 +220,12 @@ The engine is plain JavaScript with no React imports. Operations return immutabl
 | `src/assessment/scoring.js` | Chosen-option misconception lookup and CSV generation for misconception hits. |
 | `src/assessment/rewards.js` | Banner assignment, active theme, and reward eligibility. |
 
+### Audio
+
+| Path | Responsibility |
+| --- | --- |
+| `src/audio/sound.js` | Plays answer/cheer cues and question read-aloud recordings under the configured Vite base path. |
+
 ### Content data
 
 | Path | Responsibility |
@@ -241,7 +248,7 @@ The engine is plain JavaScript with no React imports. Operations return immutabl
 | `vite.config.js` | React plugin, Vitest configuration, and GitHub Pages base path (`/cos750-exam/`). |
 | `.github/workflows/ci.yml` | Runs install, tests, and production build on pushes to `main` and pull requests. |
 | `.github/workflows/deploy.yml` | Manually triggered GitHub Pages build and deployment. |
-| `public/sounds/.gitkeep` | Keeps the currently empty sounds directory in the project; no sound files or audio playback are currently wired into the UI. |
+| `public/sounds/` | Question read-aloud recordings and correct, incorrect, and lecture-ready audio cues. |
 | `dist/` | Generated production output from `npm run build`; do not edit it as source. |
 
 ## State and persistence
@@ -252,9 +259,9 @@ The engine is plain JavaScript with no React imports. Operations return immutabl
 - quiz attempts, first-attempt scores, and the currently active quiz;
 - misconception hits captured from incorrect tagged answers;
 - final mastery attempts, pass status, best percentage, missed outcomes, and active check;
-- selected banner theme and reduced-motion preference.
+- selected banner theme, reduced-motion preference, and sound setting.
 
-The course reset dialog explains what will be cleared. Resetting removes course progress, quiz records, and rewards, returns the learner to Lesson 1, and retains the reduced-motion preference. If browser storage cannot be read or written, the app logs the error and displays a learner-facing warning; progress may then only last for the current visit.
+The course reset dialog explains what will be cleared. Resetting removes course progress, quiz records, and rewards, returns the learner to Lesson 1, and retains the reduced-motion and sound preferences. If browser storage cannot be read or written, the app logs the error and displays a learner-facing warning; progress may then only last for the current visit.
 
 ## Design and course reference documents
 
@@ -286,9 +293,10 @@ Automated tests are in `tests/` and run in Node through Vitest:
 | `tests/quiz.test.js` | Question selection, outcome coverage, scoring, and mastery assessment rules. |
 | `tests/rules.test.js` | Hint budget, pass/fail routing, and outcome review mapping. |
 | `tests/scoring.test.js` | Misconception lookup and CSV formatting. |
-| `tests/mastery-and-rewards.test.js` | Mastery persistence and reward eligibility/retention. |
+| `tests/mastery-and-rewards.test.js` | Mastery scoring/selection and reward eligibility/retention. |
 | `tests/content.test.js` | Content shape and alignment checks. |
 | `tests/se-document-cases.test.js` | Cases traced to the software-engineering requirements. |
+| `tests/sound.test.js` | Sound cue/read-aloud URL and playback behavior. |
 
 Run the same unit tests and production build used by CI:
 
@@ -340,7 +348,7 @@ Open the local URL printed by Vite. The app uses hash routes, so pages can be op
 - Learner progress and quiz results are study aids, not a remotely verified gradebook.
 - The engine handles unique numeric keys for the teaching examples; duplicate insertions do not change the tree.
 - A conventional unbalanced BST is used to demonstrate shape-dependent cost; the app does not rebalance trees.
-- Snapshot sound cue identifiers are metadata only; no audio playback is currently implemented.
+- Correct/incorrect answer and lecture-ready cues play when sound is enabled; question recordings play only when requested with the Listen button. Browser playback can still be restricted by autoplay policy or missing/unsupported audio.
 - The deployment workflow is manual, not an automatic production release on every push.
 
 ## Evidence log
