@@ -11,3 +11,4 @@
 - Read-aloud recordings `M01.mp3` to `M10.mp3` linked to the mastery-only questions M1 to M10 (`audio` field in `questions.json`); replaced `lecture_ready_crowd_cheers.mp3` with a shorter (~4 s) version.
 - Mastery check: optional "Retake the check" on the pass screen and the lecture-ready card (pass, wallpaper and best score kept).
 - The Lecture Ready wallpaper is now also a dark forest-and-gold colour theme, unlocked by passing the mastery check and applied on the first pass; selectable in Settings and the Rewards gallery. 101 tests passing.
+- Welcome page: round "?" button beside the Home breadcrumb downloads the user manual (`public/COS212-BST-Tutor-User-Manual.pdf`).

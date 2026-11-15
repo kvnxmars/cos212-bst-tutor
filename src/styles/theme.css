@@ -141,6 +141,10 @@ input:focus, select:focus { outline: 2px solid #8cc8ad; outline-offset: 1px; }
 .learning-alternatives-panel a { padding: 10px; color: var(--ink); font-size: 12px; text-decoration: none; }
 .learning-alternatives-panel a:hover, .learning-alternatives-panel a:focus-visible { background: #eaf1e9; color: var(--green); }
 .welcome-breadcrumb { padding: 12px 0; color: #929b93; font-size: 11px; }
+.welcome-topline { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.help-manual-button { display: inline-grid; width: 36px; height: 36px; flex: none; place-items: center; border: 2px solid var(--green); border-radius: 50%; margin-top: 8px; background: var(--paper); color: var(--green); font-size: 18px; font-weight: 700; line-height: 1; text-decoration: none; }
+.help-manual-button:hover { background: var(--green); color: #fff; }
+.help-manual-button:focus-visible { outline: 3px solid var(--focus-ring, var(--green)); outline-offset: 2px; }
 .welcome-hero { max-width: 900px; margin: 22px auto 0; text-align: center; }
 .welcome-hero h1 { margin: 0; font-size: clamp(36px, 5vw, 52px); }
 .welcome-tagline { margin: 10px 0 0; color: #3a4540; font-size: clamp(17px, 2.5vw, 22px); }
