@@ -27,8 +27,8 @@ export function bannerSvg(reward) {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 120" width="600" height="120">`
     + `<rect width="600" height="120" fill="${light}"/>`
     + `<g transform="translate(430 0)">${treeMarkup(170, 120, dark, light, 9)}</g>`
-    + `<text x="28" y="58" font-family="Georgia, serif" font-size="30" fill="${dark}">${escapeText(reward.title)}</text>`
-    + `<text x="28" y="86" font-family="Arial, sans-serif" font-size="13" letter-spacing="2" fill="${dark}">COS212 BST TUTOR</text>`
+    + `<text x="28" y="58" font-family="'Open Sans', Arial, sans-serif" font-size="30" fill="${dark}">${escapeText(reward.title)}</text>`
+    + `<text x="28" y="86" font-family="'Open Sans', Arial, sans-serif" font-size="13" letter-spacing="2" fill="${dark}">COS212 BST TUTOR</text>`
     + '</svg>';
 }
 
@@ -37,8 +37,8 @@ export function wallpaperSvg(reward) {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">`
     + `<rect width="1920" height="1080" fill="${dark}"/>`
     + `<g transform="translate(960 140)">${treeMarkup(860, 860, light, dark, 38)}</g>`
-    + `<text x="120" y="470" font-family="Georgia, serif" font-size="96" fill="${light}">${escapeText(reward.title)}</text>`
-    + `<text x="124" y="540" font-family="Arial, sans-serif" font-size="28" letter-spacing="6" fill="${light}" fill-opacity="0.8">COS212 BINARY SEARCH TREES</text>`
+    + `<text x="120" y="470" font-family="'Open Sans', Arial, sans-serif" font-size="96" fill="${light}">${escapeText(reward.title)}</text>`
+    + `<text x="124" y="540" font-family="'Open Sans', Arial, sans-serif" font-size="28" letter-spacing="6" fill="${light}" fill-opacity="0.8">COS212 BINARY SEARCH TREES</text>`
     + '</svg>';
 }
 
