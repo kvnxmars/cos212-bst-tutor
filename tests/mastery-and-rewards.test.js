@@ -7,7 +7,7 @@ import {
   selectMasteryQuestions,
 } from '../src/assessment/quiz.js';
 import { resumeLocation } from '../src/assessment/progress.js';
-import { activeBannerIdFor, awardLessonBanner, bannerIdFor, isRewardEarned } from '../src/assessment/rewards.js';
+import { WALLPAPER_THEME_ID, activeBannerIdFor, awardLessonBanner, bannerIdFor, earnedThemeIds, isRewardEarned } from '../src/assessment/rewards.js';
 
 describe('final mastery check (ID document 4.7.4)', () => {
   it('asks 10 questions, one per outcome, with no repeats', () => {
@@ -61,6 +61,17 @@ describe('rewards', () => {
     expect(activeBannerIdFor({ earnedBanners: ['lesson-1', 'lesson-2'], selectedBanner: null })).toBe('lesson-2');
     expect(activeBannerIdFor({ earnedBanners: ['lesson-1', 'lesson-2'], selectedBanner: 'lesson-1' })).toBe('lesson-1');
     expect(activeBannerIdFor({ earnedBanners: ['lesson-1'], selectedBanner: 'lesson-4' })).toBe('lesson-1');
+  });
+
+  it('unlocks the mastery wallpaper as a colour theme only after the check is passed', () => {
+    const all = ['lesson-1', 'lesson-2', 'lesson-3', 'lesson-4'];
+    expect(earnedThemeIds({ earnedBanners: all, masteryCheck: { passed: false } })).toEqual(all);
+    expect(earnedThemeIds({ earnedBanners: all, masteryCheck: { passed: true } })).toEqual([...all, WALLPAPER_THEME_ID]);
+    // Choosing the wallpaper theme before passing falls back to the latest banner.
+    expect(activeBannerIdFor({ earnedBanners: all, masteryCheck: { passed: false }, selectedBanner: WALLPAPER_THEME_ID })).toBe('lesson-4');
+    expect(activeBannerIdFor({ earnedBanners: all, masteryCheck: { passed: true }, selectedBanner: WALLPAPER_THEME_ID })).toBe(WALLPAPER_THEME_ID);
+    expect(activeBannerIdFor({ earnedBanners: all, masteryCheck: { passed: true }, selectedBanner: 'lesson-2' })).toBe('lesson-2');
+    expect(activeBannerIdFor({ earnedBanners: all, masteryCheck: { passed: true }, selectedBanner: 'default' })).toBe(null);
   });
 });
 

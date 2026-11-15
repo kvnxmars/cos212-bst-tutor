@@ -69,7 +69,7 @@ export function StudentStateProvider({ children }) {
 
   useEffect(() => {
     document.documentElement.dataset.theme = activeBannerIdFor(studentState) ?? 'default';
-  }, [studentState.earnedBanners, studentState.selectedBanner]);
+  }, [studentState.earnedBanners, studentState.selectedBanner, studentState.masteryCheck.passed]);
 
   useEffect(() => {
     try {
