@@ -192,7 +192,7 @@ export default function VisualizerPage({ lessonId = 1 }) {
         <section className="visual-panel" aria-label="Tree and operation steps">
           <div className="visual-heading">
             <div><p className="eyebrow">LIVE STRUCTURE</p><h2>Binary search tree</h2></div>
-            <div className="legend"><span><i className="legend-current" />Current</span><span><i className="legend-visited" />✓ Visited</span></div>
+            <div className="legend"><span><i className="legend-current" />Current</span><span><svg className="legend-visited visited-badge" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="7" /><path d="M 4.5 8 l 2.5 2.5 l 4.5 -5" /></svg>Visited</span></div>
           </div>
           <TreeView tree={visibleTree} snapshot={snapshot} />
           <div className="playback">
