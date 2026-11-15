@@ -14,15 +14,14 @@ describe('final mastery check (ID document 4.7.4)', () => {
     const selected = selectMasteryQuestions(questions, { random: () => 0 });
     expect(selected).toHaveLength(10);
     expect(selected.map((question) => question.outcome)).toEqual([...MASTERY_OUTCOMES]);
+    expect(selected.map((question) => question.id)).toEqual(MASTERY_OUTCOMES.map((_, index) => `M${index + 1}`));
     expect(new Set(selected.map((question) => question.id)).size).toBe(10);
   });
 
-  it('uses fresh questions on a retake when the pool allows it', () => {
+  it('uses the document mastery questions on every retake', () => {
     const first = selectMasteryQuestions(questions, { random: () => 0 });
     const retake = selectMasteryQuestions(questions, { previousQuestionIds: first.map((q) => q.id), random: () => 0 });
-    const repeated = retake.filter((question) => first.some((old) => old.id === question.id));
-    // Every outcome has at least two questions in the pool, so nothing repeats.
-    expect(repeated).toEqual([]);
+    expect(retake.map((question) => question.id)).toEqual(first.map((question) => question.id));
   });
 
   it('passes at 8 of 10 and fails at 7 of 10', () => {

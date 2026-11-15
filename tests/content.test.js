@@ -65,11 +65,13 @@ describe('diagrams match their questions and lessons', () => {
     expect(isValidBST(quizDiagrams.Q4)).toBe(false); // answer: 12 is in 10's left subtree
     expect(quizDiagrams.Q4.left.right.key).toBe(12);
     expect(isValidBST(quizDiagrams.Q18)).toBe(false);
+    expect(isValidBST(quizDiagrams.M2)).toBe(false);
+    expect(quizDiagrams.M2.left.right.key).toBe(45);
   });
 
   it('draws valid BSTs everywhere else', () => {
     for (const [id, tree] of Object.entries(quizDiagrams)) {
-      if (id === 'Q4' || id === 'Q18') continue;
+      if (id === 'Q4' || id === 'Q18' || id === 'M2') continue;
       expect(isValidBST(tree), id).toBe(true);
     }
   });

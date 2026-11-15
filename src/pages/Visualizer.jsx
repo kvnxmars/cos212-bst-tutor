@@ -13,8 +13,7 @@ import PlaybackControls from '../components/PlaybackControls.jsx';
 import PseudocodePanel from '../components/PseudocodePanel.jsx';
 import TreeControls from '../components/TreeControls.jsx';
 import TreeView from '../components/TreeView.jsx';
-import CourseResetButton from '../components/CourseResetButton.jsx';
-import CourseNavigation from '../components/CourseNavigation.jsx';
+import LearningHeader from '../components/LearningHeader.jsx';
 import { useStudentState } from '../state/StudentState.jsx';
 
 const STARTING_KEYS = [50, 30, 70, 20, 40, 60, 80];
@@ -140,17 +139,10 @@ export default function VisualizerPage({ lessonId = 1 }) {
   }
 
   return (
-    <main className="app-shell">
-      <header className="topbar">
-        <a className="wordmark" href="#welcome" aria-label="COS212 BST Tutor, home"><span className="wordmark-mark">T</span>TRULinK<span className="wordmark-period">.</span></a>
-        <div className="course-label">COS212 <span> / </span> DATA STRUCTURES</div>
-        <div className="topbar-actions">
-          <CourseNavigation lessonId={lessonId} />
-          <a className="visualizer-back-link" href={`#lesson?lesson=${lessonId}`}>Back to lesson</a>
-          <button className="reset-button" type="button" onClick={resetDemo}>Reset demo</button>
-          <CourseResetButton />
-        </div>
-      </header>
+    <main className="learning-shell visualizer-shell">
+      <LearningHeader lessonId={lessonId}>
+        <button className="reset-button" type="button" onClick={resetDemo}>Reset demo</button>
+      </LearningHeader>
 
       <div className="visualizer-path">
         <nav className="lesson-breadcrumb" aria-label="Breadcrumb">
@@ -221,7 +213,7 @@ export default function VisualizerPage({ lessonId = 1 }) {
           finished={steps.length > 0 && stepIndex === steps.length - 1}
         />
       </section>
-      <footer className="footer"><span>TRULINK / COS212 BST TUTOR</span><span>LEARN BY FOLLOWING THE PATH</span></footer>
+      <footer className="footer"><span>COS212 BST TUTOR</span><span>LEARN BY FOLLOWING THE PATH</span></footer>
     </main>
   );
 }

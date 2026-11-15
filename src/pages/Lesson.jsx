@@ -85,7 +85,7 @@ export default function Lesson({ lessonId = 1 }) {
 
   return (
     <main className="learning-shell lesson-shell">
-      <LearningHeader lessonId={lesson.id} />
+      <LearningHeader lessonId={lesson.id} showBackToLesson={false} />
       <div className="lesson-topline">
         <nav className="lesson-breadcrumb" aria-label="Breadcrumb">
           <a href="#welcome">Home</a><span>&gt;</span><span>Lesson {lesson.id}</span><span>&gt;</span><span>{lesson.title}</span>

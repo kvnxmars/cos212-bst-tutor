@@ -57,7 +57,6 @@ export default function TreeBuilderPage({ lessonId = 1 }) {
             <h1 id="activity-page-title">{activity.title}</h1>
             <p>{activity.intro}</p>
           </div>
-          <a href={`#lesson?lesson=${lesson.id}`}>Back to lesson</a>
         </div>
         <Activity />
         <div className="tree-challenge-footer">

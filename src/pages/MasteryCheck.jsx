@@ -132,7 +132,7 @@ export default function MasteryCheck() {
             </>
           ) : (
             <>
-              <p>You need {MASTERY_PASS_COUNT} of {MASTERY_OUTCOMES.length} correct. Review the outcomes below, then retake the check with fresh questions. There is no limit and no penalty.</p>
+              <p>You need {MASTERY_PASS_COUNT} of {MASTERY_OUTCOMES.length} correct. Review the outcomes below, then retake the check. There is no limit and no penalty.</p>
               <div className="quiz-scaffold">
                 <h2>Outcomes to review</h2>
                 <ul>{missed.map((outcome) => <li key={outcome}>{outcomes[outcome]}</li>)}</ul>
@@ -145,7 +145,7 @@ export default function MasteryCheck() {
                   ))}
                 </ul>
               </div>
-              <button type="button" className="learning-primary-button" onClick={retake}>Retake with fresh questions</button>
+              <button type="button" className="learning-primary-button" onClick={retake}>Retake the check</button>
             </>
           )}
         </section>

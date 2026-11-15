@@ -798,5 +798,325 @@
     "correctAnswer": "B",
     "explanation": "With no inserts, the sorted array pays no shifting cost, and binary search takes about log2 n comparisons. A BST built from sorted input would be a chain.",
     "selectable": true
+  },
+  {
+    "id": "M1",
+    "lesson": 1,
+    "outcome": "O1",
+    "skillLevel": "Explain",
+    "stem": "Which statement about the tree below is correct?",
+    "options": [
+      {
+        "id": "A",
+        "text": "18 is the root of the tree.",
+        "misconception": "tree-parts-mixup"
+      },
+      {
+        "id": "B",
+        "text": "40 is a leaf.",
+        "misconception": "tree-parts-mixup"
+      },
+      {
+        "id": "C",
+        "text": "12 is the parent of 6 and 18."
+      },
+      {
+        "id": "D",
+        "text": "25 is a child of 12.",
+        "misconception": "tree-parts-mixup"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "A parent is the node directly above its children. 12 sits directly above 6 and 18. The root is 25 (the top node), 40 has two children so it is not a leaf, and 25 is the parent of 12, not its child.",
+    "selectable": false,
+    "masteryOnly": true
+  },
+  {
+    "id": "M2",
+    "lesson": 1,
+    "outcome": "O2",
+    "skillLevel": "Evaluate",
+    "stem": "Is the tree below a valid BST?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Yes, because every node has a smaller value on its left and a larger value on its right.",
+        "misconception": "local-check-only"
+      },
+      {
+        "id": "B",
+        "text": "No, because 45 is in the left subtree of 40 but is larger than 40."
+      },
+      {
+        "id": "C",
+        "text": "Yes, because it is a binary tree and no node has more than two children.",
+        "misconception": "any-binary-tree"
+      },
+      {
+        "id": "D",
+        "text": "No, because 20 has a larger child (45) on its right.",
+        "misconception": "local-check-only"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "45 is correctly on the right of its parent 20, but it is also in the left subtree of 40, and every value there must be smaller than 40. A larger child on the right is normal.",
+    "selectable": false,
+    "masteryOnly": true
+  },
+  {
+    "id": "M3",
+    "lesson": 2,
+    "outcome": "O3",
+    "skillLevel": "Apply",
+    "stem": "Search for 35 in the tree below. What happens?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Found: 35 is next to 30, so the search stops at 30.",
+        "misconception": "not-found-confusion"
+      },
+      {
+        "id": "B",
+        "text": "Not found, but only after checking all 7 nodes.",
+        "misconception": "search-checks-every-node"
+      },
+      {
+        "id": "C",
+        "text": "Not found: the search compares 40, 60 and 50, then reaches an empty spot.",
+        "misconception": "wrong-child-or-skips"
+      },
+      {
+        "id": "D",
+        "text": "Not found: the search compares 40, 20 and 30, then reaches an empty spot."
+      }
+    ],
+    "correctAnswer": "D",
+    "explanation": "35 is smaller than 40 (go left), larger than 20 (go right), larger than 30, and 30 has no right child. An empty spot means the value is not in the tree.",
+    "selectable": false,
+    "masteryOnly": true
+  },
+  {
+    "id": "M4",
+    "lesson": 2,
+    "outcome": "O4",
+    "skillLevel": "Apply",
+    "stem": "Insert 55 into the tree below. Where does the new node go?",
+    "options": [
+      {
+        "id": "A",
+        "text": "As the right child of 50."
+      },
+      {
+        "id": "B",
+        "text": "As the left child of 50.",
+        "misconception": "wrong-child-or-skips"
+      },
+      {
+        "id": "C",
+        "text": "As the right child of 60, replacing 70.",
+        "misconception": "insert-moves-nodes"
+      },
+      {
+        "id": "D",
+        "text": "As the new root.",
+        "misconception": "insert-moves-nodes"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "55 is larger than 40 (go right), smaller than 60 (go left), larger than 50 (go right). That spot is empty, so the new node goes there.",
+    "selectable": false,
+    "masteryOnly": true
+  },
+  {
+    "id": "M5",
+    "lesson": 2,
+    "outcome": "O5",
+    "skillLevel": "Apply",
+    "stem": "You start with an empty BST and insert 30, 15, 45, 10, 20 and 40, in that order. What is the right child of 15?",
+    "options": [
+      {
+        "id": "A",
+        "text": "10",
+        "misconception": "tree-parts-mixup"
+      },
+      {
+        "id": "B",
+        "text": "20"
+      },
+      {
+        "id": "C",
+        "text": "40",
+        "misconception": "tree-parts-mixup"
+      },
+      {
+        "id": "D",
+        "text": "45",
+        "misconception": "tree-parts-mixup"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "30 is the root, 15 goes left, 45 goes right, 10 goes left of 15. 20 is smaller than 30 and larger than 15, so it is the right child of 15.",
+    "selectable": false,
+    "masteryOnly": true
+  },
+  {
+    "id": "M6",
+    "lesson": 3,
+    "outcome": "O6",
+    "skillLevel": "Apply",
+    "stem": "What is the post-order traversal of the tree below?",
+    "options": [
+      {
+        "id": "A",
+        "text": "45, 25, 15, 35, 65, 55, 75, 70",
+        "misconception": "traversal-order-mixup"
+      },
+      {
+        "id": "B",
+        "text": "15, 25, 35, 45, 55, 65, 70, 75",
+        "misconception": "traversal-order-mixup"
+      },
+      {
+        "id": "C",
+        "text": "45, 25, 65, 15, 35, 55, 75, 70",
+        "misconception": "traversal-order-mixup"
+      },
+      {
+        "id": "D",
+        "text": "15, 35, 25, 55, 70, 75, 65, 45"
+      }
+    ],
+    "correctAnswer": "D",
+    "explanation": "Post-order visits the left subtree, then the right subtree, then the node itself. The root, 45, comes last.",
+    "selectable": false,
+    "masteryOnly": true
+  },
+  {
+    "id": "M7",
+    "lesson": 3,
+    "outcome": "O7",
+    "skillLevel": "Explain",
+    "stem": "A BST holds the values 12, 5, 20, 8 and 15. Its in-order traversal prints 5, 8, 12, 15, 20. Why are the values printed in sorted order?",
+    "options": [
+      {
+        "id": "A",
+        "text": "At every node the smaller values are on the left and the larger values on the right, and in-order visits left, then the node, then right."
+      },
+      {
+        "id": "B",
+        "text": "In-order traversal sorts the values as it visits them.",
+        "misconception": "inorder-always-sorted"
+      },
+      {
+        "id": "C",
+        "text": "The values were inserted in sorted order.",
+        "misconception": "inorder-always-sorted"
+      },
+      {
+        "id": "D",
+        "text": "The root is always the middle value, so the tree is balanced around it.",
+        "misconception": "always-balanced"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "The BST rule keeps smaller values on the left and larger values on the right at every node. In-order reads left, node, right, so the values come out smallest to largest. The insert order does not matter, and the traversal does not sort anything itself.",
+    "selectable": false,
+    "masteryOnly": true
+  },
+  {
+    "id": "M8",
+    "lesson": 4,
+    "outcome": "O8",
+    "skillLevel": "Explain",
+    "stem": "Two BSTs are built from the same values: 10, 20, 30, 40, 50, 60 and 70. Tree X inserts them in the order 40, 20, 60, 10, 30, 50, 70. Tree Y inserts them in the order 10, 20, 30, 40, 50, 60, 70. Which statement is correct?",
+    "options": [
+      {
+        "id": "A",
+        "text": "Both trees have the same shape, because they hold the same values.",
+        "misconception": "always-balanced"
+      },
+      {
+        "id": "B",
+        "text": "Tree X is a chain and Tree Y is balanced, because sorted input keeps the tree balanced.",
+        "misconception": "always-balanced"
+      },
+      {
+        "id": "C",
+        "text": "Tree Y is a chain and Tree X is balanced, because the insert order decides the shape."
+      },
+      {
+        "id": "D",
+        "text": "Both trees are balanced, because a BST always balances itself.",
+        "misconception": "always-balanced"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "In Tree Y every new value is larger than all earlier ones, so it always goes right and the tree becomes a chain. Tree X starts with the middle value, so it stays short and balanced.",
+    "selectable": false,
+    "masteryOnly": true
+  },
+  {
+    "id": "M9",
+    "lesson": 4,
+    "outcome": "O9",
+    "skillLevel": "Explain",
+    "stem": "A balanced BST and a chain-shaped BST hold the same values. Why is searching the balanced one faster?",
+    "options": [
+      {
+        "id": "A",
+        "text": "The balanced tree holds fewer values.",
+        "misconception": "cost-not-height"
+      },
+      {
+        "id": "B",
+        "text": "In a balanced tree each comparison skips about half of the remaining values (about log n comparisons), but in a chain it skips only one value (up to n comparisons)."
+      },
+      {
+        "id": "C",
+        "text": "The chain has to be sorted before it can be searched.",
+        "misconception": "search-checks-every-node"
+      },
+      {
+        "id": "D",
+        "text": "Search starts at a different node in the balanced tree.",
+        "misconception": "wrong-child-or-skips"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Search follows one path from the root, so its cost depends on how tall the tree is. A balanced tree is short, so about log n comparisons are enough. A chain is as tall as the number of values, so a search can need up to n.",
+    "selectable": false,
+    "masteryOnly": true
+  },
+  {
+    "id": "M10",
+    "lesson": 4,
+    "outcome": "O10",
+    "skillLevel": "Evaluate",
+    "stem": "A shop adds new customers to its customer list all day, in no particular order, and staff search the list by customer number. Which structure is the better choice?",
+    "options": [
+      {
+        "id": "A",
+        "text": "A BST: new customers are added without moving other records, and search is fast when the tree is reasonably balanced."
+      },
+      {
+        "id": "B",
+        "text": "A sorted array: it is always faster than a BST.",
+        "misconception": "array-insert-cost"
+      },
+      {
+        "id": "C",
+        "text": "A sorted array: new customers can just be added at the end.",
+        "misconception": "array-insert-cost"
+      },
+      {
+        "id": "D",
+        "text": "A BST: it is faster even if the customers arrive in sorted order.",
+        "misconception": "always-balanced"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Adding to a sorted array means shifting records to keep the order, and adding at the end breaks the order. A BST adds a new node without moving anything, and customers arriving in mixed order keep the tree reasonably balanced.",
+    "selectable": false,
+    "masteryOnly": true
   }
 ]

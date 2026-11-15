@@ -69,7 +69,12 @@ export function selectMasteryQuestions(
 ) {
   const previous = new Set(previousQuestionIds);
   return MASTERY_OUTCOMES.map((outcome) => {
-    const pool = questionBank.filter((question) => question.outcome === outcome && question.selectable !== false);
+    const masteryQuestions = questionBank.filter(
+      (question) => question.outcome === outcome && question.masteryOnly === true,
+    );
+    const pool = masteryQuestions.length
+      ? masteryQuestions
+      : questionBank.filter((question) => question.outcome === outcome && question.selectable !== false);
     if (!pool.length) throw new Error(`No selectable question covers outcome ${outcome}.`);
     const fresh = pool.filter((question) => !previous.has(question.id));
     return chooseRandom(fresh.length ? fresh : pool, random);

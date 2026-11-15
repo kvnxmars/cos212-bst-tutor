@@ -5,7 +5,7 @@ import CourseNavigation from './CourseNavigation.jsx';
 import CourseResetButton from './CourseResetButton.jsx';
 import { bannerSvg, svgDataUrl } from './rewardArt.js';
 
-export default function LearningHeader({ lessonId = 1 }) {
+export default function LearningHeader({ lessonId = 1, showBackToLesson = true, children }) {
   const { studentState } = useStudentState();
   const bannerId = activeBannerIdFor(studentState);
   const banner = rewards.find((reward) => reward.id === bannerId && studentState.earnedBanners.includes(reward.id));
@@ -18,6 +18,10 @@ export default function LearningHeader({ lessonId = 1 }) {
         
       </div>
       <div className="learning-header-actions">
+        {showBackToLesson && (
+          <a className="visualizer-back-link" href={`#lesson?lesson=${lessonId}`}>Back to lesson</a>
+        )}
+        {children}
         <a className={`reward-banner${banner ? ' has-reward' : ''}`} href="#rewards">
           {banner
             ? <img src={svgDataUrl(bannerSvg(banner))} alt={`Your banner: ${banner.title}. Open rewards`} />

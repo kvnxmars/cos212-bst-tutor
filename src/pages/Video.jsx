@@ -31,7 +31,6 @@ export default function VideoPage({ lessonId = 1 }) {
             <h1 id="video-learning-title">Watch a video</h1>
             <p>Use this visual explanation alongside “{lesson.title}”.</p>
           </div>
-          <a href={`#lesson?lesson=${lesson.id}`}>Back to lesson</a>
         </div>
         <article className="video-learning-card">
           <VideoEmbed videoId={video.id} title={video.title} />
