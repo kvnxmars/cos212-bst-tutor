@@ -16,6 +16,7 @@ import {
 import { lessonsForOutcomes, missedOutcomes } from '../assessment/rules.js';
 import { misconceptionFor } from '../assessment/scoring.js';
 import { useStudentState } from '../state/StudentState.jsx';
+import { WALLPAPER_THEME_ID } from '../assessment/rewards.js';
 import { playSound } from '../audio/sound.js';
 
 function createCheck(previousQuestionIds = []) {
@@ -94,6 +95,8 @@ export default function MasteryCheck() {
         bestPercentage: Math.max(state.masteryCheck.bestPercentage ?? 0, finalResult.percentage),
         lastMissedOutcomes: finalMissed,
       },
+      // The first pass switches the app to the Lecture Ready theme, like a lesson banner does.
+      selectedBanner: finalResult.passed && !state.masteryCheck.passed ? WALLPAPER_THEME_ID : state.selectedBanner,
     }));
   }
 

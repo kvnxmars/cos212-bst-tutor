@@ -11,12 +11,22 @@ export function awardLessonBanner(earnedBanners, lessonId) {
   return earnedBanners.includes(id) ? earnedBanners : [...earnedBanners, id];
 }
 
+// The mastery wallpaper doubles as an app colour theme once the check is passed.
+export const WALLPAPER_THEME_ID = 'mastery-wallpaper';
+
+/** Ids of every colour theme the student has unlocked, in the order they were earned. */
+export function earnedThemeIds(studentState) {
+  const banners = studentState.earnedBanners.filter((id) => /^lesson-[1-4]$/.test(id));
+  return studentState.masteryCheck?.passed === true ? [...banners, WALLPAPER_THEME_ID] : banners;
+}
+
+/** Id of the active colour theme (a banner or the wallpaper), or null for the default theme. */
 export function activeBannerIdFor(studentState) {
   if (studentState.selectedBanner === 'default') return null;
-  const earnedBanners = studentState.earnedBanners.filter((id) => /^lesson-[1-4]$/.test(id));
-  return earnedBanners.includes(studentState.selectedBanner)
+  const themes = earnedThemeIds(studentState);
+  return themes.includes(studentState.selectedBanner)
     ? studentState.selectedBanner
-    : earnedBanners.at(-1) ?? null;
+    : themes.at(-1) ?? null;
 }
 
 export function isRewardEarned(reward, studentState) {
