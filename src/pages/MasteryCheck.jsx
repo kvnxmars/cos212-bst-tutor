@@ -140,7 +140,11 @@ export default function MasteryCheck() {
           {result.passed ? (
             <>
               <p>You passed the mastery check ({MASTERY_PASS_COUNT} of {MASTERY_OUTCOMES.length} needed). Your lecture-ready card and wallpaper are unlocked.</p>
-              <a className="learning-primary-button" href="#lecture-ready">Open your lecture-ready card</a>
+              <div className="mastery-pass-actions">
+                <a className="learning-primary-button" href="#lecture-ready">Open your lecture-ready card</a>
+                <button type="button" className="learning-secondary-button" onClick={retake}>Retake the check</button>
+                <p className="field-note">Optional. Your pass, wallpaper and best score are kept whatever you score.</p>
+              </div>
             </>
           ) : (
             <>

@@ -805,6 +805,7 @@
     "outcome": "O1",
     "skillLevel": "Explain",
     "stem": "Which statement about the tree below is correct?",
+    "audio": "M01.mp3",
     "options": [
       {
         "id": "A",
@@ -837,6 +838,7 @@
     "outcome": "O2",
     "skillLevel": "Evaluate",
     "stem": "Is the tree below a valid BST?",
+    "audio": "M02.mp3",
     "options": [
       {
         "id": "A",
@@ -869,6 +871,7 @@
     "outcome": "O3",
     "skillLevel": "Apply",
     "stem": "Search for 35 in the tree below. What happens?",
+    "audio": "M03.mp3",
     "options": [
       {
         "id": "A",
@@ -901,6 +904,7 @@
     "outcome": "O4",
     "skillLevel": "Apply",
     "stem": "Insert 55 into the tree below. Where does the new node go?",
+    "audio": "M04.mp3",
     "options": [
       {
         "id": "A",
@@ -933,6 +937,7 @@
     "outcome": "O5",
     "skillLevel": "Apply",
     "stem": "You start with an empty BST and insert 30, 15, 45, 10, 20 and 40, in that order. What is the right child of 15?",
+    "audio": "M05.mp3",
     "options": [
       {
         "id": "A",
@@ -965,6 +970,7 @@
     "outcome": "O6",
     "skillLevel": "Apply",
     "stem": "What is the post-order traversal of the tree below?",
+    "audio": "M06.mp3",
     "options": [
       {
         "id": "A",
@@ -997,6 +1003,7 @@
     "outcome": "O7",
     "skillLevel": "Explain",
     "stem": "A BST holds the values 12, 5, 20, 8 and 15. Its in-order traversal prints 5, 8, 12, 15, 20. Why are the values printed in sorted order?",
+    "audio": "M07.mp3",
     "options": [
       {
         "id": "A",
@@ -1029,6 +1036,7 @@
     "outcome": "O8",
     "skillLevel": "Explain",
     "stem": "Two BSTs are built from the same values: 10, 20, 30, 40, 50, 60 and 70. Tree X inserts them in the order 40, 20, 60, 10, 30, 50, 70. Tree Y inserts them in the order 10, 20, 30, 40, 50, 60, 70. Which statement is correct?",
+    "audio": "M08.mp3",
     "options": [
       {
         "id": "A",
@@ -1061,6 +1069,7 @@
     "outcome": "O9",
     "skillLevel": "Explain",
     "stem": "A balanced BST and a chain-shaped BST hold the same values. Why is searching the balanced one faster?",
+    "audio": "M09.mp3",
     "options": [
       {
         "id": "A",
@@ -1093,6 +1102,7 @@
     "outcome": "O10",
     "skillLevel": "Evaluate",
     "stem": "A shop adds new customers to its customer list all day, in no particular order, and staff search the list by customer number. Which structure is the better choice?",
+    "audio": "M10.mp3",
     "options": [
       {
         "id": "A",

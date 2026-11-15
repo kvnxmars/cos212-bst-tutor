@@ -8,3 +8,4 @@
 ## 2026-11-14
 - Added sound cues for correct / incorrect answers (`src/audio/sound.js`, files in `public/sounds/`) and a **Sound** On/Off switch in Settings. 8 new tests in `tests/sound.test.js`.
 - Added read-aloud megaphone button for quiz questions (recordings Q01-Q25 in `public/sounds/`, linked via `audio` in `questions.json`) and a crowd cheer when the mastery check is passed. 100 tests passing.
+- Read-aloud recordings `M01.mp3` to `M10.mp3` linked to the mastery-only questions M1 to M10 (`audio` field in `questions.json`); replaced `lecture_ready_crowd_cheers.mp3` with a shorter (~4 s) version.

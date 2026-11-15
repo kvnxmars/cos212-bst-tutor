@@ -430,6 +430,11 @@ a.reward-banner { display: block; width: auto; max-width: 190px; text-decoration
 .lecture-ready-actions a { color: var(--green); font-size: 12px; }
 .learning-secondary-button { min-height: 42px; border: 1px solid var(--line); padding: 0 14px; background: transparent; color: var(--ink); font-size: 12px; }
 .learning-secondary-button:disabled { color: #9aa198; }
+.learning-secondary-button:not(:disabled) { cursor: pointer; }
+.learning-secondary-button:hover:not(:disabled) { border-color: var(--green); color: var(--green); }
+.mastery-pass-actions { display: grid; justify-items: center; gap: 10px; margin-top: 16px; }
+.mastery-pass-actions .learning-primary-button { margin: 0; }
+.mastery-pass-actions .field-note { margin: 0; text-align: center; }
 .wallpaper-preview { max-width: 760px; margin: 0 auto 30px; }
 .wallpaper-preview img { display: block; width: 100%; border: 1px solid var(--line); }
 .wallpaper-preview figcaption { margin-top: 6px; color: var(--muted); font-size: 11px; }
