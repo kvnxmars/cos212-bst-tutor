@@ -2,7 +2,7 @@ import { useState } from 'react';
 import lessons from '../content/lessons.json';
 import rewards from '../content/rewards.json';
 import { isLessonUnlocked } from '../assessment/progress.js';
-import { activeBannerIdFor } from '../assessment/rewards.js';
+import { activeBannerIdFor, earnedThemeIds } from '../assessment/rewards.js';
 import { useStudentState } from '../state/StudentState.jsx';
 import AccessibilityMenu from './AccessibilityMenu.jsx';
 
@@ -19,9 +19,9 @@ export default function CourseNavigation({ lessonId = 1 }) {
   const { studentState, setStudentState } = useStudentState();
   const allLessonsMastered = lessons.every((lesson) => studentState.masteredLessons.includes(lesson.id));
   const activeBannerId = activeBannerIdFor(studentState);
-  const earnedBanners = rewards.filter((reward) => (
-    reward.type === 'banner' && studentState.earnedBanners.includes(reward.id)
-  ));
+  // Every unlocked colour theme: lesson banners plus the mastery wallpaper once passed.
+  const themeIds = earnedThemeIds(studentState);
+  const earnedBanners = rewards.filter((reward) => themeIds.includes(reward.id));
 
   function closeMenu() {
     setOpen(false);

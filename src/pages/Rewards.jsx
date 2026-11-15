@@ -38,9 +38,18 @@ export default function Rewards() {
                 </button>
               )}
               {earned && reward.type === 'wallpaper' && (
-                <button type="button" onClick={() => downloadText('bst-lecture-ready-wallpaper.svg', art, 'image/svg+xml')}>
-                  Download wallpaper
-                </button>
+                <>
+                  <button
+                    type="button"
+                    aria-pressed={activeBannerId === reward.id}
+                    onClick={() => setStudentState((state) => ({ ...state, selectedBanner: reward.id }))}
+                  >
+                    {activeBannerId === reward.id ? 'Using as theme' : 'Use as theme'}
+                  </button>
+                  <button type="button" onClick={() => downloadText('bst-lecture-ready-wallpaper.svg', art, 'image/svg+xml')}>
+                    Download wallpaper
+                  </button>
+                </>
               )}
             </li>
           );

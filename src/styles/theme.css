@@ -430,6 +430,11 @@ a.reward-banner { display: block; width: auto; max-width: 190px; text-decoration
 .lecture-ready-actions a { color: var(--green); font-size: 12px; }
 .learning-secondary-button { min-height: 42px; border: 1px solid var(--line); padding: 0 14px; background: transparent; color: var(--ink); font-size: 12px; }
 .learning-secondary-button:disabled { color: #9aa198; }
+.learning-secondary-button:not(:disabled) { cursor: pointer; }
+.learning-secondary-button:hover:not(:disabled) { border-color: var(--green); color: var(--green); }
+.mastery-pass-actions { display: grid; justify-items: center; gap: 10px; margin-top: 16px; }
+.mastery-pass-actions .learning-primary-button { margin: 0; }
+.mastery-pass-actions .field-note { margin: 0; text-align: center; }
 .wallpaper-preview { max-width: 760px; margin: 0 auto 30px; }
 .wallpaper-preview img { display: block; width: 100%; border: 1px solid var(--line); }
 .wallpaper-preview figcaption { margin-top: 6px; color: var(--muted); font-size: 11px; }
@@ -610,6 +615,34 @@ a.reward-banner { display: block; width: auto; max-width: 190px; text-decoration
 	--locked-bg: #312b31;
 	--locked-border: #615047;
 }
+
+/* Lecture Ready theme: unlocked by passing the final mastery check. Built from the
+   wallpaper's deep forest and cream, with gold highlights. Dark, so it shares the
+   lesson-4 dark overrides further down. */
+:root[data-theme="mastery-wallpaper"] {
+	--ink: #f4efe0;
+	--muted: #b7c9bd;
+	--line: #2e5b4a;
+	--paper: #123b2e;
+	--green: #277a56;
+	--mint: #1f5a44;
+	--orange: #8f631c;
+	--app-bg: #0a241b;
+	--soft-bg: #194636;
+	--soft-accent: #22533f;
+	--tree-canvas: #0f3125;
+	--tree-dot: #24503f;
+	--tree-edge-color: #79a691;
+	--tree-node-border: #9cc8b2;
+	--green-hover: #2f8c63;
+	--focus-ring: #e6c46a;
+	--locked-bg: #2c2f26;
+	--locked-border: #5d5640;
+}
+
+/* The darker gold keeps white node numbers readable; the dashed ring uses the
+   bright gold so it still stands out on the dark tree canvas. */
+:root[data-theme="mastery-wallpaper"] .tree-node .current-ring { stroke: var(--focus-ring); }
 
 body, #root { min-height: 100vh; background: var(--app-bg); color: var(--ink); }
 h1, h2 { color: var(--ink); font-family: var(--font); }
@@ -955,13 +988,13 @@ input:focus, select:focus, textarea:focus,
 	.topbar-actions > * { max-width: 100%; }
 }
 
-:root[data-theme="lesson-4"] {
+:root:is([data-theme="lesson-4"], [data-theme="mastery-wallpaper"]) {
 	color-scheme: dark;
 	background: var(--app-bg);
 	color: var(--ink);
 }
 
-:root[data-theme="lesson-4"] :is(
+:root:is([data-theme="lesson-4"], [data-theme="mastery-wallpaper"]) :is(
 	.visualizer-back-link, .course-label, .course-label span, .intro-copy, label,
 	.field-note, .tree-stats span, .legend, .empty-tree, .narration, .step-count,
 	.pseudocode-list li, .pseudocode-list li > span, .footer,
@@ -988,7 +1021,7 @@ input:focus, select:focus, textarea:focus,
 	color: var(--muted);
 }
 
-:root[data-theme="lesson-4"] :is(
+:root:is([data-theme="lesson-4"], [data-theme="mastery-wallpaper"]) :is(
 	input, select, textarea, .tree-challenge-board, .tree-slot-button,
 	.tree-slot-label, .tree-node-tile, .lesson-video-placeholder,
 	.lesson-video-options, .quiz-tree, .quiz-answer-option, .quiz-feedback,
@@ -1000,7 +1033,7 @@ input:focus, select:focus, textarea:focus,
 	color: var(--ink);
 }
 
-:root[data-theme="lesson-4"] :is(
+:root:is([data-theme="lesson-4"], [data-theme="mastery-wallpaper"]) :is(
 	.tree-scroll, .lesson-diagram .tree-scroll, .activity-tree-figure,
 	.definition-drop-card, .sequence-slot, .structure-scenario button
 ) {
@@ -1008,11 +1041,11 @@ input:focus, select:focus, textarea:focus,
 	background-image: radial-gradient(var(--tree-dot) 0.7px, transparent .7px);
 }
 
-:root[data-theme="lesson-4"] .tree-challenge-board {
+:root:is([data-theme="lesson-4"], [data-theme="mastery-wallpaper"]) .tree-challenge-board {
 	background-image: radial-gradient(var(--tree-dot) 0.7px, transparent .7px);
 }
 
-:root[data-theme="lesson-4"] :is(
+:root:is([data-theme="lesson-4"], [data-theme="mastery-wallpaper"]) :is(
 	.welcome-primary-button, .learning-primary-button, .lesson-actions > *,
 	.quiz-hint button, .course-reset-dialog-actions button
 ) {
@@ -1021,7 +1054,7 @@ input:focus, select:focus, textarea:focus,
 	color: var(--ink);
 }
 
-:root[data-theme="lesson-4"] :is(
+:root:is([data-theme="lesson-4"], [data-theme="mastery-wallpaper"]) :is(
 	.icon-button, .run-button, .playback-actions .play-button,
 	.learning-primary-button.is-primary, .course-reset-dialog-actions .is-destructive
 ) {
@@ -1030,7 +1063,7 @@ input:focus, select:focus, textarea:focus,
 	color: #fff;
 }
 
-:root[data-theme="lesson-4"] :is(
+:root:is([data-theme="lesson-4"], [data-theme="mastery-wallpaper"]) :is(
 	.lesson-goal, .traversal-rule-callout, .traversal-takeaway,
 	.complexity-reminder, .lesson-requirement-note, .pool-warning,
 	.tree-tutor-feedback, .quiz-feedback.is-correct, .quiz-feedback.is-incorrect
@@ -1040,7 +1073,7 @@ input:focus, select:focus, textarea:focus,
 	color: var(--ink) !important;
 }
 
-:root[data-theme="lesson-4"] :is(
+:root:is([data-theme="lesson-4"], [data-theme="mastery-wallpaper"]) :is(
 	.lesson-locked, .tree-slot-button.is-filled, .term-tile:hover,
 	.term-tile.is-selected, .sequence-tile:hover, .sequence-tile.is-selected,
 	.definition-drop-card.is-filled, .sequence-slot.is-filled,
@@ -1052,7 +1085,7 @@ input:focus, select:focus, textarea:focus,
 	color: var(--ink);
 }
 
-:root[data-theme="lesson-4"] :is(
+:root:is([data-theme="lesson-4"], [data-theme="mastery-wallpaper"]) :is(
 	.tree-challenge-board, .tree-slot-label, .tree-slot-button,
 	.tree-node-tile, .lesson-video-placeholder, .lesson-video-options,
 	.quiz-tree, .quiz-answer-option, .quiz-feedback, .quiz-hint textarea,
@@ -1063,28 +1096,28 @@ input:focus, select:focus, textarea:focus,
 	border-color: var(--line);
 }
 
-:root[data-theme="lesson-4"] :is(.lesson-locked p, .lesson-locked a) {
+:root:is([data-theme="lesson-4"], [data-theme="mastery-wallpaper"]) :is(.lesson-locked p, .lesson-locked a) {
 	color: var(--muted);
 }
 
-:root[data-theme="lesson-4"] :is(.pseudocode-list .active-line, .quiz-answer-option.is-selected) {
+:root:is([data-theme="lesson-4"], [data-theme="mastery-wallpaper"]) :is(.pseudocode-list .active-line, .quiz-answer-option.is-selected) {
 	background-color: var(--soft-accent);
 	color: var(--ink);
 }
 
-:root[data-theme="lesson-4"] .welcome-tree circle {
+:root:is([data-theme="lesson-4"], [data-theme="mastery-wallpaper"]) .welcome-tree circle {
 	fill: var(--paper);
 }
 
-:root[data-theme="lesson-4"] .visited-badge circle {
+:root:is([data-theme="lesson-4"], [data-theme="mastery-wallpaper"]) .visited-badge circle {
 	stroke: var(--app-bg);
 }
 
-:root[data-theme="lesson-4"] :is(input, select, textarea)::placeholder {
+:root:is([data-theme="lesson-4"], [data-theme="mastery-wallpaper"]) :is(input, select, textarea)::placeholder {
 	color: var(--muted);
 }
 
-:root[data-theme="lesson-4"] :is(
+:root:is([data-theme="lesson-4"], [data-theme="mastery-wallpaper"]) :is(
 	a, .eyebrow, .intro h1 em, .lesson-terms dt, .traversal-results strong,
 	.lesson-notice, .output-box p, .learning-style-icon,
 	.lesson-list-panel li.is-complete span, .structure-scenario p.is-correct,
@@ -1098,6 +1131,6 @@ input:focus, select:focus, textarea:focus,
 	color: var(--focus-ring);
 }
 
-:root[data-theme="lesson-4"] .quiz-results .quiz-score {
+:root:is([data-theme="lesson-4"], [data-theme="mastery-wallpaper"]) .quiz-results .quiz-score {
 	color: var(--focus-ring) !important;
 }

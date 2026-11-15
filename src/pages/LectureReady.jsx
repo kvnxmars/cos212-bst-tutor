@@ -14,8 +14,15 @@ const LECTURE_QUESTIONS = [
 ];
 
 export default function LectureReady() {
-  const { studentState } = useStudentState();
+  const { studentState, setStudentState } = useStudentState();
   const { masteryCheck, firstAttemptScores, misconceptionsHit } = studentState;
+
+  // Optional retake: clear the saved attempt so the mastery page starts a fresh
+  // check instead of showing the last results. The pass and best score are kept.
+  function retakeMasteryCheck() {
+    setStudentState((state) => ({ ...state, activeMastery: null }));
+    window.location.hash = '#mastery';
+  }
   const wallpaper = rewards.find((reward) => reward.type === 'wallpaper');
 
   if (!masteryCheck.passed) {
@@ -91,6 +98,9 @@ export default function LectureReady() {
             onClick={() => downloadText('bst-misconceptions.csv', misconceptionsCsv(misconceptionsHit, misconceptions), 'text/csv')}
           >
             {misconceptionsHit.length === 0 ? 'No misconceptions recorded' : 'Export misconceptions (CSV) for the lecturer'}
+          </button>
+          <button type="button" className="learning-secondary-button" onClick={retakeMasteryCheck}>
+            Retake the mastery check
           </button>
           <a href="#rewards">See all your rewards</a>
         </div>

@@ -1,5 +1,5 @@
 import { useStudentState } from '../state/StudentState.jsx';
-import { activeBannerIdFor } from '../assessment/rewards.js';
+import { WALLPAPER_THEME_ID, activeBannerIdFor } from '../assessment/rewards.js';
 import rewards from '../content/rewards.json';
 import CourseNavigation from './CourseNavigation.jsx';
 import CourseResetButton from './CourseResetButton.jsx';
@@ -8,7 +8,9 @@ import { bannerSvg, svgDataUrl } from './rewardArt.js';
 export default function LearningHeader({ lessonId = 1, showBackToLesson = true, children }) {
   const { studentState } = useStudentState();
   const bannerId = activeBannerIdFor(studentState);
-  const banner = rewards.find((reward) => reward.id === bannerId && studentState.earnedBanners.includes(reward.id));
+  // With the wallpaper theme active, the header still shows the latest lesson banner.
+  const bannerToShow = bannerId === WALLPAPER_THEME_ID ? studentState.earnedBanners.at(-1) : bannerId;
+  const banner = rewards.find((reward) => reward.id === bannerToShow && studentState.earnedBanners.includes(reward.id));
 
   return (
     <header className="learning-header">
